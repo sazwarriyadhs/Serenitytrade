@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/sidebar"
 import { Logo } from "@/components/logo"
 import { UserNav } from "@/components/user-nav"
-import { LayoutDashboard, Leaf, ArrowRightLeft, Bell, Search, TrendingUp } from "lucide-react"
+import { LayoutDashboard, Leaf, ArrowRightLeft, Bell, Search, TrendingUp, BookUser } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 
@@ -23,6 +23,7 @@ const navItems = [
   { href: "/commodities", icon: Leaf, label: "Commodities" },
   { href: "/offers", icon: ArrowRightLeft, label: "Offers & Requests" },
   { href: "/prediction", icon: TrendingUp, label: "Demand Prediction" },
+  { href: "/buyer-info", icon: BookUser, label: "Info Buyer" },
   { href: "/notifications", icon: Bell, label: "Notifications" },
 ]
 
