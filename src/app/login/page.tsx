@@ -16,6 +16,24 @@ import { Label } from "@/components/ui/label"
 import { Logo } from "@/components/logo"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
+const roleInfo = {
+  exporter: {
+    title: "Exporter",
+    description: "Login to manage your commodities, offers, and exports.",
+    email: "exporter@serenity.com"
+  },
+  buyer: {
+    title: "Overseas Buyer",
+    description: "Login to browse commodities and manage your requests.",
+    email: "buyer@serenity.com"
+  },
+  farmer: {
+    title: "Farmer",
+    description: "Login to log your harvests and manage partnerships.",
+    email: "farmer@serenity.com"
+  },
+}
+
 export default function LoginPage() {
   const router = useRouter()
   const [role, setRole] = useState("exporter")
@@ -25,8 +43,14 @@ export default function LoginPage() {
       router.push("/farmer-dashboard")
     } else if (role === "buyer") {
       router.push("/buyer-dashboard")
-    } else {
+    } else { // exporter
       router.push("/dashboard")
+    }
+  }
+
+  const handleRoleChange = (newRole: string) => {
+    if (newRole in roleInfo) {
+      setRole(newRole)
     }
   }
 
@@ -37,9 +61,9 @@ export default function LoginPage() {
           <div className="flex justify-center mb-4">
             <Logo />
           </div>
-          <CardTitle className="text-2xl font-headline text-center">Login</CardTitle>
+          <CardTitle className="text-2xl font-headline text-center">Login as {roleInfo[role as keyof typeof roleInfo].title}</CardTitle>
           <CardDescription className="text-center">
-            Enter your credentials to login to your account
+            {roleInfo[role as keyof typeof roleInfo].description}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -52,7 +76,8 @@ export default function LoginPage() {
                   type="email"
                   placeholder="m@example.com"
                   required
-                  defaultValue="admin@serenity.com"
+                  key={role} // Re-renders the input when role changes to update defaultValue
+                  defaultValue={roleInfo[role as keyof typeof roleInfo].email}
                 />
               </div>
               <div className="grid gap-2">
@@ -69,7 +94,7 @@ export default function LoginPage() {
               </div>
               <div className="grid gap-2">
                 <Label htmlFor="role">Role</Label>
-                <Select defaultValue="exporter" onValueChange={setRole}>
+                <Select value={role} onValueChange={handleRoleChange}>
                   <SelectTrigger id="role">
                     <SelectValue placeholder="Select your role" />
                   </SelectTrigger>
