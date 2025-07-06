@@ -1,6 +1,7 @@
 "use client"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import { useEffect, useState } from "react"
 import { 
   SidebarProvider, 
   Sidebar, 
@@ -18,17 +19,17 @@ import { LayoutDashboard, Leaf, ArrowRightLeft, Bell, Spline, TrendingUp, BookUs
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 
-const navItems = [
-  { href: "/dashboard", icon: LayoutDashboard, label: "Exporter Dashboard" },
-  { href: "/buyer-dashboard", icon: Briefcase, label: "Buyer Dashboard" },
-  { href: "/farmer-dashboard", icon: Tractor, label: "Farmer Dashboard" },
-  { href: "/commodities", icon: Leaf, label: "Commodities" },
-  { href: "/offers", icon: ArrowRightLeft, label: "Offers & Requests" },
-  { href: "/prediction", icon: TrendingUp, label: "Demand Prediction" },
-  { href: "/value-chain", icon: Spline, label: "Value Chain" },
-  { href: "/fee-calculator", icon: Calculator, label: "Fee Calculator" },
-  { href: "/buyer-info", icon: BookUser, label: "Info Buyer" },
-  { href: "/notifications", icon: Bell, label: "Notifications" },
+const allNavItems = [
+  { href: "/dashboard", icon: LayoutDashboard, label: "Exporter Dashboard", roles: ['exporter', 'admin'] },
+  { href: "/buyer-dashboard", icon: Briefcase, label: "Buyer Dashboard", roles: ['buyer', 'admin'] },
+  { href: "/farmer-dashboard", icon: Tractor, label: "Farmer Dashboard", roles: ['farmer', 'admin'] },
+  { href: "/commodities", icon: Leaf, label: "Commodities", roles: ['exporter', 'buyer', 'farmer', 'admin'] },
+  { href: "/offers", icon: ArrowRightLeft, label: "Offers & Requests", roles: ['exporter', 'buyer', 'admin'] },
+  { href: "/prediction", icon: TrendingUp, label: "Demand Prediction", roles: ['exporter', 'admin'] },
+  { href: "/value-chain", icon: Spline, label: "Value Chain", roles: ['exporter', 'buyer', 'farmer', 'admin'] },
+  { href: "/fee-calculator", icon: Calculator, label: "Fee Calculator", roles: ['exporter', 'admin'] },
+  { href: "/buyer-info", icon: BookUser, label: "Info Buyer", roles: ['buyer', 'admin'] },
+  { href: "/notifications", icon: Bell, label: "Notifications", roles: ['exporter', 'buyer', 'farmer', 'admin'] },
 ]
 
 export default function AuthenticatedLayout({
@@ -37,6 +38,16 @@ export default function AuthenticatedLayout({
   children: React.ReactNode
 }) {
   const pathname = usePathname()
+  const [userRole, setUserRole] = useState<string | null>(null)
+
+  useEffect(() => {
+    // On component mount, read the role from localStorage.
+    const role = localStorage.getItem("userRole")
+    setUserRole(role)
+  }, [])
+
+  // Filter navigation items based on the user's role.
+  const navItems = allNavItems.filter(item => userRole && item.roles.includes(userRole))
 
   return (
     <SidebarProvider>

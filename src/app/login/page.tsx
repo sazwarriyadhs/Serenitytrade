@@ -32,6 +32,11 @@ const roleInfo = {
     description: "Login to log your harvests and manage partnerships.",
     email: "farmer@serenity.com"
   },
+  admin: {
+    title: "Admin",
+    description: "Login to access all dashboards and system settings.",
+    email: "admin@serenity.com"
+  },
 }
 
 export default function LoginPage() {
@@ -39,11 +44,14 @@ export default function LoginPage() {
   const [role, setRole] = useState("exporter")
 
   const handleLogin = () => {
+    // Store role in localStorage to be used by the layout
+    localStorage.setItem("userRole", role)
+
     if (role === "farmer") {
       router.push("/farmer-dashboard")
     } else if (role === "buyer") {
       router.push("/buyer-dashboard")
-    } else { // exporter
+    } else { // exporter and admin
       router.push("/dashboard")
     }
   }
@@ -102,6 +110,7 @@ export default function LoginPage() {
                     <SelectItem value="farmer">Farmer</SelectItem>
                     <SelectItem value="exporter">Exporter</SelectItem>
                     <SelectItem value="buyer">Overseas Buyer</SelectItem>
+                    <SelectItem value="admin">Admin</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
