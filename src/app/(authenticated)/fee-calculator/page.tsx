@@ -13,7 +13,7 @@ import { Label } from "@/components/ui/label"
 import { Slider } from "@/components/ui/slider"
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from 'recharts'
 import { Badge } from '@/components/ui/badge'
-import { DollarSign } from 'lucide-react'
+import { DollarSign, ArrowDown } from 'lucide-react'
 
 const feeAllocationConfig = [
   { name: "Infrastructure & Hosting", percentage: 25, color: "hsl(var(--chart-1))" },
@@ -62,9 +62,9 @@ export default function FeeCalculatorPage() {
   return (
     <div className="grid gap-8">
       <div>
-        <h1 className="text-3xl font-bold font-headline">Fee & Payout Calculator</h1>
+        <h1 className="text-3xl font-bold font-headline">Kalkulator Biaya & Payout</h1>
         <p className="text-muted-foreground">
-          Simulate transaction fees and understand payout structures.
+          Simulasikan biaya transaksi dan pahami struktur pembayaran.
         </p>
       </div>
 
@@ -72,14 +72,14 @@ export default function FeeCalculatorPage() {
         <div className="lg:col-span-2 space-y-8">
           <Card>
             <CardHeader>
-              <CardTitle>Calculator</CardTitle>
-              <CardDescription>Enter the total transaction value and adjust the admin fee.</CardDescription>
+              <CardTitle>Kalkulator</CardTitle>
+              <CardDescription>Simulasikan biaya untuk transaksi yang dilakukan oleh eksportir.</CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="grid gap-2">
                 <Label htmlFor="transaction-value" className="flex items-center">
                   <DollarSign className="h-4 w-4 mr-2" />
-                  Total Transaction Value (USD)
+                  Total Nilai Transaksi (USD)
                 </Label>
                 <Input
                   id="transaction-value"
@@ -91,7 +91,7 @@ export default function FeeCalculatorPage() {
               </div>
               <div className="grid gap-2">
                 <div className="flex justify-between items-center">
-                   <Label htmlFor="admin-fee">Admin Fee Percentage</Label>
+                   <Label htmlFor="admin-fee">Persentase Biaya Admin</Label>
                    <Badge variant="secondary" className="text-base">{adminFee[0]}%</Badge>
                 </div>
                 <Slider
@@ -102,31 +102,57 @@ export default function FeeCalculatorPage() {
                   value={adminFee}
                   onValueChange={handleFeeChange}
                 />
-                 <p className="text-xs text-muted-foreground">Standard range is 5% - 8%.</p>
+                 <p className="text-xs text-muted-foreground">Rentang standar adalah 5% - 8%.</p>
               </div>
             </CardContent>
           </Card>
           
           <Card>
-             <CardHeader>
-              <CardTitle>Transaction Breakdown</CardTitle>
+            <CardHeader>
+              <CardTitle>Alur Transaksi & Pembagian Fee</CardTitle>
+              <CardDescription>Visualisasi alur dana dari buyer hingga ke eksportir.</CardDescription>
             </CardHeader>
-            <CardContent className="space-y-4 text-base">
-              <div className="flex justify-between items-center">
-                <span className="text-muted-foreground">Buyer Pays Total</span>
-                <span className="font-semibold">{formatCurrency(transactionValue)}</span>
+            <CardContent className="space-y-2 text-sm">
+              <div className="p-3 border rounded-md">
+                <div className="flex justify-between items-center font-semibold">
+                  <span>Buyer Membayar</span>
+                  <span>{formatCurrency(transactionValue)}</span>
+                </div>
+                <p className="text-xs text-muted-foreground mt-1">
+                  Total nilai transaksi. Fee opsional ($10-$50) bisa berlaku untuk layanan verifikasi tambahan.
+                </p>
               </div>
-              <div className="flex justify-between items-center border-t pt-4">
-                <span className="text-muted-foreground">Marketplace Fee ({adminFee[0]}%)</span>
-                <span className="font-semibold text-destructive"> - {formatCurrency(adminFeeAmount)}</span>
+
+              <div className="pl-4 text-center">
+                <ArrowDown className="h-4 w-4 text-muted-foreground mx-auto" />
               </div>
-              <div className="flex justify-between items-center font-bold text-lg text-primary border-t pt-4">
-                <span>Exporter Receives</span>
-                <span>{formatCurrency(exporterPayout)}</span>
+
+              <div className="p-3 border rounded-md bg-secondary/30">
+                <div className="flex justify-between items-center font-semibold">
+                  <span>Biaya Marketplace ({adminFee[0]}%)</span>
+                  <span className="text-destructive font-bold">-{formatCurrency(adminFeeAmount)}</span>
+                </div>
+                <p className="text-xs text-muted-foreground mt-1">
+                  Fee standar 5-8% dipotong untuk operasional platform.
+                </p>
               </div>
-               <div className="text-center pt-4 text-sm text-muted-foreground">
-                <p>✅ The Farmer is paid in full by the Exporter based on their separate agreement.</p>
-                <p>✅ Buyers are generally not charged a transaction fee on this platform.</p>
+
+              <div className="pl-4 text-center">
+                <ArrowDown className="h-4 w-4 text-muted-foreground mx-auto" />
+              </div>
+
+              <div className="p-3 border rounded-md">
+                <div className="flex justify-between items-center font-bold text-lg text-primary">
+                  <span>Eksportir Menerima</span>
+                  <span>{formatCurrency(exporterPayout)}</span>
+                </div>
+                <p className="text-xs text-muted-foreground mt-1">
+                  Dana bersih yang diterima eksportir setelah dipotong biaya marketplace.
+                </p>
+              </div>
+              
+              <div className="text-center pt-4 text-sm text-muted-foreground">
+                <p className="font-semibold">💡 Petani dibayar penuh oleh eksportir sesuai kesepakatan terpisah.</p>
               </div>
             </CardContent>
           </Card>
@@ -135,9 +161,9 @@ export default function FeeCalculatorPage() {
         <div className="lg:col-span-3">
           <Card className="h-full">
             <CardHeader>
-              <CardTitle>Marketplace Fee Allocation</CardTitle>
+              <CardTitle>Alokasi Biaya Marketplace</CardTitle>
               <CardDescription>
-                An example of how the {formatCurrency(adminFeeAmount)} fee is utilized to sustain and grow the platform.
+                Contoh bagaimana biaya sebesar {formatCurrency(adminFeeAmount)} digunakan untuk menopang dan mengembangkan platform.
               </CardDescription>
             </CardHeader>
             <CardContent>
