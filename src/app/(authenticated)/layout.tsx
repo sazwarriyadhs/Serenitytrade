@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/sidebar"
 import { Logo } from "@/components/logo"
 import { UserNav } from "@/components/user-nav"
-import { LayoutDashboard, Leaf, ArrowRightLeft, Bell, Spline, TrendingUp, BookUser, Tractor, Briefcase, Calculator, Truck, Landmark } from "lucide-react"
+import { LayoutDashboard, Leaf, ArrowRightLeft, Bell, Spline, TrendingUp, BookUser, Tractor, Briefcase, Calculator, Truck, Landmark, Compass } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 
@@ -23,6 +23,7 @@ const allNavItems = [
   { href: "/dashboard", icon: LayoutDashboard, label: "Exporter Dashboard", roles: ['exporter', 'admin'] },
   { href: "/buyer-dashboard", icon: Briefcase, label: "Buyer Dashboard", roles: ['buyer', 'admin'] },
   { href: "/farmer-dashboard", icon: Tractor, label: "Farmer Dashboard", roles: ['farmer', 'admin'] },
+  { href: "/find-market", icon: Compass, label: "Find Market", roles: ['farmer', 'admin'] },
   { href: "/commodities", icon: Leaf, label: "Commodities", roles: ['exporter', 'buyer', 'farmer', 'admin'] },
   { href: "/offers", icon: ArrowRightLeft, label: "Offers & Requests", roles: ['exporter', 'buyer', 'admin'] },
   { href: "/tracking", icon: Truck, label: "Shipment Tracking", roles: ['exporter', 'buyer', 'farmer', 'admin'] },
