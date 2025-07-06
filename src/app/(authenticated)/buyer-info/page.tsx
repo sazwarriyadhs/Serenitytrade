@@ -96,10 +96,10 @@ export default function BuyerInfoPage() {
             
             <AccordionItem value="item-3">
               <AccordionTrigger className="text-base font-semibold">
-                3. Informasi & Syarat Perdagangan
+                3. Informasi & Syarat Perdagangan Internasional
               </AccordionTrigger>
               <AccordionContent className="text-muted-foreground">
-                <div className="space-y-4">
+                <div className="space-y-6">
                   <div>
                     <h4 className="font-medium text-foreground">📍 Informasi Barang</h4>
                     <ul className="list-disc pl-6 mt-2 space-y-1">
@@ -108,19 +108,19 @@ export default function BuyerInfoPage() {
                     </ul>
                   </div>
                   <div>
-                    <h4 className="font-medium text-foreground">🛳️ Shipping Terms (Incoterms)</h4>
-                     <ul className="list-disc pl-6 mt-2 space-y-1">
-                      <li><span className="font-semibold text-foreground">FOB (Free on Board):</span> Penjual bertanggung jawab sampai barang di atas kapal.</li>
-                      <li><span className="font-semibold text-foreground">CIF (Cost Insurance Freight):</span> Penjual menanggung biaya, asuransi, dan pengiriman sampai pelabuhan tujuan.</li>
-                      <li><span className="font-semibold text-foreground">CNF (Cost and Freight):</span> Sama seperti CIF tapi tanpa asuransi.</li>
+                    <h4 className="font-medium text-foreground">🛳️ Shipping Terms (Incoterms 2020)</h4>
+                     <ul className="list-disc pl-6 mt-2 space-y-2">
+                      <li><span className="font-semibold text-foreground">FOB (Free on Board):</span> Penjual bertanggung jawab sampai barang di atas kapal di pelabuhan muat. Biaya asuransi dan pengiriman selanjutnya ditanggung buyer.</li>
+                      <li><span className="font-semibold text-foreground">CIF (Cost, Insurance, Freight):</span> Penjual menanggung biaya, asuransi, dan pengiriman sampai pelabuhan tujuan. Paling umum digunakan dan memberikan kemudahan bagi buyer.</li>
+                      <li><span className="font-semibold text-foreground">CNF/CFR (Cost and Freight):</span> Sama seperti CIF, tapi penjual tidak menanggung asuransi. Buyer harus mengurus asuransi sendiri.</li>
                     </ul>
                   </div>
                    <div>
-                    <h4 className="font-medium text-foreground">💳 Metode Pembayaran</h4>
-                     <ul className="list-disc pl-6 mt-2 space-y-1">
-                      <li><span className="font-semibold text-foreground">TT (Telegraphic Transfer):</span> Transfer bank internasional.</li>
-                      <li><span className="font-semibold text-foreground">L/C (Letter of Credit):</span> Jaminan pembayaran dari bank.</li>
-                      <li><span className="font-semibold text-foreground">Escrow:</span> Pembayaran melalui pihak ketiga yang netral.</li>
+                    <h4 className="font-medium text-foreground">💳 Metode Pembayaran Internasional</h4>
+                     <ul className="list-disc pl-6 mt-2 space-y-2">
+                      <li><span className="font-semibold text-foreground">Telegraphic Transfer (T/T):</span> Transfer bank internasional. Umumnya memerlukan DP (Down Payment) 30-50% di muka, dan pelunasan setelah dokumen pengapalan dikirim.</li>
+                      <li><span className="font-semibold text-foreground">Letter of Credit (L/C):</span> Jaminan pembayaran dari bank. Sangat aman bagi kedua pihak. L/C yang paling umum adalah L/C at Sight (pembayaran setelah dokumen diverifikasi bank).</li>
+                      <li><span className="font-semibold text-foreground">Escrow Service:</span> Pembayaran melalui pihak ketiga yang netral (seperti marketplace). Dana dilepaskan ke eksportir setelah buyer mengonfirmasi penerimaan barang.</li>
                     </ul>
                   </div>
                 </div>
@@ -129,17 +129,28 @@ export default function BuyerInfoPage() {
 
             <AccordionItem value="item-4">
               <AccordionTrigger className="text-base font-semibold">
-                4. Langkah Teknis Eksportir
+                4. Prosedur Ekspor Internasional (Langkah demi Langkah)
               </AccordionTrigger>
               <AccordionContent className="text-muted-foreground">
-                 <ol className="list-decimal pl-5 space-y-2">
-                    <li>Cari buyer luar negeri (manual / marketplace ekspor).</li>
-                    <li>Tanda tangan kontrak jual-beli (sales contract).</li>
-                    <li>Siapkan produk, dokumen, dan pengemasan.</li>
-                    <li>Ajukan PEB ke Bea Cukai via sistem CEISA.</li>
-                    <li>Lakukan pengapalan barang.</li>
-                    <li>Kirim dokumen ekspor ke buyer (via DHL/scan PDF).</li>
-                    <li>Terima pembayaran sesuai kesepakatan.</li>
+                 <ol className="list-decimal pl-5 space-y-4">
+                    <li>
+                        <strong className="text-foreground">Negosiasi & Kontrak:</strong> Eksportir dan buyer menyepakati spesifikasi produk, harga, Incoterms, dan metode pembayaran. Dituangkan dalam Sales Contract.
+                    </li>
+                    <li>
+                        <strong className="text-foreground">Persiapan Barang & Dokumen:</strong> Eksportir menyiapkan barang sesuai pesanan, pengemasan standar ekspor, serta mengurus semua dokumen (Invoice, Packing List, COO).
+                    </li>
+                    <li>
+                        <strong className="text-foreground">Pemberitahuan Pabean:</strong> Eksportir mengajukan Pemberitahuan Ekspor Barang (PEB) ke Bea Cukai. Setelah disetujui, terbit Nota Pelayanan Ekspor (NPE) sebagai izin muat.
+                    </li>
+                    <li>
+                        <strong className="text-foreground">Pengiriman Barang:</strong> Barang dimuat ke kapal/pesawat. Perusahaan pelayaran akan menerbitkan Bill of Lading (B/L) atau Airway Bill (AWB) sebagai bukti kepemilikan dan pengiriman.
+                    </li>
+                    <li>
+                        <strong className="text-foreground">Proses Pembayaran & Dokumen:</strong> Eksportir mengirimkan salinan dokumen ke buyer sebagai bukti kirim. Buyer melakukan sisa pembayaran (jika T/T) atau bank mencairkan L/C. Dokumen asli lalu dikirim via kurir.
+                    </li>
+                    <li>
+                        <strong className="text-foreground">Penerimaan Barang:</strong> Buyer menggunakan dokumen asli untuk mengurus bea cukai impor dan mengambil barang di pelabuhan/bandara tujuan.
+                    </li>
                  </ol>
               </AccordionContent>
             </AccordionItem>
@@ -153,6 +164,7 @@ export default function BuyerInfoPage() {
                   <li>Daftarkan perusahaan Anda di marketplace B2B global seperti Alibaba, TradeMap, atau TradeHub.</li>
                   <li>Gunakan portal resmi seperti SIPPO, INATRADE, atau situs Kementerian Perdagangan sebagai panduan.</li>
                   <li>Selalu simpan cadangan (backup) digital dari semua dokumen ekspor untuk arsip dan keamanan.</li>
+                  <li>Gunakan jasa Freight Forwarder untuk menyederhanakan proses logistik dan pengurusan dokumen pabean.</li>
                 </ul>
               </AccordionContent>
             </AccordionItem>
