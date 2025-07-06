@@ -1,3 +1,6 @@
+"use client"
+
+import { useEffect, useState } from "react"
 import {
   Card,
   CardContent,
@@ -13,20 +16,23 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { Badge } from "@/components/ui/badge"
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts'
 import { DollarSign, Package, Users, ArrowUpRight } from "lucide-react"
 
-const chartData = [
-  { month: "January", total: Math.floor(Math.random() * 5000) + 1000 },
-  { month: "February", total: Math.floor(Math.random() * 5000) + 1000 },
-  { month: "March", total: Math.floor(Math.random() * 5000) + 1000 },
-  { month: "April", total: Math.floor(Math.random() * 5000) + 1000 },
-  { month: "May", total: Math.floor(Math.random() * 5000) + 1000 },
-  { month: "June", total: Math.floor(Math.random() * 5000) + 1000 },
-]
-
 export default function DashboardPage() {
+  const [chartData, setChartData] = useState<Array<{ month: string; total: number }>>([])
+
+  useEffect(() => {
+    setChartData([
+      { month: "January", total: Math.floor(Math.random() * 5000) + 1000 },
+      { month: "February", total: Math.floor(Math.random() * 5000) + 1000 },
+      { month: "March", total: Math.floor(Math.random() * 5000) + 1000 },
+      { month: "April", total: Math.floor(Math.random() * 5000) + 1000 },
+      { month: "May", total: Math.floor(Math.random() * 5000) + 1000 },
+      { month: "June", total: Math.floor(Math.random() * 5000) + 1000 },
+    ])
+  }, [])
+
   return (
     <>
       <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
