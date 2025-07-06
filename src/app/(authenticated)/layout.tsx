@@ -14,12 +14,13 @@ import {
 } from "@/components/ui/sidebar"
 import { Logo } from "@/components/logo"
 import { UserNav } from "@/components/user-nav"
-import { LayoutDashboard, Leaf, ArrowRightLeft, Bell, Search, TrendingUp, BookUser } from "lucide-react"
+import { LayoutDashboard, Leaf, ArrowRightLeft, Bell, Search, TrendingUp, BookUser, Tractor } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 
 const navItems = [
   { href: "/dashboard", icon: LayoutDashboard, label: "Dashboard" },
+  { href: "/farmer-dashboard", icon: Tractor, label: "Farmer Dashboard" },
   { href: "/commodities", icon: Leaf, label: "Commodities" },
   { href: "/offers", icon: ArrowRightLeft, label: "Offers & Requests" },
   { href: "/prediction", icon: TrendingUp, label: "Demand Prediction" },

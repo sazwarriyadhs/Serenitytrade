@@ -2,6 +2,7 @@
 
 import Link from "next/link"
 import { useRouter } from "next/navigation"
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -17,9 +18,14 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 
 export default function LoginPage() {
   const router = useRouter()
+  const [role, setRole] = useState("exporter")
 
   const handleLogin = () => {
-    router.push("/dashboard")
+    if (role === "farmer") {
+      router.push("/farmer-dashboard")
+    } else {
+      router.push("/dashboard")
+    }
   }
 
   return (
@@ -61,7 +67,7 @@ export default function LoginPage() {
               </div>
               <div className="grid gap-2">
                 <Label htmlFor="role">Role</Label>
-                <Select defaultValue="exporter">
+                <Select defaultValue="exporter" onValueChange={setRole}>
                   <SelectTrigger id="role">
                     <SelectValue placeholder="Select your role" />
                   </SelectTrigger>
