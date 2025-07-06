@@ -23,6 +23,8 @@ export default function LoginPage() {
   const handleLogin = () => {
     if (role === "farmer") {
       router.push("/farmer-dashboard")
+    } else if (role === "buyer") {
+      router.push("/buyer-dashboard")
     } else {
       router.push("/dashboard")
     }

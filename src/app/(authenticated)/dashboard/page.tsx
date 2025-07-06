@@ -39,6 +39,10 @@ const DashboardChart = dynamic(() => import('@/components/dashboard-chart'), {
 export default function DashboardPage() {
   return (
     <>
+      <div className="mb-4">
+        <h1 className="text-3xl font-bold font-headline">Exporter Dashboard</h1>
+        <p className="text-muted-foreground">Monitor your sales, offers, and export performance.</p>
+      </div>
       <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
