@@ -96,12 +96,45 @@ const partnerships = [
     { exporter: "Highland Coffee Co.", status: "Negotiating" },
 ]
 
-const localCommunityPrices = [
-  { name: "Cabai Merah Keriting", price: 55000, unit: "kg" },
-  { name: "Bawang Merah", price: 42000, unit: "kg" },
-  { name: "Kopi Robusta Lampung", price: 38000, unit: "kg" },
-  { name: "Gabah Kering Giling (GKG)", price: 6800, unit: "kg" },
-];
+const localPricesByRole: { [key: string]: { name: string; price: number; unit: string }[] } = {
+  farmer: [
+    { name: "Cabai Merah Keriting", price: 55000, unit: "kg" },
+    { name: "Bawang Merah", price: 42000, unit: "kg" },
+    { name: "Gabah Kering Giling (GKG)", price: 6800, unit: "kg" },
+    { name: "Jagung Pipil", price: 5500, unit: "kg" },
+  ],
+  peternak: [
+    { name: "Daging Sapi (Karkas)", price: 95000, unit: "kg" },
+    { name: "Ayam Broiler (Hidup)", price: 21000, unit: "kg" },
+    { name: "Telur Ayam Ras", price: 27000, unit: "kg" },
+    { name: "Susu Sapi Murni", price: 8000, unit: "liter" },
+  ],
+  nelayan: [
+    { name: "Ikan Tuna (Utuh)", price: 45000, unit: "kg" },
+    { name: "Udang Vaname (Segar)", price: 75000, unit: "kg" },
+    { name: "Cumi-cumi (Segar)", price: 60000, unit: "kg" },
+    { name: "Rumput Laut Kering", price: 15000, unit: "kg" },
+  ],
+  pengelola_hasil_hutan: [
+    { name: "Madu Hutan Sialang", price: 150000, unit: "liter" },
+    { name: "Getah Pinus", price: 18000, unit: "kg" },
+    { name: "Kayu Gaharu (Kualitas A)", price: 1500000, unit: "kg" },
+    { name: "Rotan Manau (Batangan)", price: 25000, unit: "kg" },
+  ],
+  pengelola_hasil_kebun: [
+    { name: "Kopi Robusta Lampung", price: 38000, unit: "kg" },
+    { name: "Biji Kakao Kering", price: 45000, unit: "kg" },
+    { name: "Tandan Buah Segar (Sawit)", price: 2500, unit: "kg" },
+    { name: "Lada Putih", price: 85000, unit: "kg" },
+  ],
+  default: [
+    { name: "Cabai Merah Keriting", price: 55000, unit: "kg" },
+    { name: "Bawang Merah", price: 42000, unit: "kg" },
+    { name: "Kopi Robusta Lampung", price: 38000, unit: "kg" },
+    { name: "Gabah Kering Giling (GKG)", price: 6800, unit: "kg" },
+  ]
+};
+
 
 const roleTitles: { [key: string]: string } = {
   farmer: "Farmer Dashboard",
@@ -175,6 +208,7 @@ export default function FarmerDashboardPage() {
   }
   
   const dashboardTitle = userRole ? (roleTitles[userRole] || "Producer Dashboard") : "Farmer Dashboard";
+  const localCommunityPrices = userRole ? (localPricesByRole[userRole] || localPricesByRole.default) : [];
 
   return (
     <div className="flex flex-col gap-8">
@@ -220,7 +254,7 @@ export default function FarmerDashboardPage() {
                   Harga Komunitas Lokal
               </CardTitle>
               <CardDescription>
-                  Harga rata-rata dari komunitas petani lokal (sumber tidak resmi).
+                  Harga rata-rata dari komunitas produsen lokal (sumber tidak resmi).
               </CardDescription>
           </CardHeader>
           <CardContent>
@@ -228,14 +262,14 @@ export default function FarmerDashboardPage() {
                   <TableHeader>
                       <TableRow>
                           <TableHead>Komoditas</TableHead>
-                          <TableHead className="text-right">Harga Perkiraan / kg</TableHead>
+                          <TableHead className="text-right">Harga Perkiraan</TableHead>
                       </TableRow>
                   </TableHeader>
                   <TableBody>
                       {localCommunityPrices.map((item) => (
                           <TableRow key={item.name}>
                               <TableCell className="font-medium">{item.name}</TableCell>
-                              <TableCell className="text-right font-mono">{formatIDR(item.price)}</TableCell>
+                              <TableCell className="text-right font-mono">{`${formatIDR(item.price)} / ${item.unit}`}</TableCell>
                           </TableRow>
                       ))}
                   </TableBody>
@@ -557,7 +591,5 @@ export default function FarmerDashboardPage() {
     </div>
   )
 }
-
-    
 
     
