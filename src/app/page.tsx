@@ -116,7 +116,7 @@ const translations = {
     // Legal Basis
     legalBasisTitle: 'Dasar Hukum',
     legalBasisDesc: 'Platform kami mematuhi peraturan ekspor dan impor pangan terbaru dari pemerintah Indonesia. Akses daftar peraturan yang komprehensif untuk memastikan kepatuhan perdagangan Anda.',
-    legalBasisButton: 'Lihat Direktori Regulasi',
+    legalBasisButton: 'View Regulation Directory',
     // Footer
     footerRights: 'Hak cipta dilindungi.',
   },
@@ -196,25 +196,25 @@ const heroSlides = [
   {
     titleKey: 'banner1Title',
     subtitleKey: 'banner1Subtitle',
-    image: 'https://placehold.co/1920x1080.png',
+    image: '/images/Hass Avocado.png',
     imageHint: 'global trade'
   },
   {
     titleKey: 'banner2Title',
     subtitleKey: 'banner2Subtitle',
-    image: 'https://placehold.co/1920x1080.png',
+    image: '/images/Arabica Coffee.png',
     imageHint: 'farm market'
   },
   {
     titleKey: 'banner3Title',
     subtitleKey: 'banner3Subtitle',
-    image: 'https://placehold.co/1920x1080.png',
+    image: '/images/Royal Quinoa.png',
     imageHint: 'shipping logistics'
   },
   {
     titleKey: 'banner4Title',
     subtitleKey: 'banner4Subtitle',
-    image: 'https://placehold.co/1920x1080.png',
+    image: '/images/Sun-dried Tomatoes.png',
     imageHint: 'quality produce'
   },
 ];
