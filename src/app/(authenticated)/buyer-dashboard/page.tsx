@@ -57,7 +57,7 @@ const availableCommodities = [
     origin: "Mexico",
     price: 2.50,
     minOrder: 500,
-    image: "https://placehold.co/600x400.png",
+    image: "/images/komoditi/Hass Avocado.png",
     imageHint: "avocado fruit",
   },
   {
@@ -66,7 +66,7 @@ const availableCommodities = [
     origin: "Colombia",
     price: 15.00,
     minOrder: 200,
-    image: "https://placehold.co/600x400.png",
+    image: "/images/komoditi/Arabica Coffee.png",
     imageHint: "coffee beans",
   },
   {

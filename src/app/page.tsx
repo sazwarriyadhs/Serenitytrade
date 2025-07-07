@@ -152,10 +152,10 @@ const translations = {
 }
 
 const featuredCommodities = [
-  { id: 'avocado', nameKey: 'avocado', originKey: 'avocadoOrigin', image: '/images/komoditi/avocado.png', imageHint: 'avocado fruit' },
-  { id: 'coffee', nameKey: 'coffee', originKey: 'coffeeOrigin', image: '/images/komoditi/coffee.png', imageHint: 'coffee beans' },
-  { id: 'quinoa', nameKey: 'quinoa', originKey: 'quinoaOrigin', image: '/images/komoditi/quinoa.png', imageHint: 'quinoa seeds' },
-  { id: 'tomatoes', nameKey: 'tomatoes', originKey: 'tomatoesOrigin', image: '/images/komoditi/tomatoes.png', imageHint: 'dried tomatoes' },
+  { id: 'avocado', nameKey: 'avocado', originKey: 'avocadoOrigin', image: '/images/komoditi/Hass Avocado.png', imageHint: 'avocado fruit' },
+  { id: 'coffee', nameKey: 'coffee', originKey: 'coffeeOrigin', image: '/images/komoditi/Arabica Coffee.png', imageHint: 'coffee beans' },
+  { id: 'quinoa', nameKey: 'quinoa', originKey: 'quinoaOrigin', image: '/images/komoditi/Royal Quinoa.png', imageHint: 'quinoa seeds' },
+  { id: 'tomatoes', nameKey: 'tomatoes', originKey: 'tomatoesOrigin', image: '/images/komoditi/Sun-dried Tomatoes.png', imageHint: 'dried tomatoes' },
 ];
 
 const howItWorksSteps = [
