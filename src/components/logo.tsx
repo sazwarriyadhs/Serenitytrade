@@ -7,12 +7,12 @@ export function Logo({ size = 'default', className }: { size?: 'default' | 'larg
     default: {
       width: 92,
       height: 40,
-      className: "h-10"
+      className: "h-10 w-auto"
     },
     large: {
       width: 240,
       height: 120,
-      className: "h-[120px]"
+      className: "w-[240px] h-[120px]"
     }
   };
   const config = sizes[size];
@@ -24,7 +24,7 @@ export function Logo({ size = 'default', className }: { size?: 'default' | 'larg
         alt="Serenity AgriExport Hub Logo"
         width={config.width}
         height={config.height}
-        className={cn(config.className, "w-auto", className)}
+        className={cn(config.className, className)}
       />
     </div>
   );
