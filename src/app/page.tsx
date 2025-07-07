@@ -152,10 +152,10 @@ const translations = {
 }
 
 const featuredCommodities = [
-  { id: 'avocado', nameKey: 'avocado', originKey: 'avocadoOrigin', image: 'https://placehold.co/600x400.png', imageHint: 'avocado fruit' },
-  { id: 'coffee', nameKey: 'coffee', originKey: 'coffeeOrigin', image: 'https://placehold.co/600x400.png', imageHint: 'coffee beans' },
-  { id: 'quinoa', nameKey: 'quinoa', originKey: 'quinoaOrigin', image: 'https://placehold.co/600x400.png', imageHint: 'quinoa seeds' },
-  { id: 'tomatoes', nameKey: 'tomatoes', originKey: 'tomatoesOrigin', image: 'https://placehold.co/600x400.png', imageHint: 'dried tomatoes' },
+  { id: 'avocado', nameKey: 'avocado', originKey: 'avocadoOrigin', image: '/images/komoditi/avocado.png', imageHint: 'avocado fruit' },
+  { id: 'coffee', nameKey: 'coffee', originKey: 'coffeeOrigin', image: '/images/komoditi/coffee.png', imageHint: 'coffee beans' },
+  { id: 'quinoa', nameKey: 'quinoa', originKey: 'quinoaOrigin', image: '/images/komoditi/quinoa.png', imageHint: 'quinoa seeds' },
+  { id: 'tomatoes', nameKey: 'tomatoes', originKey: 'tomatoesOrigin', image: '/images/komoditi/tomatoes.png', imageHint: 'dried tomatoes' },
 ];
 
 const howItWorksSteps = [
