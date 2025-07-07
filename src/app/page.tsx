@@ -8,7 +8,7 @@ import { Logo } from '@/components/logo'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { Globe, ArrowRight, Ship, Handshake, Leaf, ArrowUp, ArrowDown } from 'lucide-react'
+import { Globe, ArrowRight, Ship, Handshake, Leaf, ArrowUp, ArrowDown, FileText } from 'lucide-react'
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
 import Autoplay from "embla-carousel-autoplay"
 
@@ -65,6 +65,11 @@ const translations = {
     realTimePricesSubtitle: 'Real-time price movements from global markets.',
     pricePerUnit: 'Price/Ton',
     dayChange: '24h Change',
+    // Legal Basis
+    legalBasisTitle: 'Legal Basis & Transparency',
+    legalBasisSubtitle: 'Our platform operates in accordance with the regulations of the National Food Agency of the Republic of Indonesia to ensure fair and secure trade.',
+    legalBasisDescription: 'We are committed to complying with National Food Agency Regulation Number 31 of 2023 concerning Procedures for Determining Food Export and Import Needs.',
+    viewRegulation: 'View Regulation',
     // Footer
     footerRights: 'All rights reserved.',
   },
@@ -109,6 +114,11 @@ const translations = {
     realTimePricesSubtitle: 'Pergerakan harga real-time dari pasar global.',
     pricePerUnit: 'Harga/Ton',
     dayChange: 'Perubahan 24j',
+    // Legal Basis
+    legalBasisTitle: 'Dasar Hukum & Transparansi',
+    legalBasisSubtitle: 'Platform kami beroperasi sesuai dengan peraturan Badan Pangan Nasional Republik Indonesia untuk memastikan perdagangan yang adil dan aman.',
+    legalBasisDescription: 'Kami berkomitmen untuk mematuhi Peraturan Badan Pangan Nasional Nomor 31 Tahun 2023 tentang Tata Cara Penetapan Kebutuhan Ekspor dan Impor Pangan.',
+    viewRegulation: 'Lihat Peraturan',
     // Footer
     footerRights: 'Hak cipta dilindungi.',
   },
@@ -123,6 +133,7 @@ const translations = {
     step2Title: 'Sécuriser & Expédier', step2Desc: '[Description étape 2 en Français]',
     step3Title: 'Recevoir & Croître', step3Desc: '[Description étape 3 en Français]',
     realTimePricesTitle: 'Prix Mondiaux des Matières Premières', realTimePricesSubtitle: 'Mouvements des prix en temps réel sur les marchés mondiaux.', pricePerUnit: 'Prix/Tonne', dayChange: 'Chg 24h',
+    legalBasisTitle: '[Titre Légal en Français]', legalBasisSubtitle: '[Sous-titre Légal en Français]', legalBasisDescription: '[Description Légale en Français]', viewRegulation: 'Voir Règlement',
     footerRights: 'Tous droits réservés.',
   },
   zh: {
@@ -136,6 +147,7 @@ const translations = {
     step2Title: '安全与运输', step2Desc: '[中文步骤2描述]',
     step3Title: '接收与发展', step3Desc: '[中文步骤3描述]',
     realTimePricesTitle: '全球商品价格', realTimePricesSubtitle: '全球市场的实时价格变动。', pricePerUnit: '价格/吨', dayChange: '24小时变化',
+    legalBasisTitle: '[法律依据标题]', legalBasisSubtitle: '[法律依据副标题]', legalBasisDescription: '[法律依据描述]', viewRegulation: '查看法规',
     footerRights: '版权所有。',
   },
   ar: {
@@ -149,6 +161,7 @@ const translations = {
     step2Title: 'التأمين والشحن', step2Desc: '[وصف الخطوة 2 بالعربية]',
     step3Title: 'الاستلام والنمو', step3Desc: '[وصف الخطوة 3 بالعربية]',
     realTimePricesTitle: 'أسعار السلع العالمية', realTimePricesSubtitle: 'تحركات الأسعار في الوقت الفعلي من الأسواق العالمية.', pricePerUnit: 'السعر/طن', dayChange: 'تغير 24 ساعة',
+    legalBasisTitle: '[عنوان الأساس القانوني]', legalBasisSubtitle: '[عنوان فرعي للأساس القانوني]', legalBasisDescription: '[وصف الأساس القانوني]', viewRegulation: 'عرض اللائحة',
     footerRights: 'كل الحقوق محفوظة.',
   },
   ja: {
@@ -162,6 +175,7 @@ const translations = {
     step2Title: '確保と発送', step2Desc: '[日本語のステップ2説明]',
     step3Title: '受け取りと成長', step3Desc: '[日本語のステップ3説明]',
     realTimePricesTitle: '世界の商品の価格', realTimePricesSubtitle: '世界市場からのリアルタイムの価格変動。', pricePerUnit: '価格/トン', dayChange: '24時間変動',
+    legalBasisTitle: '[法的根拠のタイトル]', legalBasisSubtitle: '[法的根拠のサブタイトル]', legalBasisDescription: '[法的根拠の説明]', viewRegulation: '規制を見る',
     footerRights: '無断複写・転載を禁じます。',
   },
   pt: {
@@ -175,6 +189,7 @@ const translations = {
     step2Title: 'Segurança & Envio', step2Desc: '[Descrição do Passo 2 em Português]',
     step3Title: 'Receber & Crescer', step3Desc: '[Descrição do Passo 3 em Português]',
     realTimePricesTitle: 'Preços Globais de Commodities', realTimePricesSubtitle: 'Movimentos de preços em tempo real dos mercados globais.', pricePerUnit: 'Preço/Ton', dayChange: 'Mudança 24h',
+    legalBasisTitle: '[Título da Base Legal]', legalBasisSubtitle: '[Subtítulo da Base Legal]', legalBasisDescription: '[Descrição da Base Legal]', viewRegulation: 'Ver Regulamento',
     footerRights: 'Todos os direitos reservados.',
   }
 }
@@ -379,6 +394,31 @@ export default function LandingPage() {
                         </div>
                     </div>
                  </section>
+
+                {/* Legal Basis Section */}
+                <section className="py-20">
+                    <div className="container text-center">
+                        <h2 className="text-3xl font-bold font-headline">{t.legalBasisTitle}</h2>
+                        <p className="mt-2 max-w-3xl mx-auto text-muted-foreground">{t.legalBasisSubtitle}</p>
+                        <Card className="mt-8 max-w-3xl mx-auto text-left">
+                            <CardContent className="p-6">
+                                <div className="flex items-start gap-4">
+                                    <div className="flex-shrink-0 pt-1">
+                                       <FileText className="h-6 w-6 text-primary" />
+                                    </div>
+                                    <div>
+                                        <p className="font-medium">{t.legalBasisDescription}</p>
+                                        <Button asChild className="mt-4">
+                                            <a href="https://peraturan.bpk.go.id/Download/379261/Peraturan%20Badan%20Pangan%2031%20Tahun%202023%20tentang%20Tata%20Cara%20Penetapan%20Kebutuhan%20Ekspor%20Impor%20Pangan.pdf" target="_blank" rel="noopener noreferrer">
+                                                {t.viewRegulation} <ArrowRight className="ml-2 h-4 w-4" />
+                                            </a>
+                                        </Button>
+                                    </div>
+                                </div>
+                            </CardContent>
+                        </Card>
+                    </div>
+                </section>
             </main>
 
             {/* Footer */}
