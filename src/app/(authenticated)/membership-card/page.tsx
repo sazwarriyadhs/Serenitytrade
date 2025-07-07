@@ -57,8 +57,15 @@ type MembershipFormValues = z.infer<typeof membershipFormSchema>
 
 const ExpiryDate = new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric' });
 
+const roleDisplayNames = {
+    farmer: "PETANI",
+    exporter: "EKSPORTIR",
+    buyer: "BUYER",
+    admin: "ADMIN",
+};
+
 const MemberCard = ({
-  isFarmer = false,
+  role = 'exporter',
   isVerified = false,
   photo,
   name,
@@ -68,7 +75,7 @@ const MemberCard = ({
   nib,
   npwp,
 }: {
-  isFarmer?: boolean;
+  role?: keyof typeof roleDisplayNames;
   isVerified?: boolean;
   photo?: string | null;
   name: string;
@@ -88,7 +95,7 @@ const MemberCard = ({
         <div className="mt-4">
           <p className="text-sm font-bold tracking-wider text-black">KARTU ANGGOTA</p>
           <p className="text-sm font-bold tracking-wider text-black -mt-1">
-            {isFarmer ? "PETANI" : "EKSPORTIR / BUYER"}
+            {roleDisplayNames[role] || "ANGGOTA"}
           </p>
         </div>
         <div className="mt-4 text-xs space-y-2.5">
@@ -108,7 +115,7 @@ const MemberCard = ({
             <span className="font-semibold text-muted-foreground">Alamat</span>
             <span className="line-clamp-2">: {address}</span>
           </div>
-          {!isFarmer && nib && (
+          {role !== 'farmer' && nib && (
             <div className="grid grid-cols-[60px_auto]">
               <span className="font-semibold text-muted-foreground">NIB</span>
               <span className="font-mono">: {nib}</span>
@@ -130,7 +137,7 @@ const MemberCard = ({
       {/* Right section */}
       <div className="w-[35%] bg-primary p-4 text-primary-foreground flex flex-col items-center justify-between text-center">
         <Avatar className="h-20 w-20 sm:h-24 sm:w-24 border-2 border-white/80 shadow-md">
-          <AvatarImage src={photo || "https://placehold.co/150x150.png"} alt="User photo" data-ai-hint={isFarmer ? "person farmer" : "person avatar"} />
+          <AvatarImage src={photo || "https://placehold.co/150x150.png"} alt="User photo" data-ai-hint={role === 'farmer' ? "person farmer" : "person avatar"} />
           <AvatarFallback>{name?.substring(0, 2).toUpperCase() || 'SA'}</AvatarFallback>
         </Avatar>
         <div className="flex flex-col items-center">
@@ -203,7 +210,7 @@ export default function MembershipCardPage() {
           <p className="text-muted-foreground">Your verified membership details.</p>
         </div>
         <MemberCard 
-            isFarmer
+            role="farmer"
             isVerified
             photo="https://placehold.co/150x150.png"
             name="Sunrise Farms"
@@ -392,7 +399,7 @@ export default function MembershipCardPage() {
         <div className="lg:col-span-2">
             <div className="sticky top-20">
                 <MemberCard 
-                    isFarmer={false}
+                    role={userRole as keyof typeof roleDisplayNames}
                     isVerified={false}
                     photo={photoPreview}
                     name={form.watch('name') || 'Nama Anda / Perusahaan'}
