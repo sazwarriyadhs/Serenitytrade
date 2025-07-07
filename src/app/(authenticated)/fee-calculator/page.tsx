@@ -1,4 +1,3 @@
-
 'use client'
 
 import { useState, useMemo } from 'react'
@@ -14,7 +13,7 @@ import { Label } from "@/components/ui/label"
 import { Slider } from "@/components/ui/slider"
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from 'recharts'
 import { Badge } from '@/components/ui/badge'
-import { DollarSign, ArrowDown, Tractor } from 'lucide-react'
+import { DollarSign, ArrowDown, Tractor, Landmark } from 'lucide-react'
 
 const feeAllocationConfig = [
   { name: "Infrastructure & Hosting", percentage: 25, color: "hsl(var(--chart-1))" },
@@ -134,7 +133,7 @@ export default function FeeCalculatorPage() {
                   <span className="text-destructive font-bold">-{formatCurrency(adminFeeAmount)}</span>
                 </div>
                 <p className="text-xs text-muted-foreground mt-1">
-                  A 10-15% fee is deducted from the total transaction value for platform operations and services.
+                  A 10-15% fee is deducted from the total transaction value for international trade services.
                 </p>
               </div>
 
@@ -156,6 +155,12 @@ export default function FeeCalculatorPage() {
                 <div className="p-3 rounded-md border bg-background flex items-start gap-3">
                   <Tractor className="h-5 w-5 mt-0.5 text-primary shrink-0" />
                   <p className="text-left"><span className="font-semibold text-foreground">Note for Farmers:</span> For direct transactions with exporters on our platform, a reduced service fee of 5% applies.</p>
+                </div>
+              </div>
+              <div className="text-center pt-2 text-sm text-muted-foreground">
+                <div className="p-3 rounded-md border bg-background flex items-start gap-3">
+                  <Landmark className="h-5 w-5 mt-0.5 text-green-600 shrink-0" />
+                  <p className="text-left"><span className="font-semibold text-foreground">Local Buyers (Indonesia):</span> Transactions involving domestic Indonesian buyers are exempt from marketplace fees (0% fee).</p>
                 </div>
               </div>
             </CardContent>
