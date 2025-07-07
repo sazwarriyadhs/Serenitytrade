@@ -2,7 +2,7 @@
 'use client'
 
 import Image from "next/image"
-import { PlusCircle, MoreHorizontal, Briefcase, FileText, Search, TrendingUp, TrendingDown, Minus } from "lucide-react"
+import { PlusCircle, MoreHorizontal, Briefcase, FileText, Search, TrendingUp, TrendingDown, Minus, ShieldCheck } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import {
@@ -178,13 +178,13 @@ export default function BuyerDashboardPage() {
                 </Card>
                  <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-medium">Offers Received</CardTitle>
-                        <Briefcase className="h-4 w-4 text-muted-foreground" />
+                        <CardTitle className="text-sm font-medium">Funds in Escrow</CardTitle>
+                        <ShieldCheck className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
                     <CardContent>
-                        <div className="text-2xl font-bold">{myRequests.reduce((acc, req) => acc + req.offers, 0)}</div>
+                        <div className="text-2xl font-bold">$42,500.00</div>
                         <p className="text-xs text-muted-foreground">
-                            Across {myRequests.length} active requests
+                            Across 3 active negotiations
                         </p>
                     </CardContent>
                 </Card>

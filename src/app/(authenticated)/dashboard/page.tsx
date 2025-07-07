@@ -6,6 +6,7 @@ import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
@@ -18,7 +19,8 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { Skeleton } from '@/components/ui/skeleton'
-import { DollarSign, Package, Users, ArrowUpRight, TrendingUp, TrendingDown, Minus } from "lucide-react"
+import { Wallet, Package, Users, ArrowUpRight, TrendingUp, TrendingDown, Minus } from "lucide-react"
+import { Button } from '@/components/ui/button'
 
 const DashboardChart = dynamic(() => import('@/components/dashboard-chart'), {
   ssr: false,
@@ -62,16 +64,19 @@ export default function DashboardPage() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
-              Total Revenue
+              Withdrawable Balance
             </CardTitle>
-            <DollarSign className="h-4 w-4 text-muted-foreground" />
+            <Wallet className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">$45,231.89</div>
+            <div className="text-2xl font-bold">$15,780.50</div>
             <p className="text-xs text-muted-foreground">
-              +20.1% from last month
+              Funds ready for withdrawal
             </p>
           </CardContent>
+           <CardFooter>
+            <Button className="w-full">Withdraw Funds</Button>
+          </CardFooter>
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
