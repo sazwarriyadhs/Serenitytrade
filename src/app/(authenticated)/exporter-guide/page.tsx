@@ -1,4 +1,6 @@
 
+'use client'
+
 import {
   Accordion,
   AccordionContent,
@@ -6,7 +8,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion"
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card"
-import { CheckCircle2, FileWarning, Ban, ExternalLink } from "lucide-react"
+import { CheckCircle2, FileWarning, Ban, ExternalLink, Leaf, Droplets, Fish, TreeDeciduous } from "lucide-react"
 import {
   Table,
   TableBody,
@@ -15,34 +17,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { Button } from "@/components/ui/button"
-
-const commodityExamples = [
-  // Pertanian
-  { no: 1, commodity: "Beras organik", category: "Pertanian (Pangan)", exportForm: "Beras kemasan", destination: "Singapura, Uni Emirat Arab, Jepang" },
-  { no: 2, commodity: "Jagung", category: "Pertanian (Pangan)", exportForm: "Jagung pipil kering", destination: "Malaysia, Filipina, Korea Selatan" },
-  { no: 3, commodity: "Ubi Jalar", category: "Pertanian (Hortikultura)", exportForm: "Ubi segar, tepung", destination: "Jepang, Korea Selatan" },
-  { no: 4, commodity: "Nanas", category: "Pertanian (Buah)", exportForm: "Nanas segar, kalengan, jus", destination: "Tiongkok, Uni Emirat Arab, Rusia" },
-  { no: 5, commodity: "Mangga", category: "Pertanian (Buah)", exportForm: "Mangga segar, puree", destination: "Tiongkok, Timur Tengah, Eropa" },
-  // Perkebunan
-  { no: 6, commodity: "Kopi Arabika", category: "Perkebunan", exportForm: "Biji kopi sangrai, bubuk", destination: "AS, Italia, Jepang, Inggris" },
-  { no: 7, commodity: "Kakao", category: "Perkebunan", exportForm: "Biji kakao, bubuk, pasta", destination: "Jerman, AS, Belgia, Belanda" },
-  { no: 8, commodity: "Kelapa Sawit (CPO)", category: "Perkebunan", exportForm: "Minyak sawit mentah", destination: "India, Tiongkok, Uni Eropa" },
-  { no: 9, commodity: "Karet", category: "Perkebunan", exportForm: "Karet lempengan (sheet)", destination: "AS, Tiongkok, Jepang" },
-  // Perikanan
-  { no: 10, commodity: "Ikan Tuna Beku", category: "Perikanan", exportForm: "Fillet beku, utuh, kalengan", destination: "Jepang, AS, Thailand" },
-  { no: 11, commodity: "Udang Beku", category: "Perikanan", exportForm: "Udang beku, kupas, olahan", destination: "AS, Jepang, Uni Eropa" },
-  { no: 12, commodity: "Rumput Laut", category: "Perikanan", exportForm: "Rumput laut kering", destination: "Tiongkok, Korea Selatan, Filipina" },
-  // Peternakan
-  { no: 13, commodity: "Sarang Burung Walet", category: "Peternakan", exportForm: "Sarang bersih siap masak", destination: "Tiongkok, Hongkong, Singapura" },
-  { no: 14, commodity: "Daging Sapi Beku", category: "Peternakan", exportForm: "Potongan daging beku", destination: "Malaysia, Vietnam, Timur Tengah" },
-  // Kehutanan
-  { no: 15, commodity: "Furnitur Rotan", category: "Kehutanan (Non-Kayu)", exportForm: "Mebel jadi", destination: "Eropa, AS, Australia" },
-  { no: 16, commodity: "Damar", category: "Kehutanan (Non-Kayu)", exportForm: "Getah resin kering", destination: "India, Tiongkok" },
-  // Rempah
-  { no: 17, commodity: "Lada Putih", category: "Rempah-rempah", exportForm: "Lada kering, bubuk", destination: "Vietnam, AS, Tiongkok" },
-  { no: 18, commodity: "Cengkeh", category: "Rempah-rempah", exportForm: "Bunga kering", destination: "India, Singapura, Belanda" },
-];
+import Image from "next/image"
 
 const productCatalog = [
   { name: "PRODUK 1: BERAS PANDAN WANGI", specs: [ { label: "Jenis", value: "Premium Aromatik" }, { label: "Grade", value: "Super / Export Grade" }, { label: "Kadar Air", value: "< 14%" }, { label: "Broken", value: "< 5%" }, { label: "Sertifikasi", value: "Organik, ISO 22000" }, { label: "Kemasan", value: "5kg vacuum / 25kg woven bag" } ] },
@@ -295,7 +270,7 @@ export default function ExporterGuidePage() {
                       <li><strong>Buah-buahan Segar (Mangga, Manggis):</strong> Dikemas dalam kotak karton bergelombang (corrugated box) dengan sekat individual untuk mencegah benturan dan lubang ventilasi untuk sirkulasi udara.</li>
       <li><strong>Hasil Laut Beku (Ikan, Udang):</strong> Kemasan vakum primer untuk mencegah dehidrasi, kemudian dimasukkan ke dalam kotak styrofoam atau karton berlapis lilin untuk menjaga suhu rendah selama transportasi.</li>
                       <li><strong>Rempah-rempah (Lada, Cengkeh):</strong> Kemasan vakum dalam kantong aluminium foil untuk pengiriman massal guna melindungi dari cahaya dan udara. Untuk ritel, botol kaca gelap lebih diutamakan.</li>
-                      <li><strong>Produk Olahan (Keripik, Makanan Ringan):</strong> Menggunakan kemasan fleksibel multilayer (plastik/foil) yang diisi dengan nitrogen (Nitrogen Flushing) untuk menjaga kerenyahan dan memperpanjang umur simpan.</li>
+                      <li><strong>Produk Olahan Kering (Keripik, Makanan Ringan):</strong> Menggunakan kemasan fleksibel multilayer (plastik/foil) yang diisi dengan nitrogen (Nitrogen Flushing) untuk menjaga kerenyahan dan memperpanjang umur simpan.</li>
                     </ul>
                   </div>
                 </div>
@@ -307,28 +282,95 @@ export default function ExporterGuidePage() {
                 7. Contoh Komoditas Ekspor Unggulan Indonesia
               </AccordionTrigger>
               <AccordionContent>
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead className="w-[50px]">No</TableHead>
-                      <TableHead>Komoditas</TableHead>
-                      <TableHead>Kategori</TableHead>
-                      <TableHead>Bentuk Produk Ekspor</TableHead>
-                      <TableHead>Negara Tujuan Utama</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {commodityExamples.map((item) => (
-                      <TableRow key={item.no}>
-                        <TableCell className="font-medium">{item.no}</TableCell>
-                        <TableCell>{item.commodity}</TableCell>
-                        <TableCell>{item.category}</TableCell>
-                        <TableCell>{item.exportForm}</TableCell>
-                        <TableCell>{item.destination}</TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
+                <div className="space-y-6">
+                  <Card>
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-2"><Leaf className="h-6 w-6 text-primary" />Produk Pertanian</CardTitle>
+                    </CardHeader>
+                    <CardContent className="grid md:grid-cols-2 gap-6">
+                      <div>
+                        <h4 className="font-semibold text-foreground mb-2">Komoditas Utama</h4>
+                        <ul className="list-disc pl-5 space-y-2 text-muted-foreground">
+                          <li><strong>Padi (beras organik/khusus):</strong> Ekspor terbatas ke negara premium (Jepang, Eropa).</li>
+                          <li><strong>Jagung:</strong> Digunakan untuk pakan ternak & industri makanan.</li>
+                          <li><strong>Kedelai Edamame (fresh frozen):</strong> Permintaan tinggi di Jepang & Korea.</li>
+                          <li><strong>Ubi jalar dan porang (konjac):</strong> Porang diekspor untuk industri makanan & farmasi.</li>
+                          <li><strong>Sayuran segar (kubis, sawi, paprika):</strong> Ekspor ke Singapura dan Hong Kong.</li>
+                        </ul>
+                      </div>
+                      <div className="space-y-4">
+                        <Image src="https://placehold.co/600x400.png" width={600} height={400} alt="Edamame" className="rounded-lg object-cover" data-ai-hint="edamame beans" />
+                        <p className="text-xs text-center text-muted-foreground">Ilustrasi: Edamame segar dan porang kering siap ekspor.</p>
+                      </div>
+                    </CardContent>
+                  </Card>
+
+                  <Card>
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-2"><Droplets className="h-6 w-6 text-primary" />Produk Perkebunan</CardTitle>
+                    </CardHeader>
+                    <CardContent className="grid md:grid-cols-2 gap-6">
+                      <div>
+                        <h4 className="font-semibold text-foreground mb-2">Komoditas Utama</h4>
+                        <ul className="list-disc pl-5 space-y-2 text-muted-foreground">
+                          <li><strong>Kelapa Sawit (CPO, RBDPO):</strong> Ekspor terbesar, ke India, China, Uni Eropa.</li>
+                          <li><strong>Kopi (Arabika, Robusta):</strong> Kopi Gayo, Toraja, Kintamani punya reputasi tinggi.</li>
+                          <li><strong>Kakao (biji & olahan):</strong> Sulawesi adalah sentra produksi utama.</li>
+                          <li><strong>Teh (Hitam & Hijau):</strong> Ekspor ke Rusia, Pakistan, Malaysia.</li>
+                          <li><strong>Lada, cengkeh, pala, kayu manis:</strong> Rempah asli Indonesia, diminati industri global.</li>
+                        </ul>
+                      </div>
+                      <div className="space-y-4">
+                        <Image src="https://placehold.co/600x400.png" width={600} height={400} alt="Rempah" className="rounded-lg object-cover" data-ai-hint="spices export" />
+                        <p className="text-xs text-center text-muted-foreground">Ilustrasi: Buah sawit, biji kopi & cokelat, serta rempah dalam kemasan ekspor.</p>
+                      </div>
+                    </CardContent>
+                  </Card>
+                  
+                  <Card>
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-2"><Fish className="h-6 w-6 text-primary" />Produk Perikanan</CardTitle>
+                    </CardHeader>
+                    <CardContent className="grid md:grid-cols-2 gap-6">
+                      <div>
+                        <h4 className="font-semibold text-foreground mb-2">Komoditas Utama</h4>
+                        <ul className="list-disc pl-5 space-y-2 text-muted-foreground">
+                          <li><strong>Udang vaname (frozen shrimp):</strong> Ekspor utama ke AS, Jepang, dan China.</li>
+                          <li><strong>Ikan tuna, cakalang, tongkol (loin & fillet):</strong> Diproses di Maluku & Bitung, lalu ekspor.</li>
+                          <li><strong>Rumput laut kering (Eucheuma cottonii):</strong> Bahan baku agar-agar, ekspor ke China & Filipina.</li>
+                          <li><strong>Rajungan (crab meat pasteurized):</strong> Ekspor ke pasar premium di Eropa & AS.</li>
+                          <li><strong>Ikan nila & patin (fillet):</strong> Ekspor ke Timur Tengah & Asia.</li>
+                        </ul>
+                      </div>
+                      <div className="space-y-4">
+                        <Image src="https://placehold.co/600x400.png" width={600} height={400} alt="Udang beku" className="rounded-lg object-cover" data-ai-hint="frozen shrimp" />
+                        <p className="text-xs text-center text-muted-foreground">Ilustrasi: Udang beku dan tuna loin dalam kemasan vakum.</p>
+                      </div>
+                    </CardContent>
+                  </Card>
+
+                   <Card>
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-2"><TreeDeciduous className="h-6 w-6 text-primary" />Produk Kehutanan</CardTitle>
+                    </CardHeader>
+                    <CardContent className="grid md:grid-cols-2 gap-6">
+                      <div>
+                        <h4 className="font-semibold text-foreground mb-2">Komoditas Utama</h4>
+                        <ul className="list-disc pl-5 space-y-2 text-muted-foreground">
+                            <li><strong>Kayu olahan (meranti, sengon, jati, akasia):</strong> Furnitur & konstruksi (ekspor ke Jepang, Eropa).</li>
+                            <li><strong>Rotan mentah & olahan (furniture):</strong> Indonesia penghasil rotan terbesar dunia.</li>
+                            <li><strong>Kayu lapis (plywood) & MDF:</strong> Industri papan & lantai ekspor tinggi.</li>
+                            <li><strong>Minyak atsiri (nilam, gaharu, cendana):</strong> Digunakan untuk parfum, farmasi, kosmetik.</li>
+                            <li><strong>Arang kayu & briket batok kelapa:</strong> Ekspor ke Timur Tengah & Korea untuk shisha/BBQ.</li>
+                        </ul>
+                      </div>
+                      <div className="space-y-4">
+                        <Image src="https://placehold.co/600x400.png" width={600} height={400} alt="Furniture rotan" className="rounded-lg object-cover" data-ai-hint="rattan furniture" />
+                        <p className="text-xs text-center text-muted-foreground">Ilustrasi: Furnitur rotan modern dan potongan plywood untuk ekspor.</p>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
               </AccordionContent>
             </AccordionItem>
 
@@ -474,3 +516,5 @@ export default function ExporterGuidePage() {
     </div>
   )
 }
+
+    
