@@ -8,9 +8,9 @@ export function Logo({ size = 'default' }: { size?: 'default' | 'large' }) {
       className: "h-10 w-10"
     },
     large: {
-      width: 100,
-      height: 100,
-      className: "h-24 w-24"
+      width: 200,
+      height: 200,
+      className: "h-48 w-48"
     }
   };
   const config = sizes[size];
