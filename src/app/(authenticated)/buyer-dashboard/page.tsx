@@ -58,7 +58,7 @@ const availableCommodities = [
     origin: "Mexico",
     price: 2.50,
     minOrder: 500,
-    image: "/images/komoditi/Hass Avocado.png",
+    image: "/images/Hass Avocado.png",
     imageHint: "avocado fruit",
   },
   {
@@ -67,7 +67,7 @@ const availableCommodities = [
     origin: "Colombia",
     price: 15.00,
     minOrder: 200,
-    image: "/images/komoditi/Arabica Coffee.png",
+    image: "/images/Arabica Coffee.png",
     imageHint: "coffee beans",
   },
   {
@@ -76,7 +76,7 @@ const availableCommodities = [
     origin: "Italy",
     price: 12.20,
     minOrder: 100,
-    image: "/images/komoditi/Sun-dried Tomatoes.png",
+    image: "/images/Sun-dried Tomatoes.png",
     imageHint: "dried tomatoes",
   },
 ];

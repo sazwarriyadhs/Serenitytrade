@@ -52,7 +52,7 @@ const initialCommodities = [
     stock: 1500,
     origin: "Mexico",
     certifications: ["USDA Organic", "Fair Trade"],
-    image: "/images/komoditi/Hass Avocado.png",
+    image: "/images/Hass Avocado.png",
     imageHint: "avocado fruit",
     status: "active"
   },
@@ -63,7 +63,7 @@ const initialCommodities = [
     stock: 800,
     origin: "Colombia",
     certifications: ["Rainforest Alliance"],
-    image: "/images/komoditi/Arabica Coffee.png",
+    image: "/images/Arabica Coffee.png",
     imageHint: "coffee beans",
     status: "active"
   },
@@ -74,7 +74,7 @@ const initialCommodities = [
     stock: 2200,
     origin: "Peru",
     certifications: ["Non-GMO Project"],
-    image: "/images/komoditi/Royal Quinoa.png",
+    image: "/images/Royal Quinoa.png",
     imageHint: "quinoa seeds",
     status: "archived"
   },
@@ -85,7 +85,7 @@ const initialCommodities = [
     stock: 650,
     origin: "Italy",
     certifications: [],
-    image: "/images/komoditi/Sun-dried Tomatoes.png",
+    image: "/images/Sun-dried Tomatoes.png",
     imageHint: "dried tomatoes",
     status: "active"
   },

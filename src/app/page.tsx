@@ -153,10 +153,10 @@ const translations = {
 }
 
 const featuredCommodities = [
-  { id: 'avocado', nameKey: 'avocado', originKey: 'avocadoOrigin', image: '/images/komoditi/Hass Avocado.png', imageHint: 'avocado fruit' },
-  { id: 'coffee', nameKey: 'coffee', originKey: 'coffeeOrigin', image: '/images/komoditi/Arabica Coffee.png', imageHint: 'coffee beans' },
-  { id: 'quinoa', nameKey: 'quinoa', originKey: 'quinoaOrigin', image: '/images/komoditi/Royal Quinoa.png', imageHint: 'quinoa seeds' },
-  { id: 'tomatoes', nameKey: 'tomatoes', originKey: 'tomatoesOrigin', image: '/images/komoditi/Sun-dried Tomatoes.png', imageHint: 'dried tomatoes' },
+  { id: 'avocado', nameKey: 'avocado', originKey: 'avocadoOrigin', image: '/images/Hass Avocado.png', imageHint: 'avocado fruit' },
+  { id: 'coffee', nameKey: 'coffee', originKey: 'coffeeOrigin', image: '/images/Arabica Coffee.png', imageHint: 'coffee beans' },
+  { id: 'quinoa', nameKey: 'quinoa', originKey: 'quinoaOrigin', image: '/images/Royal Quinoa.png', imageHint: 'quinoa seeds' },
+  { id: 'tomatoes', nameKey: 'tomatoes', originKey: 'tomatoesOrigin', image: '/images/Sun-dried Tomatoes.png', imageHint: 'dried tomatoes' },
 ];
 
 const howItWorksSteps = [
@@ -166,9 +166,9 @@ const howItWorksSteps = [
 ]
 
 const bannerImages = [
-  { src: '/images/pangan/banner-1.png', alt: 'Fresh agricultural produce being harvested', hint: 'agriculture harvest field' },
-  { src: '/images/pangan/banner-2.png', alt: 'Global trade and logistics with shipping containers', hint: 'shipping containers port' },
-  { src: '/images/pangan/banner-3.png', alt: 'Farmer smiling in a field of crops', hint: 'farmer smiling field' }
+  { src: '/images/banner-1.png', alt: 'Fresh agricultural produce being harvested', hint: 'agriculture harvest field' },
+  { src: '/images/banner-2.png', alt: 'Global trade and logistics with shipping containers', hint: 'shipping containers port' },
+  { src: '/images/banner-3.png', alt: 'Farmer smiling in a field of crops', hint: 'farmer smiling field' }
 ]
 
 export default function LandingPage() {
