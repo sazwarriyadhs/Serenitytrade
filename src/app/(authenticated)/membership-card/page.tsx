@@ -115,7 +115,9 @@ export default function MembershipCardPage() {
         <Card className="max-w-lg mx-auto">
           <CardHeader>
             <div className="flex justify-between items-start gap-4">
-              <Logo className="h-8" />
+              <div className="w-[150px] shrink-0">
+                <Image src="/images/logo.png" alt="Serenity AgriExport Hub Logo" width={442} height={192} />
+              </div>
               <div className="text-right">
                 <Badge variant="default" className="bg-green-600/20 text-green-700 border-green-600/20 hover:bg-green-600/30">Verified Member</Badge>
               </div>
@@ -139,7 +141,7 @@ export default function MembershipCardPage() {
                 <p className="text-sm font-medium">{new Date(new Date().setFullYear(new Date().getFullYear() - 1)).toLocaleDateString()}</p>
               </div>
               <div className="text-center">
-                <Image src="https://placehold.co/80x80.png" alt="QR Code" width={80} height={80} data-ai-hint="qr code" />
+                <QrCode className="h-20 w-20" />
               </div>
             </div>
           </CardContent>
@@ -323,7 +325,9 @@ export default function MembershipCardPage() {
             <Card className="sticky top-20">
               <CardHeader>
                 <div className="flex justify-between items-start gap-4">
-                  <Logo className="h-8" />
+                   <div className="w-[150px] shrink-0">
+                        <Image src="/images/logo.png" alt="Serenity AgriExport Hub Logo" width={442} height={192} />
+                    </div>
                   <div className="text-right">
                     <Badge variant="outline">Preview</Badge>
                     <p className="text-xs text-muted-foreground mt-2">
@@ -367,7 +371,7 @@ export default function MembershipCardPage() {
                         <p className="text-sm font-medium">{new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toLocaleDateString()}</p>
                     </div>
                     <div className="text-center">
-                        <Image src="https://placehold.co/80x80.png" alt="QR Code" width={80} height={80} data-ai-hint="qr code" />
+                        <QrCode className="h-20 w-20" />
                     </div>
                 </div>
               </CardContent>
