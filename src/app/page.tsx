@@ -260,8 +260,19 @@ export default function LandingPage() {
 
     if (showSplash) {
         return (
-            <div className="fixed inset-0 z-[999] flex items-center justify-center bg-background">
-                <div className="animate-pulse">
+            <div className="fixed inset-0 z-[999] flex items-center justify-center overflow-hidden">
+                <video 
+                    autoPlay 
+                    muted 
+                    loop 
+                    playsInline
+                    className="absolute top-1/2 left-1/2 w-full h-full min-w-full min-h-full object-cover -translate-x-1/2 -translate-y-1/2 -z-10"
+                >
+                    <source src="/images/splashscreen.mp4" type="video/mp4" />
+                    Your browser does not support the video tag.
+                </video>
+                <div className="absolute inset-0 bg-black/30"></div>
+                <div className="animate-pulse z-10">
                     <Logo size="large" />
                 </div>
             </div>
@@ -468,5 +479,3 @@ export default function LandingPage() {
         </div>
     )
 }
-
-    
