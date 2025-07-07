@@ -271,9 +271,9 @@ export default function LandingPage() {
                           loop: true,
                         }}
                     >
-                        <CarouselContent>
+                        <CarouselContent className="ml-0">
                             {bannerImages.map((img, index) => (
-                                <CarouselItem key={index}>
+                                <CarouselItem key={index} className="pl-0">
                                     <div className="relative w-full h-full">
                                         <Image
                                             src={img.src}
