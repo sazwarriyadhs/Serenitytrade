@@ -13,7 +13,8 @@ import { Label } from "@/components/ui/label"
 import { Slider } from "@/components/ui/slider"
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from 'recharts'
 import { Badge } from '@/components/ui/badge'
-import { DollarSign, ArrowDown, Tractor, Landmark } from 'lucide-react'
+import { DollarSign, ArrowDown, Globe, MapPin } from 'lucide-react'
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 
 const feeAllocationConfig = [
   { name: "Infrastructure & Hosting", percentage: 25, color: "hsl(var(--chart-1))" },
@@ -25,7 +26,8 @@ const feeAllocationConfig = [
 
 export default function FeeCalculatorPage() {
   const [transactionValue, setTransactionValue] = useState(8000)
-  const [adminFee, setAdminFee] = useState([12.5])
+  const [internationalFee, setInternationalFee] = useState([12.5])
+  const [transactionType, setTransactionType] = useState<'international' | 'local'>('international')
 
   const handleTransactionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value === '' ? 0 : parseFloat(e.target.value)
@@ -33,11 +35,11 @@ export default function FeeCalculatorPage() {
   }
 
   const handleFeeChange = (value: number[]) => {
-    setAdminFee(value)
+    setInternationalFee(value)
   }
 
-  const { adminFeeAmount, exporterPayout, feeAllocationData } = useMemo(() => {
-    const feePercentage = adminFee[0]
+  const { adminFeePercentage, adminFeeAmount, exporterPayout, feeAllocationData } = useMemo(() => {
+    const feePercentage = transactionType === 'international' ? internationalFee[0] : 5
     const adminFeeAmount = transactionValue * (feePercentage / 100)
     const exporterPayout = transactionValue - adminFeeAmount
     
@@ -48,8 +50,8 @@ export default function FeeCalculatorPage() {
       color: item.color,
     }))
 
-    return { adminFeeAmount, exporterPayout, feeAllocationData }
-  }, [transactionValue, adminFee])
+    return { adminFeePercentage: feePercentage, adminFeeAmount, exporterPayout, feeAllocationData }
+  }, [transactionValue, internationalFee, transactionType])
   
   const formatCurrency = (value: number) => {
     return new Intl.NumberFormat('en-US', {
@@ -64,7 +66,7 @@ export default function FeeCalculatorPage() {
       <div>
         <h1 className="text-3xl font-bold font-headline">Fee & Payout Calculator</h1>
         <p className="text-muted-foreground">
-          Simulate transaction fees and understand your payout structure.
+          Simulate transaction fees and understand your payout structure for different transaction types.
         </p>
       </div>
 
@@ -72,10 +74,30 @@ export default function FeeCalculatorPage() {
         <div className="lg:col-span-2 space-y-8">
           <Card>
             <CardHeader>
-              <CardTitle>Exporter Payout Calculator</CardTitle>
-              <CardDescription>Simulate fees for transactions between exporters and international buyers.</CardDescription>
+              <CardTitle>Payout Calculator</CardTitle>
+              <CardDescription>Simulate fees for both international and local transactions.</CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
+              <div className="grid gap-2">
+                 <Label>Transaction Type</Label>
+                 <RadioGroup value={transactionType} onValueChange={(value) => setTransactionType(value as 'international' | 'local')} className="grid grid-cols-2 gap-4">
+                    <div>
+                        <RadioGroupItem value="international" id="international" className="peer sr-only" />
+                        <Label htmlFor="international" className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary">
+                            <Globe className="mb-3 h-6 w-6" />
+                            International
+                        </Label>
+                    </div>
+                     <div>
+                        <RadioGroupItem value="local" id="local" className="peer sr-only" />
+                        <Label htmlFor="local" className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary">
+                           <MapPin className="mb-3 h-6 w-6" />
+                            Local (Indonesia)
+                        </Label>
+                    </div>
+                </RadioGroup>
+              </div>
+
               <div className="grid gap-2">
                 <Label htmlFor="transaction-value" className="flex items-center">
                   <DollarSign className="h-4 w-4 mr-2" />
@@ -89,28 +111,34 @@ export default function FeeCalculatorPage() {
                   onChange={handleTransactionChange}
                 />
               </div>
+
               <div className="grid gap-2">
                 <div className="flex justify-between items-center">
                    <Label htmlFor="admin-fee">Marketplace Fee (%)</Label>
-                   <Badge variant="secondary" className="text-base">{adminFee[0]}%</Badge>
+                   <Badge variant="secondary" className="text-base">{adminFeePercentage}%</Badge>
                 </div>
                 <Slider
                   id="admin-fee"
                   min={10}
                   max={15}
                   step={0.5}
-                  value={adminFee}
+                  value={internationalFee}
                   onValueChange={handleFeeChange}
+                  disabled={transactionType === 'local'}
                 />
-                 <p className="text-xs text-muted-foreground">Standard fee range is 10% - 15% for international trade transactions.</p>
+                 <p className="text-xs text-muted-foreground">
+                    {transactionType === 'international' 
+                        ? "International trade fee is 10-15%. Adjust slider to simulate." 
+                        : "Local transaction fee is fixed at 5%."}
+                 </p>
               </div>
             </CardContent>
           </Card>
           
           <Card>
             <CardHeader>
-              <CardTitle>Transaction Flow & Fee Breakdown</CardTitle>
-              <CardDescription>Visualize the flow of funds from the buyer to the exporter.</CardDescription>
+              <CardTitle>Transaction Flow Breakdown</CardTitle>
+              <CardDescription>Visualize the flow of funds from the buyer to the seller.</CardDescription>
             </CardHeader>
             <CardContent className="space-y-2 text-sm">
               <div className="p-3 border rounded-md">
@@ -129,11 +157,11 @@ export default function FeeCalculatorPage() {
 
               <div className="p-3 border rounded-md bg-secondary/30">
                 <div className="flex justify-between items-center font-semibold">
-                  <span>Marketplace Fee ({adminFee[0]}%)</span>
+                  <span>Marketplace Fee ({adminFeePercentage}%)</span>
                   <span className="text-destructive font-bold">-{formatCurrency(adminFeeAmount)}</span>
                 </div>
                 <p className="text-xs text-muted-foreground mt-1">
-                  A 10-15% fee is deducted from the total transaction value for international trade services.
+                  Fee is deducted for platform services and facilitation.
                 </p>
               </div>
 
@@ -143,25 +171,12 @@ export default function FeeCalculatorPage() {
 
               <div className="p-3 border rounded-md">
                 <div className="flex justify-between items-center font-bold text-lg text-primary">
-                  <span>Exporter Receives</span>
+                  <span>Seller Receives</span>
                   <span>{formatCurrency(exporterPayout)}</span>
                 </div>
                 <p className="text-xs text-muted-foreground mt-1">
                   Net funds received after marketplace fees.
                 </p>
-              </div>
-              
-              <div className="text-center pt-4 text-sm text-muted-foreground">
-                <div className="p-3 rounded-md border bg-background flex items-start gap-3">
-                  <Tractor className="h-5 w-5 mt-0.5 text-primary shrink-0" />
-                  <p className="text-left"><span className="font-semibold text-foreground">Note for Farmers:</span> Direct transactions between local farmers and exporters are exempt from marketplace fees (0% fee).</p>
-                </div>
-              </div>
-              <div className="text-center pt-2 text-sm text-muted-foreground">
-                <div className="p-3 rounded-md border bg-background flex items-start gap-3">
-                  <Landmark className="h-5 w-5 mt-0.5 text-green-600 shrink-0" />
-                  <p className="text-left"><span className="font-semibold text-foreground">Local Buyers (Indonesia):</span> Transactions with domestic Indonesian buyers are exempt from marketplace fees (0% fee).</p>
-                </div>
               </div>
             </CardContent>
           </Card>
