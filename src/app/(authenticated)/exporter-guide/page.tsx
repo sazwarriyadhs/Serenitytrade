@@ -18,21 +18,30 @@ import {
 import { Button } from "@/components/ui/button"
 
 const commodityExamples = [
-  { no: 1, commodity: "Beras organik", category: "Pangan pokok", exportForm: "Beras kemasan", destination: "Singapura, Uni Emirat Arab, Jepang" },
-  { no: 2, commodity: "Jagung", category: "Pangan pokok", exportForm: "Jagung pipil kering", destination: "Malaysia, Filipina, Korea Selatan" },
-  { no: 3, commodity: "Kacang mete", category: "Kacang-kacangan", exportForm: "Kernel kacang mete", destination: "India, Vietnam, Belanda" },
-  { no: 4, commodity: "Kedelai", category: "Kacang-kacangan", exportForm: "Kedelai organik, non-GMO", destination: "Jepang, Taiwan, Jerman" },
-  { no: 5, commodity: "Bawang merah", category: "Sayuran", exportForm: "Bawang merah segar/olahan", destination: "Thailand, Malaysia, Vietnam" },
-  { no: 6, commodity: "Cabai", category: "Sayuran", exportForm: "Cabai segar/kering/olah", destination: "Korea Selatan, Jepang, Hongkong" },
-  { no: 7, commodity: "Nanas", category: "Buah-buahan", exportForm: "Nanas segar, kalengan, jus", destination: "Tiongkok, Uni Emirat Arab, Rusia" },
-  { no: 8, commodity: "Mangga", category: "Buah-buahan", exportForm: "Mangga segar, puree", destination: "Tiongkok, Timur Tengah, Eropa" },
-  { no: 9, commodity: "Salak", category: "Buah-buahan", exportForm: "Salak segar, manisan, keripik", destination: "Belanda, Singapura, Malaysia" },
-  { no: 10, commodity: "Kopi", category: "Perkebunan pangan", exportForm: "Biji kopi sangrai, bubuk kopi", destination: "AS, Italia, Jepang, Inggris" },
-  { no: 11, commodity: "Kakao", category: "Perkebunan pangan", exportForm: "Biji kakao, bubuk, pasta", destination: "Jerman, AS, Belgia, Belanda" },
-  { no: 12, commodity: "Jahe", category: "Rempah-rempah", exportForm: "Jahe segar, kering, bubuk", destination: "India, Bangladesh, Timur Tengah" },
-  { no: 13, commodity: "Lada hitam/putih", category: "Rempah-rempah", exportForm: "Lada kering, bubuk", destination: "Vietnam, AS, Tiongkok" },
-  { no: 14, commodity: "Ikan beku (tuna)", category: "Produk hewani", exportForm: "Fillet beku, utuh, kalengan", destination: "Jepang, AS, Thailand" },
-  { no: 15, commodity: "Udang", category: "Produk hewani", exportForm: "Udang beku, kupas, olahan", destination: "AS, Jepang, Uni Eropa" },
+  // Pertanian
+  { no: 1, commodity: "Beras organik", category: "Pertanian (Pangan)", exportForm: "Beras kemasan", destination: "Singapura, Uni Emirat Arab, Jepang" },
+  { no: 2, commodity: "Jagung", category: "Pertanian (Pangan)", exportForm: "Jagung pipil kering", destination: "Malaysia, Filipina, Korea Selatan" },
+  { no: 3, commodity: "Ubi Jalar", category: "Pertanian (Hortikultura)", exportForm: "Ubi segar, tepung", destination: "Jepang, Korea Selatan" },
+  { no: 4, commodity: "Nanas", category: "Pertanian (Buah)", exportForm: "Nanas segar, kalengan, jus", destination: "Tiongkok, Uni Emirat Arab, Rusia" },
+  { no: 5, commodity: "Mangga", category: "Pertanian (Buah)", exportForm: "Mangga segar, puree", destination: "Tiongkok, Timur Tengah, Eropa" },
+  // Perkebunan
+  { no: 6, commodity: "Kopi Arabika", category: "Perkebunan", exportForm: "Biji kopi sangrai, bubuk", destination: "AS, Italia, Jepang, Inggris" },
+  { no: 7, commodity: "Kakao", category: "Perkebunan", exportForm: "Biji kakao, bubuk, pasta", destination: "Jerman, AS, Belgia, Belanda" },
+  { no: 8, commodity: "Kelapa Sawit (CPO)", category: "Perkebunan", exportForm: "Minyak sawit mentah", destination: "India, Tiongkok, Uni Eropa" },
+  { no: 9, commodity: "Karet", category: "Perkebunan", exportForm: "Karet lempengan (sheet)", destination: "AS, Tiongkok, Jepang" },
+  // Perikanan
+  { no: 10, commodity: "Ikan Tuna Beku", category: "Perikanan", exportForm: "Fillet beku, utuh, kalengan", destination: "Jepang, AS, Thailand" },
+  { no: 11, commodity: "Udang Beku", category: "Perikanan", exportForm: "Udang beku, kupas, olahan", destination: "AS, Jepang, Uni Eropa" },
+  { no: 12, commodity: "Rumput Laut", category: "Perikanan", exportForm: "Rumput laut kering", destination: "Tiongkok, Korea Selatan, Filipina" },
+  // Peternakan
+  { no: 13, commodity: "Sarang Burung Walet", category: "Peternakan", exportForm: "Sarang bersih siap masak", destination: "Tiongkok, Hongkong, Singapura" },
+  { no: 14, commodity: "Daging Sapi Beku", category: "Peternakan", exportForm: "Potongan daging beku", destination: "Malaysia, Vietnam, Timur Tengah" },
+  // Kehutanan
+  { no: 15, commodity: "Furnitur Rotan", category: "Kehutanan (Non-Kayu)", exportForm: "Mebel jadi", destination: "Eropa, AS, Australia" },
+  { no: 16, commodity: "Damar", category: "Kehutanan (Non-Kayu)", exportForm: "Getah resin kering", destination: "India, Tiongkok" },
+  // Rempah
+  { no: 17, commodity: "Lada Putih", category: "Rempah-rempah", exportForm: "Lada kering, bubuk", destination: "Vietnam, AS, Tiongkok" },
+  { no: 18, commodity: "Cengkeh", category: "Rempah-rempah", exportForm: "Bunga kering", destination: "India, Singapura, Belanda" },
 ];
 
 const productCatalog = [
@@ -295,14 +304,14 @@ export default function ExporterGuidePage() {
             
             <AccordionItem value="item-7">
               <AccordionTrigger className="text-base font-semibold">
-                7. Contoh Komoditas Pangan Ekspor Unggulan Indonesia
+                7. Contoh Komoditas Ekspor Unggulan Indonesia
               </AccordionTrigger>
               <AccordionContent>
                 <Table>
                   <TableHeader>
                     <TableRow>
                       <TableHead className="w-[50px]">No</TableHead>
-                      <TableHead>Komoditi Pangan</TableHead>
+                      <TableHead>Komoditas</TableHead>
                       <TableHead>Kategori</TableHead>
                       <TableHead>Bentuk Produk Ekspor</TableHead>
                       <TableHead>Negara Tujuan Utama</TableHead>
