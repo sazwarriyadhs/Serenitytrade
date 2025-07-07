@@ -168,7 +168,8 @@ const howItWorksSteps = [
 const bannerImages = [
   { src: '/images/pangan/banner-1.png', alt: 'Fresh agricultural produce being harvested', hint: 'agriculture harvest field' },
   { src: '/images/pangan/banner-2.png', alt: 'Global trade and logistics with shipping containers', hint: 'shipping containers port' },
-  { src: '/images/pangan/banner-3.png', alt: 'Farmer smiling in a field of crops', hint: 'farmer smiling field' }
+  { src: '/images/pangan/banner-3.png', alt: 'Farmer smiling in a field of crops', hint: 'farmer smiling field' },
+  { src: '/images/pangan/banner-4.png', alt: 'Crates of fresh vegetables', hint: 'vegetables crate' },
 ]
 
 export default function LandingPage() {
@@ -316,3 +317,4 @@ export default function LandingPage() {
         </div>
     )
 }
+
