@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/sidebar"
 import { Logo } from "@/components/logo"
 import { UserNav } from "@/components/user-nav"
-import { LayoutDashboard, Leaf, ArrowRightLeft, Bell, Spline, TrendingUp, BookUser, Tractor, Briefcase, Calculator, Truck, Landmark, Compass, BookCheck, Wallet, BookMarked, Shield, Box } from "lucide-react"
+import { LayoutDashboard, Leaf, ArrowRightLeft, Bell, Spline, TrendingUp, BookUser, Tractor, Briefcase, Calculator, Truck, Landmark, Compass, BookCheck, Wallet, BookMarked, Shield, Box, Ship } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 
@@ -30,6 +30,7 @@ const allNavItems = [
   { href: "/commodities", icon: Leaf, label: "Commodities", roles: ['exporter', 'buyer', 'farmer', 'admin'] },
   { href: "/offers", icon: ArrowRightLeft, label: "Offers & Requests", roles: ['exporter', 'buyer', 'admin'] },
   { href: "/tracking", icon: Truck, label: "Shipment Tracking", roles: ['exporter', 'buyer', 'farmer', 'admin'] },
+  { href: "/shipping-partners", icon: Ship, label: "Shipping Partners", roles: ['exporter', 'admin'] },
   { href: "/payment-tracking", icon: Landmark, label: "Payment Tracking", roles: ['exporter', 'buyer', 'farmer', 'admin'] },
   { href: "/prediction", icon: TrendingUp, label: "Demand Prediction", roles: ['exporter', 'admin'] },
   { href: "/value-chain", icon: Spline, label: "Value Chain", roles: ['exporter', 'buyer', 'farmer', 'admin'] },
