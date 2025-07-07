@@ -6,7 +6,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion"
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card"
-import { CheckCircle2 } from "lucide-react"
+import { CheckCircle2, FileWarning, Ban } from "lucide-react"
 
 export default function ExporterGuidePage() {
   return (
@@ -70,10 +70,45 @@ export default function ExporterGuidePage() {
                 </ul>
               </AccordionContent>
             </AccordionItem>
-            
+
             <AccordionItem value="item-2">
+                <AccordionTrigger className="text-base font-semibold">
+                    2. Klasifikasi Komoditas Ekspor
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground">
+                    <p className="mb-4">Penting untuk mengetahui bahwa tidak semua komoditas bisa diekspor dengan bebas. Pemerintah mengklasifikasikan komoditas ekspor menjadi tiga kategori:</p>
+                    <ul className="space-y-4">
+                        <li className="flex items-start gap-3">
+                            <CheckCircle2 className="h-5 w-5 text-green-600 mt-1 shrink-0" />
+                            <div>
+                                <h4 className="font-medium text-foreground">Ekspor Bebas</h4>
+                                <p>Komoditas yang dapat diekspor tanpa memerlukan izin khusus, namun tetap harus memenuhi dokumen ekspor umum.</p>
+                            </div>
+                        </li>
+                        <li className="flex items-start gap-3">
+                            <FileWarning className="h-5 w-5 text-yellow-600 mt-1 shrink-0" />
+                            <div>
+                                <h4 className="font-medium text-foreground">Ekspor Dibatasi</h4>
+                                <p>Komoditas yang ekspornya diatur dan dibatasi oleh kuota atau memerlukan izin khusus untuk menjaga pasokan domestik.</p>
+                                <p className="mt-2 text-xs font-semibold">Contoh: Kopi, produk hasil hutan, beras, dan inti minyak sawit.</p>
+                            </div>
+                        </li>
+                        <li className="flex items-start gap-3">
+                            <Ban className="h-5 w-5 text-destructive mt-1 shrink-0" />
+                            <div>
+                                <h4 className="font-medium text-foreground">Ekspor Dilarang</h4>
+                                <p>Komoditas yang dilarang ekspor untuk melindungi sumber daya alam atau industri dalam negeri.</p>
+                                <p className="mt-2 text-xs font-semibold">Contoh: Rotan mentah dan karet bongkah (rubber lumps).</p>
+                            </div>
+                        </li>
+                    </ul>
+                    <p className="mt-4 text-sm font-medium">Selalu periksa peraturan terbaru dari Kementerian Perdagangan sebelum melakukan ekspor.</p>
+                </AccordionContent>
+            </AccordionItem>
+            
+            <AccordionItem value="item-3">
               <AccordionTrigger className="text-base font-semibold">
-                2. Cara dan Alur Proses Ekspor
+                3. Cara dan Alur Proses Ekspor
               </AccordionTrigger>
               <AccordionContent className="text-muted-foreground">
                 <ol className="list-decimal pl-5 space-y-4">
@@ -99,9 +134,9 @@ export default function ExporterGuidePage() {
               </AccordionContent>
             </AccordionItem>
             
-            <AccordionItem value="item-3">
+            <AccordionItem value="item-4">
               <AccordionTrigger className="text-base font-semibold">
-                3. Tips Penjualan dan Pemasaran Efektif
+                4. Tips Penjualan dan Pemasaran Efektif
               </AccordionTrigger>
               <AccordionContent className="text-muted-foreground">
                  <ul className="list-disc pl-5 space-y-3">
