@@ -10,9 +10,9 @@ export function Logo({ size = 'default', className }: { size?: 'default' | 'larg
       className: "h-10"
     },
     large: {
-      width: 442,
-      height: 192,
-      className: "h-48"
+      width: 240,
+      height: 120,
+      className: "h-[120px]"
     }
   };
   const config = sizes[size];
