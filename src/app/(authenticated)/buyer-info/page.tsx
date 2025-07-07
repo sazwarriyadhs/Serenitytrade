@@ -52,7 +52,7 @@ export default function BuyerInfoPage() {
                   </li>
                   <li>
                     <h4 className="font-medium text-foreground">✅ Certificate of Origin (COO)</h4>
-                    <p className="pl-6">Dikeluarkan oleh KADIN/Disperindag untuk menunjukkan asal barang (penting untuk FTA).</p>
+                    <p className="pl-6">Diterbitkan oleh KADIN/Disperindag dan diajukan melalui portal e-SKA untuk membuktikan negara asal barang. Penting untuk mendapatkan fasilitas bea masuk di negara tujuan (FTA).</p>
                     <div className="pl-6">
                         <Button variant="link" size="sm" className="h-auto p-0 mt-2 text-xs" asChild>
                             <a href="https://e-ska.kemendag.go.id" target="_blank" rel="noopener noreferrer">
