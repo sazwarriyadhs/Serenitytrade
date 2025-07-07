@@ -1,3 +1,4 @@
+
 'use client'
 
 import Link from "next/link"
@@ -74,7 +75,11 @@ export default function RegisterPage() {
                     <SelectValue placeholder="Select your role" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="farmer">Farmer</SelectItem>
+                    <SelectItem value="farmer">Farmer (Petani)</SelectItem>
+                    <SelectItem value="peternak">Livestock Farmer (Peternak)</SelectItem>
+                    <SelectItem value="nelayan">Fisherman (Nelayan)</SelectItem>
+                    <SelectItem value="pengelola_hasil_hutan">Forest Manager (Pengelola Hutan)</SelectItem>
+                    <SelectItem value="pengelola_hasil_kebun">Plantation Manager (Pengelola Kebun)</SelectItem>
                     <SelectItem value="exporter">Exporter</SelectItem>
                     <SelectItem value="buyer">Overseas Buyer</SelectItem>
                   </SelectContent>

@@ -33,6 +33,26 @@ const roleInfo = {
     description: "Login to log your harvests and manage partnerships.",
     email: "farmer@serenity.com"
   },
+  peternak: {
+    title: "Livestock Farmer",
+    description: "Login to manage your livestock products and partnerships.",
+    email: "peternak@serenity.com"
+  },
+  nelayan: {
+    title: "Fisherman",
+    description: "Login to manage your catch and partnerships.",
+    email: "nelayan@serenity.com"
+  },
+  pengelola_hasil_hutan: {
+    title: "Forest Manager",
+    description: "Login to manage your forest products and partnerships.",
+    email: "hutan@serenity.com"
+  },
+  pengelola_hasil_kebun: {
+    title: "Plantation Manager",
+    description: "Login to manage your plantation products and partnerships.",
+    email: "kebun@serenity.com"
+  },
   admin: {
     title: "Admin",
     description: "Login to access all dashboards and system settings.",
@@ -48,9 +68,11 @@ export default function LoginPage() {
     // Store role in localStorage to be used by the layout
     localStorage.setItem("userRole", role)
 
+    const producerRoles = ['farmer', 'peternak', 'nelayan', 'pengelola_hasil_hutan', 'pengelola_hasil_kebun'];
+
     if (role === "admin") {
       router.push("/admin-dashboard")
-    } else if (role === "farmer") {
+    } else if (producerRoles.includes(role)) {
       router.push("/farmer-dashboard")
     } else if (role === "buyer") {
       router.push("/buyer-dashboard")
@@ -110,7 +132,11 @@ export default function LoginPage() {
                     <SelectValue placeholder="Select your role" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="farmer">Farmer</SelectItem>
+                    <SelectItem value="farmer">Farmer (Petani)</SelectItem>
+                    <SelectItem value="peternak">Livestock Farmer (Peternak)</SelectItem>
+                    <SelectItem value="nelayan">Fisherman (Nelayan)</SelectItem>
+                    <SelectItem value="pengelola_hasil_hutan">Forest Manager (Pengelola Hutan)</SelectItem>
+                    <SelectItem value="pengelola_hasil_kebun">Plantation Manager (Pengelola Kebun)</SelectItem>
                     <SelectItem value="exporter">Exporter</SelectItem>
                     <SelectItem value="buyer">Overseas Buyer</SelectItem>
                     <SelectItem value="admin">Admin</SelectItem>

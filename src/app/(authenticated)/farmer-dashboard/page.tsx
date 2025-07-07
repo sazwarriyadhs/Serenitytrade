@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form"
 import * as z from "zod"
 import { CalendarIcon, PlusCircle, Upload, FileText, CheckCircle2, Wallet, Handshake, Landmark } from "lucide-react"
 import { format } from "date-fns"
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { useToast } from "@/hooks/use-toast"
 
 import { cn } from "@/lib/utils"
@@ -103,10 +103,24 @@ const localCommunityPrices = [
   { name: "Gabah Kering Giling (GKG)", price: 6800, unit: "kg" },
 ];
 
+const roleTitles: { [key: string]: string } = {
+  farmer: "Farmer Dashboard",
+  peternak: "Livestock Farmer Dashboard",
+  nelayan: "Fisherman Dashboard",
+  pengelola_hasil_hutan: "Forest Product Dashboard",
+  pengelola_hasil_kebun: "Plantation Dashboard",
+};
+
 export default function FarmerDashboardPage() {
   const { toast } = useToast()
   const [recentHarvests, setRecentHarvests] = useState(initialHarvests)
   const [farmerProducts, setFarmerProducts] = useState(initialFarmerProducts)
+  const [userRole, setUserRole] = useState<string | null>(null);
+
+  useEffect(() => {
+    const role = localStorage.getItem("userRole");
+    setUserRole(role);
+  }, []);
 
   const harvestForm = useForm<HarvestFormValues>({
     resolver: zodResolver(harvestFormSchema),
@@ -159,12 +173,13 @@ export default function FarmerDashboardPage() {
         minimumFractionDigits: 0,
     }).format(value);
   }
-
+  
+  const dashboardTitle = userRole ? (roleTitles[userRole] || "Producer Dashboard") : "Farmer Dashboard";
 
   return (
     <div className="flex flex-col gap-8">
        <div>
-        <h1 className="text-3xl font-bold font-headline">Farmer Dashboard</h1>
+        <h1 className="text-3xl font-bold font-headline">{dashboardTitle}</h1>
         <p className="text-muted-foreground">Manage your harvests, products, and partnerships.</p>
       </div>
 

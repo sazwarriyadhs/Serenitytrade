@@ -1,145 +1,122 @@
--- Dummy Data for Serenity AgriExport Hub
+-- Clear existing data
+TRUNCATE TABLE "notifications", "value_chain_logs", "payments", "shipments", "offers", "partnerships", "certifications", "commodities", "users" RESTART IDENTITY CASCADE;
 
--- Reset sequences for consistent IDs on re-runs
-ALTER SEQUENCE users_user_id_seq RESTART WITH 1;
-ALTER SEQUENCE commodities_commodity_id_seq RESTART WITH 1;
-ALTER SEQUENCE certifications_certification_id_seq RESTART WITH 1;
-ALTER SEQUENCE partnerships_partnership_id_seq RESTART WITH 1;
-ALTER SEQUENCE offers_offer_id_seq RESTART WITH 1;
-ALTER SEQUENCE shipments_shipment_id_seq RESTART WITH 1;
-ALTER SEQUENCE transactions_transaction_id_seq RESTART WITH 1;
+-- Insert dummy data for users
+INSERT INTO "users" ("id", "name", "email", "password", "role", "address", "id_number", "tax_number", "photo_url", "created_at", "updated_at") VALUES
+-- Admins (2)
+(1, 'Admin User', 'admin@serenity.com', 'hashed_password', 'admin', '123 Admin St, Jakarta', 'ADM001', '01.111.111.1-111.000', 'https://placehold.co/100x100.png', NOW(), NOW()),
+(2, 'Super Admin', 'super.admin@serenity.com', 'hashed_password', 'admin', '456 Admin Ave, Jakarta', 'ADM002', '02.222.222.2-222.000', 'https://placehold.co/100x100.png', NOW(), NOW()),
 
+-- Exporters (10)
+(3, 'Green Valley Exports', 'exporter@serenity.com', 'hashed_password', 'exporter', 'Export Building, Surabaya', 'EXP001', '03.333.333.3-333.000', 'https://placehold.co/100x100.png', NOW(), NOW()),
+(4, 'Highland Coffee Co.', 'highland@serenity.com', 'hashed_password', 'exporter', 'Coffee District, Bandung', 'EXP002', '04.444.444.4-444.000', 'https://placehold.co/100x100.png', NOW(), NOW()),
+(5, 'Italian Pantry', 'italian.pantry@example.com', 'hashed_password', 'exporter', 'Gourmet Plaza, Medan', 'EXP003', '05.555.555.5-555.000', 'https://placehold.co/100x100.png', NOW(), NOW()),
+(6, 'Andean Grains', 'andean.grains@example.com', 'hashed_password', 'exporter', 'Grain Tower, Makassar', 'EXP004', '06.666.666.6-666.000', 'https://placehold.co/100x100.png', NOW(), NOW()),
+(7, 'Tropical Delights', 'tropical.delights@example.com', 'hashed_password', 'exporter', 'Fruit Center, Denpasar', 'EXP005', '07.777.777.7-777.000', 'https://placehold.co/100x100.png', NOW(), NOW()),
+(8, 'Berry Fields', 'berry.fields@example.com', 'hashed_password', 'exporter', 'Berry Lane, Lembang', 'EXP006', '08.888.888.8-888.000', 'https://placehold.co/100x100.png', NOW(), NOW()),
+(9, 'Java Spices', 'java.spices@example.com', 'hashed_password', 'exporter', 'Spice Market, Semarang', 'EXP007', '09.999.999.9-999.000', 'https://placehold.co/100x100.png', NOW(), NOW()),
+(10, 'Green Farms Ltd.', 'green.farms@example.com', 'hashed_password', 'exporter', 'Farming Hub, Bogor', 'EXP008', '10.101.010.1-010.000', 'https://placehold.co/100x100.png', NOW(), NOW()),
+(11, 'Tropical Fruits Co.', 'tropical.fruits@example.com', 'hashed_password', 'exporter', 'Exotic Fruits Center, Manado', 'EXP009', '11.111.111.1-111.000', 'https://placehold.co/100x100.png', NOW(), NOW()),
+(12, 'My Export Company', 'my.export@example.com', 'hashed_password', 'exporter', 'My Office, Jakarta', 'EXP010', '12.121.212.1-212.000', 'https://placehold.co/100x100.png', NOW(), NOW()),
 
--- 1. Users (20 users: 1 Admin, 5 Exporters, 8 Buyers, 6 Farmers)
-INSERT INTO users (role, name, email, password_hash, id_number, address, nib, tax_number, photo_url, is_verified) VALUES
-('admin', 'Admin Serenity', 'admin@serenity.com', 'hashed_password_placeholder', 'ADMIN-001', 'Jl. Jend. Sudirman Kav. 52-53, Jakarta', NULL, '01.111.222.3-444.000', 'https://placehold.co/100x100.png', true),
-('exporter', 'Green Valley Exports', 'exporter@serenity.com', 'hashed_password_placeholder', 'EXP-001', 'Jl. Raya Bogor Km. 28, Jakarta Timur', '9120301234567', '02.345.678.9-101.000', 'https://placehold.co/100x100.png', true),
-('exporter', 'Highland Coffee Co.', 'exporter2@serenity.com', 'hashed_password_placeholder', 'EXP-002', 'Jl. Asia Afrika No. 8, Bandung', '9120301234568', '02.345.678.9-102.000', 'https://placehold.co/100x100.png', true),
-('exporter', 'Tropical Delights', 'exporter3@serenity.com', 'hashed_password_placeholder', 'EXP-003', 'Jl. Bypass Ngurah Rai, Denpasar', '9120301234569', '02.345.678.9-103.000', 'https://placehold.co/100x100.png', true),
-('exporter', 'Andean Grains', 'exporter4@serenity.com', 'hashed_password_placeholder', 'EXP-004', 'Jl. Gatot Subroto, Medan', '9120301234570', '02.345.678.9-104.000', 'https://placehold.co/100x100.png', true),
-('exporter', 'Italian Pantry', 'exporter5@serenity.com', 'hashed_password_placeholder', 'EXP-005', 'Jl. HR Rasuna Said, Jakarta Selatan', '9120301234571', '02.345.678.9-105.000', 'https://placehold.co/100x100.png', false),
-('buyer', 'FreshMart EU', 'buyer@serenity.com', 'hashed_password_placeholder', 'BUY-001', '123 Market St, Rotterdam, Netherlands', NULL, 'NL123456789B01', 'https://placehold.co/100x100.png', true),
-('buyer', 'The Coffee House', 'buyer2@serenity.com', 'hashed_password_placeholder', 'BUY-002', '456 Bean Ave, Seattle, USA', NULL, 'US987654321', 'https://placehold.co/100x100.png', true),
-('buyer', 'Whole Foods', 'buyer3@serenity.com', 'hashed_password_placeholder', 'BUY-003', '789 Organic Blvd, Austin, USA', NULL, 'US192837465', 'https://placehold.co/100x100.png', true),
-('buyer', 'Juice World Inc.', 'buyer4@serenity.com', 'hashed_password_placeholder', 'BUY-004', '101 Fruit Rd, London, UK', NULL, 'GB123456789', 'https://placehold.co/100x100.png', true),
-('buyer', 'Super Fruct', 'buyer5@serenity.com', 'hashed_password_placeholder', 'BUY-005', '23 Orchard Ln, Paris, France', NULL, 'FR987654321', 'https://placehold.co/100x100.png', true),
-('buyer', 'Tokyo Grocers', 'buyer6@serenity.com', 'hashed_password_placeholder', 'BUY-006', '5-1-2 Ginza, Chuo-ku, Tokyo, Japan', NULL, 'JP123456789', 'https://placehold.co/100x100.png', true),
-('buyer', 'Dubai Imports', 'buyer7@serenity.com', 'hashed_password_placeholder', 'BUY-007', 'Sheikh Zayed Rd, Dubai, UAE', NULL, 'AE987654321', 'https://placehold.co/100x100.png', false),
-('buyer', 'Agro Imports Inc.', 'buyer8@serenity.com', 'hashed_password_placeholder', 'BUY-008', '42 Agri Way, Toronto, Canada', NULL, 'CA123456789', 'https://placehold.co/100x100.png', false),
-('farmer', 'Farm Fresh Organics', 'farmer@serenity.com', 'hashed_password_placeholder', 'FARM-001', 'Desa Subur, Kab. Makmur, Jawa Barat', NULL, '03.123.456.7-890.000', 'https://placehold.co/100x100.png', true),
-('farmer', 'Sunrise Farms', 'farmer2@serenity.com', 'hashed_password_placeholder', 'FARM-002', 'Desa Sejahtera, Kab. Subur, Jawa Tengah', NULL, '03.123.456.7-891.000', 'https://placehold.co/100x100.png', true),
-('farmer', 'Highland Coffee Farm', 'farmer3@serenity.com', 'hashed_password_placeholder', 'FARM-003', 'Pegunungan Gayo, Aceh', NULL, '03.123.456.7-892.000', 'https://placehold.co/100x100.png', true),
-('farmer', 'Berry Fields', 'farmer4@serenity.com', 'hashed_password_placeholder', 'FARM-004', 'Dataran Tinggi Dieng, Jawa Tengah', NULL, '03.123.456.7-893.000', 'https://placehold.co/100x100.png', true),
-('farmer', 'Java Spices', 'farmer5@serenity.com', 'hashed_password_placeholder', 'FARM-005', 'Lereng Gunung Bromo, Jawa Timur', NULL, '03.123.456.7-894.000', 'https://placehold.co/100x100.png', true),
-('farmer', 'Sawah Hijau', 'farmer6@serenity.com', 'hashed_password_placeholder', 'FARM-006', 'Karawang, Jawa Barat', NULL, '03.123.456.7-895.000', 'https://placehold.co/100x100.png', false);
+-- Buyers (10)
+(13, 'FreshMart EU', 'buyer@serenity.com', 'hashed_password', 'buyer', '10 Market St, Rotterdam', 'BUY001', 'EU123456789', 'https://placehold.co/100x100.png', NOW(), NOW()),
+(14, 'The Coffee House', 'coffee.house@example.com', 'hashed_password', 'buyer', '25 Pike Pl, Seattle', 'BUY002', 'US987654321', 'https://placehold.co/100x100.png', NOW(), NOW()),
+(15, 'Whole Foods', 'whole.foods@example.com', 'hashed_password', 'buyer', '550 Bowie St, Austin', 'BUY003', 'US192837465', 'https://placehold.co/100x100.png', NOW(), NOW()),
+(16, 'Juice World Inc.', 'juice.world@example.com', 'hashed_password', 'buyer', '1 Juice Ave, Los Angeles', 'BUY004', 'US574839201', 'https://placehold.co/100x100.png', NOW(), NOW()),
+(17, 'Super Fruct', 'super.fruct@example.com', 'hashed_password', 'buyer', 'Fruct Aleja 1, Warsaw', 'BUY005', 'PL564738291', 'https://placehold.co/100x100.png', NOW(), NOW()),
+(18, 'Agro Imports Inc.', 'agro.imports@example.com', 'hashed_password', 'buyer', 'Import Dock 5, Hamburg', 'BUY006', 'DE812345678', 'https://placehold.co/100x100.png', NOW(), NOW()),
+(19, 'Tokyo Fresh Market', 'tokyo.fresh@example.com', 'hashed_password', 'buyer', '1-1 Toyosu, Koto City, Tokyo', 'BUY007', 'JP123456789012', 'https://placehold.co/100x100.png', NOW(), NOW()),
+(20, 'Dubai Dates & Co.', 'dubai.dates@example.com', 'hashed_password', 'buyer', 'Sheikh Zayed Rd, Dubai', 'BUY008', 'AE1002003004005', 'https://placehold.co/100x100.png', NOW(), NOW()),
+(21, 'Seoul Kimchi House', 'seoul.kimchi@example.com', 'hashed_password', 'buyer', '123 Kimchi-ro, Seoul', 'BUY009', 'KR123-45-67890', 'https://placehold.co/100x100.png', NOW(), NOW()),
+(22, 'Singapore Spices', 'sg.spices@example.com', 'hashed_password', 'buyer', '21 Spice Lane, Singapore', 'BUY010', 'SG202312345A', 'https://placehold.co/100x100.png', NOW(), NOW()),
 
-
--- 2. Certifications (5 certifications)
-INSERT INTO certifications (certification_name, issuing_body) VALUES
-('USDA Organic', 'United States Department of Agriculture'),
-('Fair Trade Certified', 'Fair Trade USA'),
-('Rainforest Alliance', 'Rainforest Alliance'),
-('Organik Indonesia', 'Lembaga Sertifikasi Organik Indonesia'),
-('HACCP', 'Hazard Analysis and Critical Control Points');
-
-
--- 3. Commodities (15 commodities)
-INSERT INTO commodities (exporter_id, name, description, price_per_kg, stock_kg, origin, image_url, image_hint, status) VALUES
-(2, 'Organic Hass Avocado', 'Creamy, nutrient-rich avocados from certified organic farms.', 2.50, 1500, 'Mexico', '/images/Hass Avocado.png', 'avocado fruit', 'active'),
-(3, 'Arabica Coffee Beans', 'High-altitude grown, medium roast with notes of chocolate and citrus.', 15.00, 800, 'Colombia', '/images/Arabica Coffee.png', 'coffee beans', 'active'),
-(5, 'King Quinoa', 'Versatile and protein-packed quinoa, pre-washed and ready to cook.', 8.75, 2200, 'Peru', '/images/Royal Quinoa.png', 'quinoa seeds', 'archived'),
-(6, 'Sun-dried Tomatoes', 'Rich, intense flavor. Perfect for pastas, salads, and sauces.', 12.20, 650, 'Italy', '/images/Sun-dried Tomatoes.png', 'dried tomatoes', 'active'),
-(2, 'Organic Blueberries', 'Sweet and juicy blueberries, packed with antioxidants.', 7.00, 3000, 'Chile', 'https://placehold.co/600x400.png', 'blueberries', 'active'),
-(3, 'Gayo Wine Coffee', 'Specialty coffee with a unique winey flavor profile from Aceh.', 25.00, 500, 'Indonesia', 'https://placehold.co/600x400.png', 'coffee beans', 'active'),
-(4, 'Fresh Mangoes', 'Sweet and fragrant Harum Manis mangoes.', 1.20, 8000, 'Indonesia', 'https://placehold.co/600x400.png', 'mango fruit', 'active'),
-(5, 'Peruvian Asparagus', 'Tender and flavorful green asparagus spears.', 5.50, 1200, 'Peru', 'https://placehold.co/600x400.png', 'asparagus', 'active'),
-(2, 'California Almonds', 'Crunchy and nutritious almonds, perfect for snacking.', 10.00, 4000, 'USA', 'https://placehold.co/600x400.png', 'almonds nuts', 'active'),
-(3, 'Sumatran Cloves', 'Aromatic whole cloves, ideal for spices and traditional medicine.', 18.00, 750, 'Indonesia', 'https://placehold.co/600x400.png', 'cloves spice', 'active'),
-(4, 'Dragon Fruit', 'Vibrant pink dragon fruit with sweet, speckled pulp.', 3.50, 2500, 'Vietnam', 'https://placehold.co/600x400.png', 'dragon fruit', 'active'),
-(5, 'Cashew Nuts WW320', 'Premium quality whole white cashew nuts.', 9.80, 5000, 'Vietnam', 'https://placehold.co/600x400.png', 'cashew nuts', 'active'),
-(6, 'Balsamic Vinegar', 'Aged balsamic vinegar from Modena.', 30.00, 200, 'Italy', 'https://placehold.co/600x400.png', 'vinegar bottle', 'active'),
-(2, 'Organic Bananas', 'Cavendish bananas grown without synthetic pesticides.', 0.80, 10000, 'Ecuador', 'https://placehold.co/600x400.png', 'bananas', 'archived'),
-(3, 'Java Vanilla Beans', 'Grade A vanilla beans with a rich, creamy aroma.', 250.00, 50, 'Indonesia', 'https://placehold.co/600x400.png', 'vanilla beans', 'active');
+-- Farmers (10)
+(23, 'Farm Fresh Organics', 'farmer@serenity.com', 'hashed_password', 'farmer', 'Organic Valley, Lembang', 'FARM001', '31.123.456.7-890.000', 'https://placehold.co/100x100.png', NOW(), NOW()),
+(24, 'Sunrise Farms', 'sunrise.farms@example.com', 'hashed_password', 'farmer', 'Desa Makmur, Cianjur', 'FARM002', '32.234.567.8-901.000', 'https://placehold.co/100x100.png', NOW(), NOW()),
+(25, 'Highland Coffee Farm', 'highland.farm@example.com', 'hashed_password', 'farmer', 'Gayo Highlands, Aceh', 'FARM003', '33.345.678.9-012.000', 'https://placehold.co/100x100.png', NOW(), NOW()),
+(26, 'Tani Sejahtera', 'tani.sejahtera@example.com', 'hashed_password', 'farmer', 'Sawah Subur, Karawang', 'FARM004', '34.456.789.0-123.000', 'https://placehold.co/100x100.png', NOW(), NOW()),
+(27, 'Kebun Buah Tropis', 'kebun.tropis@example.com', 'hashed_password', 'farmer', 'Jl. Buah No. 5, Bogor', 'FARM005', '35.567.890.1-234.000', 'https://placehold.co/100x100.png', NOW(), NOW()),
+(28, 'Sayur Hijau Lestari', 'sayur.hijau@example.com', 'hashed_password', 'farmer', 'Lembah Hijau, Ciwidey', 'FARM006', '36.678.901.2-345.000', 'https://placehold.co/100x100.png', NOW(), NOW()),
+(29, 'Sumber Pangan', 'sumber.pangan@example.com', 'hashed_password', 'farmer', 'Kampung Berkah, Sukabumi', 'FARM007', '37.789.012.3-456.000', 'https://placehold.co/100x100.png', NOW(), NOW()),
+(30, 'Petani Muda Maju', 'petani.muda@example.com', 'hashed_password', 'farmer', 'Inkubator Tani, Sleman', 'FARM008', '38.890.123.4-567.000', 'https://placehold.co/100x100.png', NOW(), NOW()),
+(31, 'Sawah Luas', 'sawah.luas@example.com', 'hashed_password', 'farmer', 'Hamparan Padi, Indramayu', 'FARM009', '39.901.234.5-678.000', 'https://placehold.co/100x100.png', NOW(), NOW()),
+(32, 'Ladang Emas', 'ladang.emas@example.com', 'hashed_password', 'farmer', 'Bukit Jagung, Lampung', 'FARM010', '40.012.345.6-789.000', 'https://placehold.co/100x100.png', NOW(), NOW()),
+(101, 'Peternak Jaya', 'peternak@serenity.com', 'hashed_password', 'peternak', 'Jalan Ternak No. 1, Desa Sapi, Boyolali', '1234567890123456', '09.876.543.2-101.000', 'https://placehold.co/100x100.png', NOW(), NOW()),
+(102, 'Nelayan Sejahtera', 'nelayan@serenity.com', 'hashed_password', 'nelayan', 'Desa Pesisir, Kecamatan Pantai, Indramayu', '2345678901234567', '09.876.543.2-102.000', 'https://placehold.co/100x100.png', NOW(), NOW()),
+(103, 'Hutan Lestari', 'hutan@serenity.com', 'hashed_password', 'pengelola_hasil_hutan', 'Kawasan Hutan Damar, Lampung Barat', '3456789012345678', '09.876.543.2-103.000', 'https://placehold.co/100x100.png', NOW(), NOW()),
+(104, 'Kebun Karet Makmur', 'kebun@serenity.com', 'hashed_password', 'pengelola_hasil_kebun', 'Desa Getah, Kecamatan Karet, Sumatera Selatan', '4567890123456789', '09.876.543.2-104.000', 'https://placehold.co/100x100.png', NOW(), NOW());
 
 
--- 4. Product Certifications (20 relations)
-INSERT INTO product_certifications (commodity_id, certification_id) VALUES
-(1, 1), (1, 2), (2, 3), (3, 1), (4, 5),
-(5, 1), (5, 2), (6, 3), (6, 4), (7, 4),
-(8, 5), (9, 1), (10, 3), (11, 4), (12, 1),
-(12, 5), (13, 5), (14, 1), (15, 3), (15, 4);
+-- Insert dummy data for commodities
+INSERT INTO "commodities" ("id", "exporter_id", "name", "description", "origin", "price_per_kg", "stock_kg", "status", "image_url") VALUES
+(1, 3, 'Organic Hass Avocado', 'Creamy, nutrient-rich avocados from certified organic farms.', 'Mexico', 2.50, 1500, 'active', '/images/Hass Avocado.png'),
+(2, 4, 'Arabica Coffee Beans', 'High-altitude grown, medium roast with notes of chocolate and citrus.', 'Colombia', 15.00, 800, 'active', '/images/Arabica Coffee.png'),
+(3, 6, 'King Quinoa', 'Versatile and protein-packed quinoa, pre-washed and ready to cook.', 'Peru', 8.75, 2200, 'archived', '/images/Royal Quinoa.png'),
+(4, 5, 'Sun-dried Tomatoes', 'Rich, intense flavor. Perfect for pastas, salads, and sauces.', 'Italy', 12.20, 650, 'active', '/images/Sun-dried Tomatoes.png'),
+(5, 7, 'Fresh Mangoes', 'Sweet and juicy Kent mangoes, perfect for desserts and smoothies.', 'Indonesia', 1.20, 8000, 'active', 'https://placehold.co/600x400.png'),
+(6, 8, 'Organic Blueberries', 'Plump and sweet organic blueberries, hand-picked at peak ripeness.', 'Chile', 7.00, 3000, 'active', 'https://placehold.co/600x400.png'),
+(7, 9, 'Cloves', 'Aromatic and flavorful whole cloves, sourced from Java.', 'Indonesia', 18.50, 500, 'active', 'https://placehold.co/600x400.png'),
+(8, 10, 'Organic Spinach', 'Fresh organic spinach, triple-washed and ready to eat.', 'USA', 3.50, 1000, 'active', 'https://placehold.co/600x400.png'),
+(9, 11, 'Dragon Fruit', 'Vibrant and exotic dragon fruit with a sweet, mild flavor.', 'Vietnam', 4.80, 2500, 'active', 'https://placehold.co/600x400.png'),
+(10, 3, 'Peruvian Quinoa', 'High-quality white quinoa from the Andes.', 'Peru', 8.50, 10000, 'active', '/images/Royal Quinoa.png'),
+(11, 4, 'Cashew Nuts WW320', 'Premium quality whole white cashew nuts.', 'Vietnam', 9.20, 15000, 'active', 'https://placehold.co/600x400.png');
 
 
--- 5. Partnerships (10 partnerships)
-INSERT INTO partnerships (exporter_id, farmer_id, status) VALUES
-(2, 15, 'active'), (2, 16, 'active'), (3, 17, 'active'), (3, 19, 'active'),
-(4, 18, 'active'), (4, 20, 'active'), (2, 18, 'pending'), (5, 15, 'negotiating'),
-(3, 16, 'pending'), (2, 17, 'active');
+-- Insert dummy data for certifications
+INSERT INTO "certifications" ("commodity_id", "user_id", "name", "issuing_body", "valid_until") VALUES
+(1, 3, 'USDA Organic', 'USDA National Organic Program', '2025-12-31'),
+(1, 3, 'Fair Trade', 'Fair Trade International', '2025-06-30'),
+(2, 4, 'Rainforest Alliance', 'Rainforest Alliance', '2026-01-15'),
+(3, 6, 'Non-GMO Project', 'The Non-GMO Project', '2024-11-20'),
+(1, 23, 'Organik Indonesia', 'LSO-002-IDN', '2025-08-01'),
+(2, 25, 'Fair Trade', 'Fair Trade International', '2025-09-10');
 
 
--- 6. Offers (15 offers)
-INSERT INTO offers (commodity_id, buyer_id, quantity_kg, total_price, status) VALUES
-(1, 7, 5000, 12500.00, 'negotiating'),
-(2, 8, 2000, 30000.00, 'accepted'),
-(3, 9, 10000, NULL, 'request'),
-(7, 10, 8000, 9600.00, 'sent'),
-(5, 11, 3000, 21000.00, 'fulfilled'),
-(6, 8, 500, 12500.00, 'sent'),
-(9, 7, 2000, 20000.00, 'accepted'),
-(11, 12, 1000, 3500.00, 'negotiating'),
-(12, 9, 5000, 49000.00, 'fulfilled'),
-(15, 13, 20, 5000.00, 'sent'),
-(1, 14, 1000, NULL, 'request'),
-(2, 10, 100, NULL, 'request'),
-(10, 11, 250, 4500.00, 'cancelled'),
-(5, 12, 1500, 10500.00, 'fulfilled'),
-(8, 7, 500, 2750.00, 'accepted');
+-- Insert dummy data for partnerships
+INSERT INTO "partnerships" ("exporter_id", "farmer_id", "status", "start_date") VALUES
+(3, 23, 'active', '2023-10-15'),
+(4, 25, 'active', '2023-09-01'),
+(3, 24, 'pending', '2023-10-29');
 
 
--- 7. Shipments (10 shipments)
-INSERT INTO shipments (offer_id, tracking_number, status, origin, destination) VALUES
-(2, 'SHP-67890', 'Delivered', 'Highland Coffee Farm, Colombia', 'The Coffee House, USA'),
-(5, 'SHP-12345', 'In Transit to Buyer', 'Farm Fresh Organics, Mexico', 'FreshMart EU, Rotterdam'),
-(7, 'SHP-ABCDE', 'Processing at Origin', 'California, USA', 'Tokyo Grocers, Japan'),
-(9, 'SHP-FGHIJ', 'Delivered', 'Peru', 'Whole Foods, USA'),
-(14, 'SHP-KLMNO', 'Delivered', 'Chile', 'Super Fruct, France'),
-(15, 'SHP-PQRST', 'Shipped', 'Mexico', 'FreshMart EU, Rotterdam'),
-(1, 'SHP-UVWXY', 'Pending', 'Mexico', 'FreshMart EU, Rotterdam'),
-(4, 'SHP-Z1234', 'Pending', 'Indonesia', 'Juice World Inc., UK'),
-(6, 'SHP-56789', 'Shipped', 'Indonesia', 'The Coffee House, USA'),
-(8, 'SHP-13579', 'Processing at Origin', 'Vietnam', 'Dubai Imports, UAE');
+-- Insert dummy data for offers
+INSERT INTO "offers" ("commodity_id", "buyer_id", "exporter_id", "quantity_kg", "total_price", "status") VALUES
+(1, 13, 3, 5000, 12500, 'negotiating'),
+(2, 14, 4, 2000, 30000, 'accepted'),
+(10, 15, 6, 10000, 85000, 'pending'), -- Buyer Request
+(5, 16, 7, 8000, 9600, 'pending'),
+(6, 17, 8, 3000, 21000, 'fulfilled');
 
 
--- 8. Transactions (10 transactions)
-INSERT INTO transactions (offer_id, payment_method, total_value, platform_fee, status) VALUES
-(2, 'Telegraphic Transfer', 30000.00, 1800.00, 'Completed'),
-(5, 'Letter of Credit', 12500.00, 750.00, 'Payout to Exporter Complete'),
-(9, 'Escrow', 49000.00, 2940.00, 'Completed'),
-(14, 'Telegraphic Transfer', 10500.00, 630.00, 'Completed'),
-(15, 'Escrow', 2750.00, 165.00, 'Payout to Exporter Complete'),
-(7, 'Letter of Credit', 20000.00, 1200.00, 'Funds in Escrow'),
-(1, 'Letter of Credit', 12500.00, 750.00, 'Pending Buyer Payment'),
-(4, 'Escrow', 9600.00, 576.00, 'Pending Buyer Payment'),
-(6, 'Telegraphic Transfer', 12500.00, 750.00, 'Funds in Escrow'),
-(8, 'Escrow', 3500.00, 210.00, 'Pending Buyer Payment');
+-- Insert dummy data for shipments
+INSERT INTO "shipments" ("offer_id", "tracking_number", "shipping_partner", "status", "estimated_delivery", "actual_delivery") VALUES
+(1, 'SHP-12345', 'Global Freight Forwarders', 'in_transit', '2023-11-20', NULL),
+(2, 'SHP-67890', 'Skyway Cargo', 'delivered', '2023-10-26', '2023-10-26'),
+(5, 'SHP-ABCDE', 'Oceanic Express Lines', 'delivered', '2023-09-14', '2023-09-15');
+
+-- Insert dummy data for payments
+INSERT INTO "payments" ("offer_id", "amount", "status", "payment_method", "transaction_id") VALUES
+(1, 12500, 'in_escrow', 'Letter of Credit', 'TXN-98765'),
+(2, 30000, 'paid', 'Telegraphic Transfer', 'TXN-12345'),
+(5, 21000, 'paid', 'Escrow', 'TXN-54321');
 
 
--- 9. More Users (10 users)
-INSERT INTO users (role, name, email, password_hash, id_number, address, nib, tax_number, photo_url, is_verified) VALUES
-('exporter', 'Nusantara Spices', 'exporter6@serenity.com', 'hashed_password_placeholder', 'EXP-006', 'Jl. Rempah No. 1, Ambon', '9120301234572', '02.345.678.9-106.000', 'https://placehold.co/100x100.png', true),
-('buyer', 'Singaporean Traders', 'buyer9@serenity.com', 'hashed_password_placeholder', 'BUY-009', '1 Marina Bay, Singapore', NULL, 'SG123456789', 'https://placehold.co/100x100.png', true),
-('farmer', 'Petani Rempah Maluku', 'farmer7@serenity.com', 'hashed_password_placeholder', 'FARM-007', 'Desa Cengkeh, Maluku', NULL, '03.123.456.7-896.000', 'https://placehold.co/100x100.png', true),
-('exporter', 'Oceania Fresh Produce', 'exporter7@serenity.com', 'hashed_password_placeholder', 'EXP-007', 'Jl. Pelabuhan, Surabaya', '9120301234573', '02.345.678.9-107.000', 'https://placehold.co/100x100.png', true),
-('buyer', 'Australian Fruit Co.', 'buyer10@serenity.com', 'hashed_password_placeholder', 'BUY-010', '100 George St, Sydney, Australia', NULL, 'AU987654321', 'https://placehold.co/100x100.png', true),
-('farmer', 'Petani Buah Tropis', 'farmer8@serenity.com', 'hashed_password_placeholder', 'FARM-008', 'Desa Mangga, Jawa Timur', NULL, '03.123.456.7-897.000', 'https://placehold.co/100x100.png', true),
-('exporter', 'Asian Grain Corp', 'exporter8@serenity.com', 'hashed_password_placeholder', 'EXP-008', 'Jl. Industri, Semarang', '9120301234574', '02.345.678.9-108.000', 'https://placehold.co/100x100.png', false),
-('buyer', 'Seoul Food Imports', 'buyer11@serenity.com', 'hashed_password_placeholder', 'BUY-011', 'Gangnam-gu, Seoul, South Korea', NULL, 'KR123456789', 'https://placehold.co/100x100.png', true),
-('farmer', 'Kelompok Tani Subur', 'farmer9@serenity.com', 'hashed_password_placeholder', 'FARM-009', 'Lembang, Jawa Barat', NULL, '03.123.456.7-898.000', 'https://placehold.co/100x100.png', true),
-('farmer', 'Petani Kopi Mandiri', 'farmer10@serenity.com', 'hashed_password_placeholder', 'FARM-010', 'Toraja, Sulawesi Selatan', NULL, '03.123.456.7-899.000', 'https://placehold.co/100x100.png', false);
+-- Insert dummy data for value_chain_logs
+INSERT INTO "value_chain_logs" ("shipment_id", "step_name", "location", "timestamp") VALUES
+(1, 'Harvest Logged', 'Oaxaca, Mexico', '2023-11-01 08:00:00'),
+(1, 'Picked up by Exporter', 'Oaxaca, Mexico', '2023-11-02 09:00:00'),
+(1, 'Received at Warehouse', 'Veracruz, Mexico', '2023-11-03 14:00:00'),
+(1, 'Export Processing', 'Port of Veracruz', '2023-11-04 11:00:00'),
+(1, 'Shipped', 'Port of Veracruz', '2023-11-05 18:00:00'),
+(1, 'In Transit to Buyer', 'Atlantic Ocean', '2023-11-06 00:00:00'),
+(2, 'Harvest Logged', 'Salento, Colombia', '2023-10-15 07:30:00'),
+(2, 'Shipped', 'Port of Cartagena', '2023-10-19 20:00:00'),
+(2, 'Delivered', 'The Coffee House, Miami', '2023-10-26 10:00:00');
 
-
--- 10. More Product Certifications (10 relations)
-INSERT INTO product_certifications (commodity_id, certification_id) VALUES
-(1, 4), (2, 4), (6, 5), (7, 5), (10, 4),
-(11, 2), (13, 1), (13, 2), (15, 5), (9, 4);
-
+-- Insert dummy data for notifications
+INSERT INTO "notifications" ("user_id", "title", "message", "is_read") VALUES
+(3, 'Offer #OFF-002 Accepted', 'Your offer for Arabica Coffee Beans has been accepted by The Coffee House.', false),
+(3, 'New Negotiation Message', 'FreshMart EU sent a new message regarding offer #OFF-001.', false),
+(13, 'New Commodity Added', 'Sun-dried Tomatoes from Italy is now available for export offers.', true),
+(3, 'Export Fulfilled', 'Your export of Organic Blueberries to Super Fruct has been marked as fulfilled.', true);

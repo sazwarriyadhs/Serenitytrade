@@ -60,15 +60,22 @@ type MembershipFormValues = z.infer<typeof membershipFormSchema>
 
 const ExpiryDate = new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric' });
 
-const roleDisplayNames = {
+const roleDisplayNames: { [key: string]: string } = {
     farmer: "PETANI",
+    peternak: "PETERNAK",
+    nelayan: "NELAYAN",
+    pengelola_hasil_hutan: "PENGELOLA HASIL HUTAN",
+    pengelola_hasil_kebun: "PENGELOLA HASIL KEBUN",
     exporter: "EKSPORTIR / BUYER",
     buyer: "EKSPORTIR / BUYER",
     admin: "ADMIN",
 };
 
+const producerRoles = ['farmer', 'peternak', 'nelayan', 'pengelola_hasil_hutan', 'pengelola_hasil_kebun'];
+
+
 const MemberCard = React.forwardRef<HTMLDivElement, {
-  role?: keyof typeof roleDisplayNames;
+  role?: string;
   isVerified?: boolean;
   photo?: string | null;
   name: string;
@@ -287,11 +294,11 @@ export default function MembershipCardPage() {
     return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(cost)
   }
 
-  if (userRole === 'farmer') {
+  if (userRole && producerRoles.includes(userRole)) {
     return (
       <div className="grid gap-8">
         <div>
-          <h1 className="text-3xl font-bold font-headline">Farmer Membership Status</h1>
+          <h1 className="text-3xl font-bold font-headline">Producer Membership Status</h1>
           <p className="text-muted-foreground">Your verified membership details. Click the button to view regulations.</p>
         </div>
          <div className="relative w-full max-w-xl mx-auto h-[280px] sm:h-[310px] [perspective:1000px]">
@@ -303,7 +310,7 @@ export default function MembershipCardPage() {
             >
                 <div ref={cardRef} className="absolute w-full h-full [backface-visibility:hidden]">
                     <MemberCard 
-                        role="farmer"
+                        role={userRole}
                         isVerified
                         photo="https://placehold.co/150x150.png"
                         name="Sunrise Farms"
@@ -331,7 +338,7 @@ export default function MembershipCardPage() {
                 </Button>
             </CardContent>
             <CardFooter className="pt-0 pb-4">
-                 <p className="text-xs text-muted-foreground text-center w-full">Membership is free for all verified farmers to support and empower local agriculture.</p>
+                 <p className="text-xs text-muted-foreground text-center w-full">Membership is free for all verified producers to support and empower local agriculture.</p>
             </CardFooter>
         </Card>
       </div>
@@ -517,7 +524,7 @@ export default function MembershipCardPage() {
                     >
                          <div ref={cardRef} className="absolute w-full h-full [backface-visibility:hidden]">
                             <MemberCard 
-                                role={userRole as keyof typeof roleDisplayNames}
+                                role={userRole || 'exporter'}
                                 isVerified={false}
                                 photo={photoPreview}
                                 name={form.watch('name') || 'Nama Anda / Perusahaan'}

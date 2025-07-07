@@ -18,32 +18,38 @@ import { Logo } from "@/components/logo"
 import { UserNav } from "@/components/user-nav"
 import { LayoutDashboard, Leaf, ArrowRightLeft, Bell, Spline, TrendingUp, BookUser, Tractor, Briefcase, Calculator, Truck, Landmark, Compass, BookCheck, Wallet, BookMarked, Shield, Box, Ship, CreditCard, Loader2 } from "lucide-react"
 
+const producerRoles = ['farmer', 'peternak', 'nelayan', 'pengelola_hasil_hutan', 'pengelola_hasil_kebun'];
+
 const allNavItems = [
   { href: "/admin-dashboard", icon: Shield, label: "Admin Dashboard", roles: ['admin'] },
   { href: "/dashboard", icon: LayoutDashboard, label: "Exporter Dashboard", roles: ['exporter'] },
   { href: "/buyer-dashboard", icon: Briefcase, label: "Buyer Dashboard", roles: ['buyer'] },
-  { href: "/farmer-dashboard", icon: Tractor, label: "Farmer Dashboard", roles: ['farmer'] },
-  { href: "/membership-card", icon: CreditCard, label: "Membership Card", roles: ['exporter', 'buyer', 'admin', 'farmer'] },
-  { href: "/farmer-guide", icon: BookMarked, label: "Panduan Petani", roles: ['farmer', 'admin'] },
+  { href: "/farmer-dashboard", icon: Tractor, label: "Producer Dashboard", roles: [...producerRoles] },
+  { href: "/membership-card", icon: CreditCard, label: "Membership Card", roles: ['exporter', 'buyer', 'admin', ...producerRoles] },
+  { href: "/farmer-guide", icon: BookMarked, label: "Panduan Petani", roles: ['admin', ...producerRoles] },
   { href: "/find-market", icon: Compass, label: "Find Market", roles: ['exporter', 'admin'] },
-  { href: "/commodities", icon: Leaf, label: "Commodities", roles: ['exporter', 'buyer', 'farmer', 'admin'] },
+  { href: "/commodities", icon: Leaf, label: "Commodities", roles: ['exporter', 'buyer', 'admin', ...producerRoles] },
   { href: "/offers", icon: ArrowRightLeft, label: "Offers & Requests", roles: ['exporter', 'buyer', 'admin'] },
-  { href: "/tracking", icon: Truck, label: "Shipment Tracking", roles: ['exporter', 'buyer', 'farmer', 'admin'] },
+  { href: "/tracking", icon: Truck, label: "Shipment Tracking", roles: ['exporter', 'buyer', 'admin', ...producerRoles] },
   { href: "/shipping-partners", icon: Ship, label: "Shipping Partners", roles: ['exporter', 'admin'] },
-  { href: "/payment-tracking", icon: Landmark, label: "Payment Tracking", roles: ['exporter', 'buyer', 'farmer', 'admin'] },
+  { href: "/payment-tracking", icon: Landmark, label: "Payment Tracking", roles: ['exporter', 'buyer', 'admin', ...producerRoles] },
   { href: "/prediction", icon: TrendingUp, label: "Demand Prediction", roles: ['exporter', 'admin'] },
-  { href: "/value-chain", icon: Spline, label: "Value Chain", roles: ['exporter', 'buyer', 'farmer', 'admin'] },
-  { href: "/fee-calculator", icon: Wallet, label: "Fee & Payouts", roles: ['exporter', 'farmer', 'admin'] },
+  { href: "/value-chain", icon: Spline, label: "Value Chain", roles: ['exporter', 'buyer', 'admin', ...producerRoles] },
+  { href: "/fee-calculator", icon: Wallet, label: "Fee & Payouts", roles: ['exporter', 'admin', ...producerRoles] },
   { href: "/packaging-recommender", icon: Box, label: "Packaging Recommender", roles: ['exporter', 'admin'] },
   { href: "/exporter-guide", icon: BookCheck, label: "Panduan Ekspor", roles: ['exporter', 'admin'] },
   { href: "/buyer-info", icon: BookUser, label: "Info Buyer", roles: ['buyer', 'admin'] },
-  { href: "/notifications", icon: Bell, label: "Notifications", roles: ['exporter', 'buyer', 'farmer', 'admin'] },
+  { href: "/notifications", icon: Bell, label: "Notifications", roles: ['exporter', 'buyer', 'admin', ...producerRoles] },
 ]
 
 const roleInfo: { [key: string]: { name: string, email: string } } = {
   exporter: { name: "Exporter", email: "exporter@serenity.com" },
   buyer: { name: "Buyer", email: "buyer@serenity.com" },
   farmer: { name: "Farmer", email: "farmer@serenity.com" },
+  peternak: { name: "Livestock Farmer", email: "peternak@serenity.com" },
+  nelayan: { name: "Fisherman", email: "nelayan@serenity.com" },
+  pengelola_hasil_hutan: { name: "Forest Manager", email: "hutan@serenity.com" },
+  pengelola_hasil_kebun: { name: "Plantation Manager", email: "kebun@serenity.com" },
   admin: { name: "Admin", email: "admin@serenity.com" },
 }
 

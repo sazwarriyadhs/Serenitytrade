@@ -8,10 +8,10 @@ import { ArrowRight, Tractor, Briefcase, Globe, Handshake, ShieldCheck } from "l
 const roles = [
   {
     icon: Tractor,
-    name: "Farmer",
-    description: "Produces and harvests high-quality agricultural commodities. For international sales, farmers can partner with top-rated exporters recommended by the platform admin based on performance.",
+    name: "Producer (Farmer, Fisherman, etc.)",
+    description: "Produces and harvests high-quality agricultural, fishery, or forestry commodities. For international sales, producers can partner with top-rated exporters recommended by the platform admin based on performance.",
     responsibilities: [
-      "Crop cultivation & harvesting",
+      "Crop cultivation, harvesting, or production of goods",
       "Initial quality control",
       "Can partner with admin-recommended exporters for international sales",
       "Hanya dapat bekerja sama dengan 1 eksportir.",
@@ -20,13 +20,13 @@ const roles = [
   {
     icon: Briefcase,
     name: "Exporter (Seller)",
-    description: "Aggregates products from farmers, manages export processes, and sells to international buyers.",
+    description: "Aggregates products from producers, manages export processes, and sells to international buyers.",
      responsibilities: [
       "Manages export documents (PEB, COO)",
       "Handles logistics and shipping",
       "Negotiates with buyers",
-      "Can partner with farmers to facilitate their international sales",
-      "Dapat bekerja sama dengan maksimal 10 petani yang berbeda untuk menjaga fokus dan kualitas layanan.",
+      "Can partner with producers to facilitate their international sales",
+      "Dapat bekerja sama dengan maksimal 10 produsen yang berbeda untuk menjaga fokus dan kualitas layanan.",
     ]
   },
   {
@@ -45,7 +45,7 @@ const platformRoles = [
     {
         icon: Handshake,
         title: "Facilitator",
-        description: "Connects all parties in a secure and transparent B2B environment. For farmers, the platform facilitates international transactions by recommending top-rated exporters based on performance and rating to assist with logistics and documentation. Kemitraan hanya berlaku untuk eksportir dan petani yang terverifikasi oleh Serenity AgriExport Hub."
+        description: "Connects all parties in a secure and transparent B2B environment. For producers, the platform facilitates international transactions by recommending top-rated exporters based on performance and rating to assist with logistics and documentation. Kemitraan hanya berlaku untuk eksportir dan produsen yang terverifikasi oleh Serenity AgriExport Hub."
     },
     {
         icon: ShieldCheck,
@@ -60,7 +60,7 @@ export default function ValueChainPage() {
       <div>
         <h1 className="text-3xl font-bold font-headline">Export Commodity Value Chain</h1>
         <p className="text-muted-foreground">
-          Understanding the roles of Farmer, Exporter, and Buyer in our marketplace model.
+          Understanding the roles of Producer, Exporter, and Buyer in our marketplace model.
         </p>
       </div>
       
