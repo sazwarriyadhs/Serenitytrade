@@ -14,6 +14,7 @@ const roles = [
       "Crop cultivation & harvesting",
       "Initial quality control",
       "Can partner with admin-recommended exporters for international sales",
+      "Hanya dapat bekerja sama dengan 1 eksportir.",
     ]
   },
   {
