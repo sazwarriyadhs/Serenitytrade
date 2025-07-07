@@ -55,6 +55,96 @@ const membershipFormSchema = z.object({
 
 type MembershipFormValues = z.infer<typeof membershipFormSchema>
 
+const ExpiryDate = new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric' });
+
+const MemberCard = ({
+  isFarmer = false,
+  isVerified = false,
+  photo,
+  name,
+  idNumber,
+  type,
+  address,
+  nib,
+  npwp,
+}: {
+  isFarmer?: boolean;
+  isVerified?: boolean;
+  photo?: string | null;
+  name: string;
+  idNumber: string;
+  type: string;
+  address: string;
+  nib?: string;
+  npwp: string;
+}) => (
+  <Card className="overflow-hidden shadow-lg w-full max-w-xl mx-auto">
+    <div className="flex">
+      {/* Left section */}
+      <div className="w-[65%] bg-white p-4 sm:p-6 flex flex-col text-foreground">
+        <div className="w-40">
+          <Logo />
+        </div>
+        <div className="mt-4">
+          <p className="text-sm font-bold tracking-wider text-black">KARTU ANGGOTA</p>
+          <p className="text-sm font-bold tracking-wider text-black -mt-1">
+            {isFarmer ? "PETANI" : "EKSPORTIR / BUYER"}
+          </p>
+        </div>
+        <div className="mt-4 text-xs space-y-2.5">
+          <div className="grid grid-cols-[60px_auto]">
+            <span className="font-semibold text-muted-foreground">No. Induk</span>
+            <span className="font-mono">: {idNumber}</span>
+          </div>
+          <div className="grid grid-cols-[60px_auto]">
+            <span className="font-semibold text-muted-foreground">Nama</span>
+            <span className="font-semibold">: {name}</span>
+          </div>
+          <div className="grid grid-cols-[60px_auto]">
+            <span className="font-semibold text-muted-foreground">Jenis</span>
+            <span className="">: {type}</span>
+          </div>
+          <div className="grid grid-cols-[60px_auto]">
+            <span className="font-semibold text-muted-foreground">Alamat</span>
+            <span className="line-clamp-2">: {address}</span>
+          </div>
+          {!isFarmer && nib && (
+            <div className="grid grid-cols-[60px_auto]">
+              <span className="font-semibold text-muted-foreground">NIB</span>
+              <span className="font-mono">: {nib}</span>
+            </div>
+          )}
+          <div className="grid grid-cols-[60px_auto]">
+            <span className="font-semibold text-muted-foreground">NPWP</span>
+            <span className="font-mono">: {npwp}</span>
+          </div>
+        </div>
+        <div className="mt-auto pt-2">
+            {isVerified ? (
+                 <Badge variant="default" className="bg-green-600/20 text-green-700 border-green-600/20 hover:bg-green-600/30">Verified Member</Badge>
+            ) : (
+                <Badge variant="outline">Preview</Badge>
+            )}
+        </div>
+      </div>
+      {/* Right section */}
+      <div className="w-[35%] bg-primary p-4 text-primary-foreground flex flex-col items-center justify-between text-center">
+        <Avatar className="h-20 w-20 sm:h-24 sm:w-24 border-2 border-white/80 shadow-md">
+          <AvatarImage src={photo || "https://placehold.co/150x150.png"} alt="User photo" data-ai-hint={isFarmer ? "person farmer" : "person avatar"} />
+          <AvatarFallback>{name?.substring(0, 2).toUpperCase() || 'SA'}</AvatarFallback>
+        </Avatar>
+        <div className="flex flex-col items-center">
+          <div className="bg-white p-1 rounded-md">
+            <QrCode className="h-16 w-16 sm:h-20 sm:w-20 text-black" />
+          </div>
+          <p className="text-[10px] mt-2 leading-tight">Scan untuk melihat profil anggota</p>
+          <p className="text-[10px] font-semibold">Berlaku s/d: {ExpiryDate}</p>
+        </div>
+      </div>
+    </div>
+  </Card>
+);
+
 export default function MembershipCardPage() {
   const { toast } = useToast()
   const [photoPreview, setPhotoPreview] = useState<string | null>(null)
@@ -112,42 +202,20 @@ export default function MembershipCardPage() {
           <h1 className="text-3xl font-bold font-headline">Farmer Membership Status</h1>
           <p className="text-muted-foreground">Your verified membership details.</p>
         </div>
-        <Card className="max-w-lg mx-auto">
-          <CardHeader>
-            <div className="flex justify-between items-start gap-4">
-              <div className="w-[150px] shrink-0">
-                <Image src="/images/logo.png" alt="Serenity AgriExport Hub Logo" width={442} height={192} />
-              </div>
-              <div className="text-right">
-                <Badge variant="default" className="bg-green-600/20 text-green-700 border-green-600/20 hover:bg-green-600/30">Verified Member</Badge>
-              </div>
-            </div>
-          </CardHeader>
-          <CardContent className="grid gap-4">
-            <div className="flex items-center gap-4">
-              <Avatar className="h-20 w-20 shadow">
-                <AvatarImage src="https://placehold.co/100x100.png" alt="Farmer Photo" data-ai-hint="person farmer" />
-                <AvatarFallback>SF</AvatarFallback>
-              </Avatar>
-              <div className="flex-1 overflow-hidden">
-                <p className="font-bold text-lg truncate">Sunrise Farms</p>
-                <p className="text-sm text-muted-foreground truncate">ID: FARM-005</p>
-                <p className="text-sm font-medium mt-2">"We are a proud farmer member of Serenity AgriExport Hub."</p>
-              </div>
-            </div>
-            <div className="flex items-center justify-between mt-2 pt-2 border-t">
-              <div>
-                <p className="text-xs text-muted-foreground">Member Since:</p>
-                <p className="text-sm font-medium">{new Date(new Date().setFullYear(new Date().getFullYear() - 1)).toLocaleDateString()}</p>
-              </div>
-              <div className="text-center">
-                <QrCode className="h-20 w-20" />
-              </div>
-            </div>
-          </CardContent>
-          <CardFooter>
-            <p className="text-xs text-muted-foreground text-center w-full">Membership is free for all verified farmers to support and empower local agriculture.</p>
-          </CardFooter>
+        <MemberCard 
+            isFarmer
+            isVerified
+            photo="https://placehold.co/150x150.png"
+            name="Sunrise Farms"
+            idNumber="FARM-2025-00005"
+            type="Petani Terverifikasi"
+            address="Desa Makmur, Kec. Sejahtera, Kab. Subur, Indonesia"
+            npwp="01.234.567.8-910.000"
+        />
+        <Card className="max-w-xl mx-auto">
+            <CardFooter>
+                 <p className="text-xs text-muted-foreground text-center w-full">Membership is free for all verified farmers to support and empower local agriculture.</p>
+            </CardFooter>
         </Card>
       </div>
     );
@@ -164,8 +232,8 @@ export default function MembershipCardPage() {
         <p className="text-muted-foreground">Register to get your official AgriExport Hub membership card.</p>
       </div>
 
-      <div className="grid lg:grid-cols-3 gap-8 items-start">
-        <div className="lg:col-span-2">
+      <div className="grid lg:grid-cols-5 gap-8 items-start">
+        <div className="lg:col-span-3">
            <Card>
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -321,61 +389,20 @@ export default function MembershipCardPage() {
             </Form>
            </Card>
         </div>
-        <div className="lg:col-span-1">
-            <Card className="sticky top-20">
-              <CardHeader>
-                <div className="flex justify-between items-start gap-4">
-                   <div className="w-[150px] shrink-0">
-                        <Image src="/images/logo.png" alt="Serenity AgriExport Hub Logo" width={442} height={192} />
-                    </div>
-                  <div className="text-right">
-                    <Badge variant="outline">Preview</Badge>
-                    <p className="text-xs text-muted-foreground mt-2">
-                      {membershipType === 'individual' ? 'Individual Member' : 'Company Member'}
-                    </p>
-                  </div>
-                </div>
-              </CardHeader>
-              <CardContent className="grid gap-4">
-                <div className="flex items-center gap-4">
-                  <Avatar className="h-20 w-20 shadow">
-                    <AvatarImage src={photoPreview || "https://placehold.co/100x100.png"} alt="User Photo" data-ai-hint="person avatar" />
-                    <AvatarFallback>
-                      {form.watch('name')?.substring(0, 2).toUpperCase() || 'SA'}
-                    </AvatarFallback>
-                  </Avatar>
-                  <div className="flex-1 overflow-hidden">
-                    <p className="font-bold text-lg truncate">{form.watch('name') || 'Your Name / Company'}</p>
-                    <p className="text-sm text-muted-foreground truncate">ID: {form.watch('idNumber') || '123456789'}</p>
-                  </div>
-                </div>
-                <div className="grid grid-cols-2 gap-x-4 gap-y-2">
-                    {membershipType === 'company' && (
-                        <div>
-                            <Label className="text-xs text-muted-foreground">NIB</Label>
-                            <p className="font-mono text-sm truncate">{form.watch('nib') || '987654321'}</p>
-                        </div>
-                    )}
-                    <div>
-                        <Label className="text-xs text-muted-foreground">Tax ID</Label>
-                        <p className="font-mono text-sm truncate">{form.watch('taxNumber') || '1122334455'}</p>
-                    </div>
-                </div>
-                <div>
-                    <Label className="text-xs text-muted-foreground">Address</Label>
-                    <p className="text-sm line-clamp-2">{form.watch('address') || 'Your full registered address will appear here.'}</p>
-                </div>
-                <div className="flex items-center justify-between mt-2 pt-2 border-t">
-                    <div>
-                        <p className="text-xs text-muted-foreground">Expires:</p>
-                        <p className="text-sm font-medium">{new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toLocaleDateString()}</p>
-                    </div>
-                    <div className="text-center">
-                        <QrCode className="h-20 w-20" />
-                    </div>
-                </div>
-              </CardContent>
-            </Card>
+        <div className="lg:col-span-2">
+            <div className="sticky top-20">
+                <MemberCard 
+                    isFarmer={false}
+                    isVerified={false}
+                    photo={photoPreview}
+                    name={form.watch('name') || 'Nama Anda / Perusahaan'}
+                    idNumber={form.watch('idNumber') || 'SER-EXP-2025-00123'}
+                    type={form.watch('membershipType') === 'company' ? 'Perusahaan' : 'Perorangan'}
+                    address={form.watch('address') || 'Alamat lengkap Anda akan muncul di sini.'}
+                    nib={membershipType === 'company' ? form.watch('nib') || '9123456789123' : undefined}
+                    npwp={form.watch('taxNumber') || '01.234.567.8-910.000'}
+                />
+            </div>
         </div>
       </div>
     </div>
