@@ -6,7 +6,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Logo } from '@/components/logo'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Globe, ArrowRight, Ship, Handshake, Leaf, ArrowUp, ArrowDown, FileText } from 'lucide-react'
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
@@ -65,6 +65,10 @@ const translations = {
     realTimePricesSubtitle: 'Real-time price movements from global markets.',
     pricePerUnit: 'Price/Ton',
     dayChange: '24h Change',
+    // Legal Basis
+    legalBasisTitle: 'Legal Basis',
+    legalBasisDesc: 'Our platform adheres to the latest food export and import regulations from the Indonesian government. Access a comprehensive list of regulations to ensure your trade compliance.',
+    legalBasisButton: 'View Regulation Directory',
     // Footer
     footerRights: 'All rights reserved.',
   },
@@ -109,6 +113,10 @@ const translations = {
     realTimePricesSubtitle: 'Pergerakan harga real-time dari pasar global.',
     pricePerUnit: 'Harga/Ton',
     dayChange: 'Perubahan 24j',
+    // Legal Basis
+    legalBasisTitle: 'Dasar Hukum',
+    legalBasisDesc: 'Platform kami mematuhi peraturan ekspor dan impor pangan terbaru dari pemerintah Indonesia. Akses daftar peraturan yang komprehensif untuk memastikan kepatuhan perdagangan Anda.',
+    legalBasisButton: 'Lihat Direktori Regulasi',
     // Footer
     footerRights: 'Hak cipta dilindungi.',
   },
@@ -123,6 +131,7 @@ const translations = {
     step2Title: 'Sécuriser & Expédier', step2Desc: '[Description étape 2 en Français]',
     step3Title: 'Recevoir & Croître', step3Desc: '[Description étape 3 en Français]',
     realTimePricesTitle: 'Prix Mondiaux des Matières Premières', realTimePricesSubtitle: 'Mouvements des prix en temps réel sur les marchés mondiaux.', pricePerUnit: 'Prix/Tonne', dayChange: 'Chg 24h',
+    legalBasisTitle: '[Titre Légal]', legalBasisDesc: '[Description Légal]', legalBasisButton: '[Bouton Légal]',
     footerRights: 'Tous droits réservés.',
   },
   zh: {
@@ -136,6 +145,7 @@ const translations = {
     step2Title: '安全与运输', step2Desc: '[中文步骤2描述]',
     step3Title: '接收与发展', step3Desc: '[中文步骤3描述]',
     realTimePricesTitle: '全球商品价格', realTimePricesSubtitle: '全球市场的实时价格变动。', pricePerUnit: '价格/吨', dayChange: '24小时变化',
+    legalBasisTitle: '[法律依据]', legalBasisDesc: '[法律依据说明]', legalBasisButton: '[查看法规目录]',
     footerRights: '版权所有。',
   },
   ar: {
@@ -149,6 +159,7 @@ const translations = {
     step2Title: 'التأمين والشحن', step2Desc: '[وصف الخطوة 2 بالعربية]',
     step3Title: 'الاستلام والنمو', step3Desc: '[وصف الخطوة 3 بالعربية]',
     realTimePricesTitle: 'أسعار السلع العالمية', realTimePricesSubtitle: 'تحركات الأسعار في الوقت الفعلي من الأسواق العالمية.', pricePerUnit: 'السعر/طن', dayChange: 'تغير 24 ساعة',
+    legalBasisTitle: '[الأساس القانوني]', legalBasisDesc: '[وصف الأساس القانوني]', legalBasisButton: '[عرض دليل التنظيم]',
     footerRights: 'كل الحقوق محفوظة.',
   },
   ja: {
@@ -162,6 +173,7 @@ const translations = {
     step2Title: '確保と発送', step2Desc: '[日本語のステップ2説明]',
     step3Title: '受け取りと成長', step3Desc: '[日本語のステップ3説明]',
     realTimePricesTitle: '世界の商品の価格', realTimePricesSubtitle: '世界市場からのリアルタイムの価格変動。', pricePerUnit: '価格/トン', dayChange: '24時間変動',
+    legalBasisTitle: '[法的根拠]', legalBasisDesc: '[法的根拠の説明]', legalBasisButton: '[規制ディレクトリの表示]',
     footerRights: '無断複写・転載を禁じます。',
   },
   pt: {
@@ -175,6 +187,7 @@ const translations = {
     step2Title: 'Segurança & Envio', step2Desc: '[Descrição do Passo 2 em Português]',
     step3Title: 'Receber & Crescer', step3Desc: '[Descrição do Passo 3 em Português]',
     realTimePricesTitle: 'Preços Globais de Commodities', realTimePricesSubtitle: 'Movimentos de preços em tempo real dos mercados globais.', pricePerUnit: 'Preço/Ton', dayChange: 'Mudança 24h',
+    legalBasisTitle: '[Base Legal]', legalBasisDesc: '[Descrição da Base Legal]', legalBasisButton: '[Ver Diretório de Regulamentação]',
     footerRights: 'Todos os direitos reservados.',
   }
 }
@@ -379,11 +392,37 @@ export default function LandingPage() {
                         </div>
                     </div>
                  </section>
+
+                {/* Legal Basis Section */}
+                <section className="py-20">
+                    <div className="container max-w-4xl mx-auto">
+                        <Card className="text-center">
+                            <CardHeader>
+                                <div className="flex justify-center mb-2">
+                                    <FileText className="h-10 w-10 text-primary" />
+                                </div>
+                                <CardTitle className="font-headline text-2xl">{t.legalBasisTitle}</CardTitle>
+                                <CardDescription>
+                                    {t.legalBasisDesc}
+                                </CardDescription>
+                            </CardHeader>
+                            <CardContent>
+                                <Button asChild>
+                                    <a href="https://peraturan.bpk.go.id/Download/28501/UU%20Nomor%2018%20Tahun%202012.pdf" target="_blank" rel="noopener noreferrer">
+                                        {t.legalBasisButton}
+                                    </a>
+                                </Button>
+                            </CardContent>
+                        </Card>
+                    </div>
+                </section>
+
             </main>
 
             {/* Footer */}
             <footer className="border-t">
-                <div className="container flex flex-col items-center justify-center gap-4 py-6 sm:flex-row">
+                <div className="container flex flex-col items-center justify-between gap-4 py-6 sm:flex-row">
+                    <Logo />
                     <p className="text-sm text-muted-foreground">
                         © {new Date().getFullYear()} Serenity AgriExport Hub. {t.footerRights}
                     </p>
