@@ -111,7 +111,7 @@ export default function ExporterGuidePage() {
                     <CheckCircle2 className="h-5 w-5 text-primary mt-1 shrink-0" />
                     <div>
                       <h4 className="font-medium text-foreground">Sertifikat Karantina (Phytosanitary/Health Certificate)</h4>
-                      <p>Wajib untuk produk pertanian dan makanan untuk memastikan bebas dari hama dan penyakit.</p>
+                      <p>Dokumen ini diterbitkan oleh Badan Karantina/BPOM dan wajib untuk produk pertanian dan makanan untuk memastikan bebas dari hama dan penyakit.</p>
                     </div>
                   </li>
                 </ul>

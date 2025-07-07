@@ -64,7 +64,7 @@ export default function BuyerInfoPage() {
                   </li>
                   <li>
                     <h4 className="font-medium text-foreground">✅ Dokumen Karantina dan Sertifikasi</h4>
-                    <p className="pl-6">Sertifikat Phytosanitary (pertanian) atau Health Certificate (pangan) dari Badan Karantina/BPOM.</p>
+                    <p className="pl-6">Sertifikat Phytosanitary (pertanian) atau Health Certificate (pangan) yang diterbitkan oleh Badan Karantina/BPOM untuk menjamin produk bebas hama dan penyakit.</p>
                   </li>
                 </ul>
               </AccordionContent>
