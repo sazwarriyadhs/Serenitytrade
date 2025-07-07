@@ -1,11 +1,13 @@
 
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
 import Image from "next/image"
+import { toPng } from 'html-to-image'
+import { QRCodeSVG } from 'qrcode.react'
 
 import { Button } from "@/components/ui/button"
 import {
@@ -30,7 +32,7 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
-import { QrCode, Upload } from "lucide-react"
+import { Upload, Download } from "lucide-react"
 import { useToast } from '@/hooks/use-toast'
 import { Logo } from '@/components/logo'
 
@@ -64,17 +66,7 @@ const roleDisplayNames = {
     admin: "ADMIN",
 };
 
-const MemberCard = ({
-  role = 'exporter',
-  isVerified = false,
-  photo,
-  name,
-  idNumber,
-  type,
-  address,
-  nib,
-  npwp,
-}: {
+const MemberCard = React.forwardRef<HTMLDivElement, {
   role?: keyof typeof roleDisplayNames;
   isVerified?: boolean;
   photo?: string | null;
@@ -84,78 +76,103 @@ const MemberCard = ({
   address: string;
   nib?: string;
   npwp: string;
-}) => (
-  <Card className="overflow-hidden shadow-lg w-full max-w-xl mx-auto">
-    <div className="flex">
-      {/* Left section */}
-      <div className="w-[65%] bg-white p-4 sm:p-6 flex flex-col text-foreground">
-        <div className="w-52">
-          <Logo size="large" className="!h-auto" />
-        </div>
-        <div className="mt-6">
-          <p className="text-base font-bold tracking-wider text-black">KARTU ANGGOTA</p>
-          <p className="text-base font-bold tracking-wider text-black -mt-1">
-            {roleDisplayNames[role] || "ANGGOTA"}
-          </p>
-        </div>
-        <div className="mt-4 text-xs space-y-2.5">
-          <div className="grid grid-cols-[60px_auto]">
-            <span className="font-semibold text-muted-foreground">No. Induk</span>
-            <span className="font-mono">: {idNumber}</span>
+}>(({
+  role = 'exporter',
+  isVerified = false,
+  photo,
+  name,
+  idNumber,
+  type,
+  address,
+  nib,
+  npwp,
+}, ref) => {
+  const qrValue = JSON.stringify({ id: idNumber, role, name });
+
+  return (
+    <Card ref={ref} className="overflow-hidden shadow-lg w-full max-w-xl mx-auto bg-white">
+      <div className="flex">
+        {/* Left section */}
+        <div className="w-[65%] bg-white p-4 sm:p-6 flex flex-col text-foreground">
+          <div className="w-52">
+            <Logo size="large" className="!h-auto" />
           </div>
-          <div className="grid grid-cols-[60px_auto]">
-            <span className="font-semibold text-muted-foreground">Nama</span>
-            <span className="font-semibold">: {name}</span>
+          <div className="mt-6">
+            <p className="text-base font-bold tracking-wider text-black">KARTU ANGGOTA</p>
+            <p className="text-base font-bold tracking-wider text-black -mt-1">
+              {roleDisplayNames[role] || "ANGGOTA"}
+            </p>
           </div>
-          <div className="grid grid-cols-[60px_auto]">
-            <span className="font-semibold text-muted-foreground">Jenis</span>
-            <span className="">: {type}</span>
-          </div>
-          <div className="grid grid-cols-[60px_auto]">
-            <span className="font-semibold text-muted-foreground">Alamat</span>
-            <span className="line-clamp-2">: {address}</span>
-          </div>
-          {role !== 'farmer' && nib && (
+          <div className="mt-4 text-xs space-y-2.5">
             <div className="grid grid-cols-[60px_auto]">
-              <span className="font-semibold text-muted-foreground">NIB</span>
-              <span className="font-mono">: {nib}</span>
+              <span className="font-semibold text-muted-foreground">No. Induk</span>
+              <span className="font-mono">: {idNumber}</span>
             </div>
-          )}
-          <div className="grid grid-cols-[60px_auto]">
-            <span className="font-semibold text-muted-foreground">NPWP</span>
-            <span className="font-mono">: {npwp}</span>
-          </div>
-        </div>
-        <div className="mt-auto pt-2">
-            {isVerified ? (
-                 <Badge variant="default" className="bg-green-600/20 text-green-700 border-green-600/20 hover:bg-green-600/30">Verified Member</Badge>
-            ) : (
-                <Badge variant="outline">Preview</Badge>
+            <div className="grid grid-cols-[60px_auto]">
+              <span className="font-semibold text-muted-foreground">Nama</span>
+              <span className="font-semibold">: {name}</span>
+            </div>
+            <div className="grid grid-cols-[60px_auto]">
+              <span className="font-semibold text-muted-foreground">Jenis</span>
+              <span className="">: {type}</span>
+            </div>
+            <div className="grid grid-cols-[60px_auto]">
+              <span className="font-semibold text-muted-foreground">Alamat</span>
+              <span className="line-clamp-2">: {address}</span>
+            </div>
+            {role !== 'farmer' && nib && (
+              <div className="grid grid-cols-[60px_auto]">
+                <span className="font-semibold text-muted-foreground">NIB</span>
+                <span className="font-mono">: {nib}</span>
+              </div>
             )}
-        </div>
-      </div>
-      {/* Right section */}
-      <div className="w-[35%] bg-primary p-4 text-primary-foreground flex flex-col items-center justify-between text-center">
-        <Avatar className="h-20 w-20 sm:h-24 sm:w-24 border-2 border-white/80 shadow-md">
-          <AvatarImage src={photo || "https://placehold.co/150x150.png"} alt="User photo" data-ai-hint={role === 'farmer' ? "person farmer" : "person avatar"} />
-          <AvatarFallback>{name?.substring(0, 2).toUpperCase() || 'SA'}</AvatarFallback>
-        </Avatar>
-        <div className="flex flex-col items-center">
-          <div className="bg-white p-1 rounded-md">
-            <QrCode className="h-16 w-16 sm:h-20 sm:w-20 text-black" />
+            <div className="grid grid-cols-[60px_auto]">
+              <span className="font-semibold text-muted-foreground">NPWP</span>
+              <span className="font-mono">: {npwp}</span>
+            </div>
           </div>
-          <p className="text-[10px] mt-2 leading-tight">Scan untuk melihat profil anggota</p>
-          <p className="text-[10px] font-semibold">Berlaku s/d: {ExpiryDate}</p>
+          <div className="mt-auto pt-2">
+              {isVerified ? (
+                   <Badge variant="default" className="bg-green-600/20 text-green-700 border-green-600/20 hover:bg-green-600/30">Verified Member</Badge>
+              ) : (
+                  <Badge variant="outline">Preview</Badge>
+              )}
+          </div>
+        </div>
+        {/* Right section */}
+        <div className="w-[35%] bg-primary p-4 text-primary-foreground flex flex-col items-center justify-between text-center">
+          <Avatar className="h-20 w-20 sm:h-24 sm:w-24 border-2 border-white/80 shadow-md">
+            <AvatarImage src={photo || "https://placehold.co/150x150.png"} alt="User photo" data-ai-hint={role === 'farmer' ? "person farmer" : "person avatar"} />
+            <AvatarFallback>{name?.substring(0, 2).toUpperCase() || 'SA'}</AvatarFallback>
+          </Avatar>
+          <div className="flex flex-col items-center">
+            <div className="bg-white p-2 rounded-md">
+                <QRCodeSVG
+                    value={qrValue}
+                    size={80}
+                    className="h-16 w-16 sm:h-20 sm:w-20"
+                    bgColor={"#ffffff"}
+                    fgColor={"#000000"}
+                    level={"L"}
+                    includeMargin={false}
+                />
+            </div>
+            <p className="text-[10px] mt-2 leading-tight">Scan for verification or login</p>
+            <p className="text-[10px] font-semibold">Berlaku s/d: {ExpiryDate}</p>
+          </div>
         </div>
       </div>
-    </div>
-  </Card>
-);
+    </Card>
+  )
+});
+MemberCard.displayName = "MemberCard";
+
 
 export default function MembershipCardPage() {
   const { toast } = useToast()
   const [photoPreview, setPhotoPreview] = useState<string | null>(null)
   const [userRole, setUserRole] = useState<string | null>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
   
   const form = useForm<MembershipFormValues>({
     resolver: zodResolver(membershipFormSchema),
@@ -187,6 +204,28 @@ export default function MembershipCardPage() {
     }
   }
 
+  const handleDownload = () => {
+    if (cardRef.current === null) {
+      return
+    }
+
+    toPng(cardRef.current, { cacheBust: true, pixelRatio: 2 })
+      .then((dataUrl) => {
+        const link = document.createElement('a')
+        link.download = 'membership-card.png'
+        link.href = dataUrl
+        link.click()
+      })
+      .catch((err) => {
+        console.log(err)
+        toast({
+          variant: "destructive",
+          title: "Download Failed",
+          description: "Could not generate card image. Please try again.",
+        })
+      })
+  }
+
   function onSubmit(data: MembershipFormValues) {
     console.log(data)
     toast({
@@ -210,6 +249,7 @@ export default function MembershipCardPage() {
           <p className="text-muted-foreground">Your verified membership details.</p>
         </div>
         <MemberCard 
+            ref={cardRef}
             role="farmer"
             isVerified
             photo="https://placehold.co/150x150.png"
@@ -220,7 +260,13 @@ export default function MembershipCardPage() {
             npwp="01.234.567.8-910.000"
         />
         <Card className="max-w-xl mx-auto">
-            <CardFooter>
+            <CardContent className="p-4 flex justify-center">
+                 <Button onClick={handleDownload}>
+                    <Download className="mr-2 h-4 w-4" />
+                    Download Card
+                </Button>
+            </CardContent>
+            <CardFooter className="pt-0 pb-4">
                  <p className="text-xs text-muted-foreground text-center w-full">Membership is free for all verified farmers to support and empower local agriculture.</p>
             </CardFooter>
         </Card>
@@ -399,6 +445,7 @@ export default function MembershipCardPage() {
         <div className="lg:col-span-2">
             <div className="sticky top-20">
                 <MemberCard 
+                    ref={cardRef}
                     role={userRole as keyof typeof roleDisplayNames}
                     isVerified={false}
                     photo={photoPreview}
