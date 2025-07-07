@@ -34,6 +34,19 @@ const commodityExamples = [
   { no: 15, commodity: "Udang", category: "Produk hewani", exportForm: "Udang beku, kupas, olahan", destination: "AS, Jepang, Uni Eropa" },
 ];
 
+const productCatalog = [
+  { name: "PRODUK 1: BERAS PANDAN WANGI", specs: [ { label: "Jenis", value: "Premium Aromatik" }, { label: "Grade", value: "Super / Export Grade" }, { label: "Kadar Air", value: "< 14%" }, { label: "Broken", value: "< 5%" }, { label: "Sertifikasi", value: "Organik, ISO 22000" }, { label: "Kemasan", value: "5kg vacuum / 25kg woven bag" } ] },
+  { name: "PRODUK 2: JAGUNG PIPIL KERING", specs: [ { label: "Moisture", value: "< 14%" }, { label: "Impurities", value: "< 1%" }, { label: "Aflatoksin", value: "< 20 ppb" }, { label: "Warna", value: "Kuning cerah" }, { label: "Sertifikasi", value: "GAP, HACCP" }, { label: "Kemasan", value: "50kg karung PP" } ] },
+  { name: "PRODUK 3: GULA KELAPA KRISTAL ORGANIK", specs: [ { label: "Warna", value: "Coklat muda" }, { label: "Kadar Air", value: "< 2%" }, { label: "Sertifikat", value: "USDA Organic, EU Organic" }, { label: "Kemasan", value: "500g sachet / 25kg bulk" }, { label: "Shelf life", value: "18 bulan" } ] },
+  { name: "PRODUK 4: KAKAO FERMENTASI", specs: [ { label: "Grade", value: "A (Fermentasi)" }, { label: "Moisture", value: "< 7%" }, { label: "Mouldy Beans", value: "< 3%" }, { label: "Sertifikasi", value: "UTZ, Rainforest Alliance" }, { label: "Kemasan", value: "50kg goni natural" } ] },
+  { name: "PRODUK 5: KOPI ARABIKA GAYO", specs: [ { label: "Grade", value: "Specialty Export Grade" }, { label: "Moisture", value: "10–12%" }, { label: "Screen Size", value: "16–18" }, { label: "Sertifikasi", value: "Fair Trade, Organic" }, { label: "Varietas", value: "Gayo, Ateng, Borbor" }, { label: "Kemasan", value: "60kg karung goni dengan inner PE" } ] },
+  { name: "PRODUK 6: KACANG HIJAU", specs: [ { label: "Ukuran Biji", value: "3.5–4.5 mm" }, { label: "Moisture", value: "< 12%" }, { label: "Cleanliness", value: "> 99%" }, { label: "Kemasan", value: "25–50kg PP bag" } ] },
+  { name: "PRODUK 7: KACANG TANAH", specs: [ { label: "Warna", value: "Merah bata / putih krem" }, { label: "Kadar Air", value: "< 10%" }, { label: "Grade", value: "Ekspor A" }, { label: "Kemasan", value: "Karung 25–50kg" } ] },
+  { name: "PRODUK 8: MINYAK KELAPA MURNI (VCO)", specs: [ { label: "Warna", value: "Bening" }, { label: "Bau", value: "Kelapa segar" }, { label: "Kadar Air", value: "< 0.2%" }, { label: "Sertifikasi", value: "USDA Organic, HACCP" }, { label: "Kemasan", value: "Botol 250ml / Jerigen 20L" } ] },
+  { name: "PRODUK 9: TEPUNG SINGKONG (MOCAF)", specs: [ { label: "Kadar Air", value: "< 12%" }, { label: "Warna", value: "Putih alami" }, { label: "Gluten-Free", value: "Ya" }, { label: "Sertifikasi", value: "Halal, HACCP" }, { label: "Kemasan", value: "1kg–25kg kraft paper bag" } ] },
+  { name: "PRODUK 10: REMPAH REMPAH KERING (LADA, KAYU MANIS, CENGKEH)", specs: [ { label: "Bentuk", value: "Whole / Bubuk" }, { label: "Moisture", value: "< 12%" }, { label: "Sertifikasi", value: "HACCP, Organik" }, { label: "Kemasan", value: "10kg–25kg PP bag / vacuum pack" } ] }
+];
+
 
 export default function ExporterGuidePage() {
   return (
@@ -353,6 +366,34 @@ export default function ExporterGuidePage() {
                             <li><strong>Kemasan:</strong> Vakum dalam kantong plastik dan dikemas dalam karton</li>
                         </ul>
                     </div>
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+            
+            <AccordionItem value="item-9">
+              <AccordionTrigger className="text-base font-semibold">
+                9. Katalog Spesifikasi Produk Pangan Unggulan Indonesia
+              </AccordionTrigger>
+              <AccordionContent className="text-muted-foreground">
+                <div className="space-y-6">
+                  {productCatalog.map((product, index) => (
+                    <div key={index} className="p-4 border rounded-lg bg-secondary/30">
+                      <h4 className="font-semibold text-foreground text-base">{product.name}</h4>
+                      <ul className="list-none space-y-1 mt-2 pl-2 text-sm">
+                        {product.specs.map((spec, specIndex) => (
+                          <li key={specIndex} className="grid grid-cols-[110px_auto]">
+                            <span className="font-medium text-foreground/80">{spec.label}</span>
+                            <span>: {spec.value}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-8 pt-4 border-t border-border text-center text-sm space-y-2">
+                  <p className="font-semibold">🛫 Semua produk berasal dari UMKM dan petani binaan. Siap ekspor langsung.</p>
+                  <p>📦 Dapat OEM, Repack, dan Private Label sesuai permintaan.</p>
+                  <p>🌍 Pelabuhan utama ekspor: Tanjung Priok, Belawan, Tanjung Perak.</p>
                 </div>
               </AccordionContent>
             </AccordionItem>
