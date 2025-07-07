@@ -1,7 +1,7 @@
 
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Logo } from '@/components/logo'
@@ -215,7 +215,26 @@ const commodityPrices = [
 
 export default function LandingPage() {
     const [lang, setLang] = useState('en');
+    const [showSplash, setShowSplash] = useState(true);
     const t = translations[lang as keyof typeof translations];
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setShowSplash(false);
+        }, 3000); 
+
+        return () => clearTimeout(timer);
+    }, []);
+
+    if (showSplash) {
+        return (
+            <div className="fixed inset-0 z-[999] flex items-center justify-center bg-background">
+                <div className="animate-pulse">
+                    <Logo size="large" />
+                </div>
+            </div>
+        );
+    }
     
     return (
         <div className="flex min-h-screen flex-col bg-background text-foreground">
