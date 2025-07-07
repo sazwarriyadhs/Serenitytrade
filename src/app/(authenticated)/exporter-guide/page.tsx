@@ -162,6 +162,37 @@ export default function ExporterGuidePage() {
               </AccordionContent>
             </AccordionItem>
 
+            <AccordionItem value="item-5">
+              <AccordionTrigger className="text-base font-semibold">
+                5. Regulasi Terkait Volume Pangan
+              </AccordionTrigger>
+              <AccordionContent className="text-muted-foreground">
+                <p className="mb-4">Meskipun tidak ada batasan volume minimum/maksimum yang eksplisit untuk semua komoditas, beberapa regulasi berikut secara tidak langsung mempengaruhi volume dalam perdagangan pangan di Indonesia:</p>
+                <ul className="list-disc pl-5 space-y-3">
+                  <li>
+                    <strong className="text-foreground">Undang-Undang No. 18/2012 tentang Pangan:</strong>
+                    <p>Menjadi dasar hukum utama yang mengatur produksi, distribusi, dan pengawasan untuk menjamin ketersediaan pangan nasional.</p>
+                  </li>
+                  <li>
+                    <strong className="text-foreground">Peraturan Pemerintah & Menteri:</strong>
+                    <p>Peraturan turunan seringkali mengatur lebih detail komoditas strategis (misalnya beras, gula), yang bisa mencakup kebijakan stok atau distribusi.</p>
+                  </li>
+                  <li>
+                    <strong className="text-foreground">Ketahanan Pangan (PP No. 68/2002):</strong>
+                    <p>Menekankan pentingnya ketersediaan pangan yang cukup dan terjangkau bagi masyarakat, yang mempengaruhi kebijakan ekspor-impor.</p>
+                  </li>
+                  <li>
+                    <strong className="text-foreground">Regulasi Produksi:</strong>
+                    <p>Kebijakan terkait luas lahan tanam atau alokasi pupuk untuk komoditas tertentu dapat mempengaruhi total volume produksi yang tersedia untuk pasar domestik dan ekspor.</p>
+                  </li>
+                  <li>
+                    <strong className="text-foreground">Perdagangan Berjangka Komoditi:</strong>
+                    <p>Untuk komoditas yang diperdagangkan di bursa berjangka (diawasi BAPPEBTI), terdapat aturan spesifik mengenai volume kontrak perdagangan.</p>
+                  </li>
+                </ul>
+              </AccordionContent>
+            </AccordionItem>
+
           </Accordion>
         </CardContent>
       </Card>
