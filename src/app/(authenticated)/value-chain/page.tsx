@@ -1,5 +1,6 @@
 'use client'
 
+import * as React from "react"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { ArrowRight, Tractor, Briefcase, Globe, Handshake, ShieldCheck } from "lucide-react"
 
@@ -69,8 +70,8 @@ export default function ValueChainPage() {
         <CardContent>
           <div className="flex flex-col md:flex-row items-center justify-around gap-4 text-center">
             {roles.map((role, index) => (
-              <>
-                <div key={role.name} className="flex-1 max-w-sm">
+              <React.Fragment key={role.name}>
+                <div className="flex-1 max-w-sm">
                   <Card className="h-full">
                     <CardHeader>
                       <div className="flex justify-center mb-4">
@@ -94,7 +95,7 @@ export default function ValueChainPage() {
                     <ArrowRight className="w-8 h-8 text-muted-foreground rotate-90 md:rotate-0" />
                   </div>
                 )}
-              </>
+              </React.Fragment>
             ))}
           </div>
         </CardContent>
