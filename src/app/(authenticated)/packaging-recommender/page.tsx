@@ -22,10 +22,22 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { recommendPackaging, RecommendPackagingInputSchema, type RecommendPackagingOutput } from "@/ai/flows/recommend-packaging-flow"
+import { recommendPackaging, type RecommendPackagingOutput } from "@/ai/flows/recommend-packaging-flow"
 import { Loader2, Box, Weight, Ruler, Scaling, AlertTriangle, Info } from "lucide-react"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Separator } from "@/components/ui/separator"
+
+const RecommendPackagingInputSchema = z.object({
+  commodityName: z.string().min(1, { message: "Commodity name is required." }),
+  unitWeightKg: z.coerce.number().positive({ message: "Unit weight must be a positive number." }),
+  quantity: z.coerce.number().int().positive({ message: "Quantity must be a positive integer." }),
+  productType: z.enum(['Fresh Fruit/Vegetable', 'Grains/Seeds', 'Powder', 'Liquid', 'Processed/Dried Goods'], {
+    required_error: "Please select a product type.",
+  }),
+  fragility: z.enum(['Low', 'Medium', 'High'], {
+    required_error: "Please select a fragility level.",
+  }),
+});
 
 type PackagingFormValues = z.infer<typeof RecommendPackagingInputSchema>
 

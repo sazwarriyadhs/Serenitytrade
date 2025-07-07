@@ -10,7 +10,7 @@
 import { ai } from '@/ai/genkit';
 import { z } from 'zod';
 
-export const RecommendPackagingInputSchema = z.object({
+const RecommendPackagingInputSchema = z.object({
   commodityName: z.string().describe('The name of the agricultural commodity.'),
   unitWeightKg: z.coerce.number().positive().describe('The weight of a single unit or a small consumer package in kilograms.'),
   quantity: z.coerce.number().int().positive().describe('The total number of units to be packaged.'),
@@ -19,7 +19,7 @@ export const RecommendPackagingInputSchema = z.object({
 });
 export type RecommendPackagingInput = z.infer<typeof RecommendPackagingInputSchema>;
 
-export const RecommendPackagingOutputSchema = z.object({
+const RecommendPackagingOutputSchema = z.object({
   packagingType: z.string().describe("The type of primary packaging recommended (e.g., 'Cardboard Box', 'Jute Sack', 'Plastic Drum')."),
   primaryDimensionsCm: z.object({
     length: z.number(),
