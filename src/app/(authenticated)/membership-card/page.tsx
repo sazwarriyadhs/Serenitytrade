@@ -1,7 +1,7 @@
 
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
@@ -58,6 +58,7 @@ type MembershipFormValues = z.infer<typeof membershipFormSchema>
 export default function MembershipCardPage() {
   const { toast } = useToast()
   const [photoPreview, setPhotoPreview] = useState<string | null>(null)
+  const [userRole, setUserRole] = useState<string | null>(null);
   
   const form = useForm<MembershipFormValues>({
     resolver: zodResolver(membershipFormSchema),
@@ -70,6 +71,11 @@ export default function MembershipCardPage() {
       taxNumber: "",
     },
   })
+
+  useEffect(() => {
+    const role = localStorage.getItem("userRole");
+    setUserRole(role);
+  }, []);
 
   const membershipType = form.watch('membershipType')
 
@@ -97,6 +103,56 @@ export default function MembershipCardPage() {
   const getCost = () => {
     const cost = membershipType === 'individual' ? 25000 : 50000
     return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(cost)
+  }
+
+  if (userRole === 'farmer') {
+    return (
+      <div className="grid gap-8">
+        <div>
+          <h1 className="text-3xl font-bold font-headline">Farmer Membership Status</h1>
+          <p className="text-muted-foreground">Your verified membership details.</p>
+        </div>
+        <Card className="max-w-lg mx-auto">
+          <CardHeader>
+            <div className="flex justify-between items-start gap-4">
+              <Logo className="h-8" />
+              <div className="text-right">
+                <Badge variant="default" className="bg-green-600/20 text-green-700 border-green-600/20 hover:bg-green-600/30">Verified Member</Badge>
+              </div>
+            </div>
+          </CardHeader>
+          <CardContent className="grid gap-4">
+            <div className="flex items-center gap-4">
+              <Avatar className="h-20 w-20 shadow">
+                <AvatarImage src="https://placehold.co/100x100.png" alt="Farmer Photo" data-ai-hint="person farmer" />
+                <AvatarFallback>SF</AvatarFallback>
+              </Avatar>
+              <div className="flex-1 overflow-hidden">
+                <p className="font-bold text-lg truncate">Sunrise Farms</p>
+                <p className="text-sm text-muted-foreground truncate">ID: FARM-005</p>
+                <p className="text-sm font-medium mt-2">"We are a proud farmer member of Serenity AgriExport Hub."</p>
+              </div>
+            </div>
+            <div className="flex items-center justify-between mt-2 pt-2 border-t">
+              <div>
+                <p className="text-xs text-muted-foreground">Member Since:</p>
+                <p className="text-sm font-medium">{new Date(new Date().setFullYear(new Date().getFullYear() - 1)).toLocaleDateString()}</p>
+              </div>
+              <div className="text-center">
+                <Image src="https://placehold.co/80x80.png" alt="QR Code" width={80} height={80} data-ai-hint="qr code" />
+              </div>
+            </div>
+          </CardContent>
+          <CardFooter>
+            <p className="text-xs text-muted-foreground text-center w-full">Membership is free for all verified farmers to support and empower local agriculture.</p>
+          </CardFooter>
+        </Card>
+      </div>
+    );
+  }
+
+  if (userRole === null) {
+      return null; // Or a loading skeleton
   }
 
   return (

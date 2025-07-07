@@ -25,7 +25,7 @@ const allNavItems = [
   { href: "/dashboard", icon: LayoutDashboard, label: "Exporter Dashboard", roles: ['exporter'] },
   { href: "/buyer-dashboard", icon: Briefcase, label: "Buyer Dashboard", roles: ['buyer'] },
   { href: "/farmer-dashboard", icon: Tractor, label: "Farmer Dashboard", roles: ['farmer'] },
-  { href: "/membership-card", icon: CreditCard, label: "Membership Card", roles: ['exporter', 'buyer', 'admin'] },
+  { href: "/membership-card", icon: CreditCard, label: "Membership Card", roles: ['exporter', 'buyer', 'admin', 'farmer'] },
   { href: "/farmer-guide", icon: BookMarked, label: "Panduan Petani", roles: ['farmer', 'admin'] },
   { href: "/find-market", icon: Compass, label: "Find Market", roles: ['exporter', 'admin'] },
   { href: "/commodities", icon: Leaf, label: "Commodities", roles: ['exporter', 'buyer', 'farmer', 'admin'] },
