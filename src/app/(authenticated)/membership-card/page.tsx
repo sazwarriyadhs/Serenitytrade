@@ -32,9 +32,10 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
-import { Upload, Download } from "lucide-react"
+import { Upload, Download, RefreshCw } from "lucide-react"
 import { useToast } from '@/hooks/use-toast'
 import { Logo } from '@/components/logo'
+import { cn } from "@/lib/utils"
 
 const membershipFormSchema = z.object({
   membershipType: z.enum(['individual', 'company'], { required_error: "Please select a membership type." }),
@@ -76,6 +77,7 @@ const MemberCard = React.forwardRef<HTMLDivElement, {
   address: string;
   nib?: string;
   npwp: string;
+  className?: string;
 }>(({
   role = 'exporter',
   isVerified = false,
@@ -86,12 +88,13 @@ const MemberCard = React.forwardRef<HTMLDivElement, {
   address,
   nib,
   npwp,
+  className,
 }, ref) => {
   const qrValue = JSON.stringify({ id: idNumber, role, name });
 
   return (
-    <Card ref={ref} className="overflow-hidden shadow-lg w-full max-w-xl mx-auto bg-white">
-      <div className="flex">
+    <Card ref={ref} className={cn("overflow-hidden shadow-lg w-full max-w-xl mx-auto bg-white", className)}>
+      <div className="flex h-full">
         {/* Left section */}
         <div className="w-[65%] bg-white p-4 sm:p-6 flex flex-col text-foreground">
           <div className="w-52">
@@ -168,10 +171,44 @@ const MemberCard = React.forwardRef<HTMLDivElement, {
 MemberCard.displayName = "MemberCard";
 
 
+const MemberCardBack = React.forwardRef<HTMLDivElement, { className?: string }>(({ className }, ref) => {
+  return (
+    <Card ref={ref} className={cn("overflow-hidden shadow-lg w-full max-w-xl mx-auto bg-white", className)}>
+         <div className="flex h-full">
+            <div className="w-[35%] bg-primary p-4 text-primary-foreground flex flex-col items-center justify-center text-center">
+                <div className="w-40">
+                     <Logo size="large" className="!h-auto" />
+                </div>
+            </div>
+            <div className="w-[65%] bg-white p-4 sm:p-6 flex flex-col text-foreground">
+                <h3 className="text-base font-bold tracking-wider text-black">PERATURAN & REGULASI</h3>
+                <p className="text-xs text-muted-foreground mt-1">Serenity AgriExport Hub</p>
+                <div className="mt-4 text-[10px] sm:text-xs space-y-2 text-muted-foreground flex-1">
+                    <ol className="list-decimal list-inside space-y-1.5">
+                        <li>Setiap transaksi wajib dilakukan melalui saluran resmi platform untuk keamanan dan validasi.</li>
+                        <li>Anggota diwajibkan menjaga kerahasiaan detail transaksi dan negosiasi.</li>
+                        <li>Kepatuhan terhadap hukum perdagangan lokal dan internasional adalah wajib.</li>
+                        <li>Platform berhak menangguhkan akun yang terbukti melakukan aktivitas penipuan atau melanggar ketentuan.</li>
+                        <li>Kartu keanggotaan ini bersifat pribadi dan tidak dapat dipindahtangankan.</li>
+                        <li>Syarat dan ketentuan lengkap tersedia di situs web kami.</li>
+                    </ol>
+                </div>
+                 <div className="mt-auto pt-2 text-xs text-center text-muted-foreground">
+                    Kartu ini adalah milik Serenity AgriExport Hub.
+                 </div>
+            </div>
+        </div>
+    </Card>
+  )
+});
+MemberCardBack.displayName = "MemberCardBack";
+
+
 export default function MembershipCardPage() {
   const { toast } = useToast()
   const [photoPreview, setPhotoPreview] = useState<string | null>(null)
   const [userRole, setUserRole] = useState<string | null>(null);
+  const [isFlipped, setIsFlipped] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
   
   const form = useForm<MembershipFormValues>({
@@ -206,6 +243,15 @@ export default function MembershipCardPage() {
 
   const handleDownload = () => {
     if (cardRef.current === null) {
+      return
+    }
+
+    if(isFlipped) {
+      toast({
+        variant: "destructive",
+        title: "Download Not Available",
+        description: "Please flip to the front side of the card to download.",
+      })
       return
     }
 
@@ -246,22 +292,40 @@ export default function MembershipCardPage() {
       <div className="grid gap-8">
         <div>
           <h1 className="text-3xl font-bold font-headline">Farmer Membership Status</h1>
-          <p className="text-muted-foreground">Your verified membership details.</p>
+          <p className="text-muted-foreground">Your verified membership details. Click the button to view regulations.</p>
         </div>
-        <MemberCard 
-            ref={cardRef}
-            role="farmer"
-            isVerified
-            photo="https://placehold.co/150x150.png"
-            name="Sunrise Farms"
-            idNumber="FARM-2025-00005"
-            type="Petani Terverifikasi"
-            address="Desa Makmur, Kec. Sejahtera, Kab. Subur, Indonesia"
-            npwp="01.234.567.8-910.000"
-        />
+         <div className="relative w-full max-w-xl mx-auto h-[280px] sm:h-[310px] [perspective:1000px]">
+            <div 
+                className={cn(
+                    "relative w-full h-full transition-transform duration-700 [transform-style:preserve-3d]",
+                    isFlipped && "[transform:rotateY(180deg)]"
+                )}
+            >
+                <div ref={cardRef} className="absolute w-full h-full [backface-visibility:hidden]">
+                    <MemberCard 
+                        role="farmer"
+                        isVerified
+                        photo="https://placehold.co/150x150.png"
+                        name="Sunrise Farms"
+                        idNumber="FARM-2025-00005"
+                        type="Petani Terverifikasi"
+                        address="Desa Makmur, Kec. Sejahtera, Kab. Subur, Indonesia"
+                        npwp="01.234.567.8-910.000"
+                        className="h-full"
+                    />
+                </div>
+                <div className="absolute inset-0 h-full w-full [transform:rotateY(180deg)] [backface-visibility:hidden]">
+                    <MemberCardBack className="h-full"/>
+                </div>
+            </div>
+        </div>
         <Card className="max-w-xl mx-auto">
-            <CardContent className="p-4 flex justify-center">
-                 <Button onClick={handleDownload}>
+            <CardContent className="p-4 flex justify-center gap-4">
+                 <Button onClick={() => setIsFlipped(!isFlipped)}>
+                    <RefreshCw className="mr-2 h-4 w-4" />
+                    {isFlipped ? "View Front" : "View Regulations"}
+                </Button>
+                 <Button onClick={handleDownload} disabled={isFlipped}>
                     <Download className="mr-2 h-4 w-4" />
                     Download Card
                 </Button>
@@ -444,18 +508,38 @@ export default function MembershipCardPage() {
         </div>
         <div className="lg:col-span-2">
             <div className="sticky top-20">
-                <MemberCard 
-                    ref={cardRef}
-                    role={userRole as keyof typeof roleDisplayNames}
-                    isVerified={false}
-                    photo={photoPreview}
-                    name={form.watch('name') || 'Nama Anda / Perusahaan'}
-                    idNumber={form.watch('idNumber') || 'SER-EXP-2025-00123'}
-                    type={form.watch('membershipType') === 'company' ? 'Perusahaan' : 'Perorangan'}
-                    address={form.watch('address') || 'Alamat lengkap Anda akan muncul di sini.'}
-                    nib={membershipType === 'company' ? form.watch('nib') || '9123456789123' : undefined}
-                    npwp={form.watch('taxNumber') || '01.234.567.8-910.000'}
-                />
+                <div className="relative w-full max-w-xl mx-auto h-[280px] sm:h-[310px] [perspective:1000px]">
+                    <div 
+                        className={cn(
+                            "relative w-full h-full transition-transform duration-700 [transform-style:preserve-3d]",
+                            isFlipped && "[transform:rotateY(180deg)]"
+                        )}
+                    >
+                         <div ref={cardRef} className="absolute w-full h-full [backface-visibility:hidden]">
+                            <MemberCard 
+                                role={userRole as keyof typeof roleDisplayNames}
+                                isVerified={false}
+                                photo={photoPreview}
+                                name={form.watch('name') || 'Nama Anda / Perusahaan'}
+                                idNumber={form.watch('idNumber') || 'SER-EXP-2025-00123'}
+                                type={form.watch('membershipType') === 'company' ? 'Perusahaan' : 'Perorangan'}
+                                address={form.watch('address') || 'Alamat lengkap Anda akan muncul di sini.'}
+                                nib={membershipType === 'company' ? form.watch('nib') || '9123456789123' : undefined}
+                                npwp={form.watch('taxNumber') || '01.234.567.8-910.000'}
+                                className="h-full"
+                            />
+                        </div>
+                        <div className="absolute inset-0 h-full w-full [transform:rotateY(180deg)] [backface-visibility:hidden]">
+                            <MemberCardBack className="h-full" />
+                        </div>
+                    </div>
+                </div>
+                <div className="text-center mt-4">
+                    <Button variant="outline" onClick={() => setIsFlipped(!isFlipped)}>
+                        <RefreshCw className="mr-2 h-4 w-4"/>
+                        {isFlipped ? "View Front" : "View Back (Regulations)"}
+                    </Button>
+                </div>
             </div>
         </div>
       </div>
