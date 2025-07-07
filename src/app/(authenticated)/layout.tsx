@@ -1,7 +1,7 @@
 
 "use client"
 import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { 
   SidebarProvider, 
@@ -16,9 +16,7 @@ import {
 } from "@/components/ui/sidebar"
 import { Logo } from "@/components/logo"
 import { UserNav } from "@/components/user-nav"
-import { LayoutDashboard, Leaf, ArrowRightLeft, Bell, Spline, TrendingUp, BookUser, Tractor, Briefcase, Calculator, Truck, Landmark, Compass, BookCheck, Wallet, BookMarked, Shield, Box, Ship, CreditCard } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
+import { LayoutDashboard, Leaf, ArrowRightLeft, Bell, Spline, TrendingUp, BookUser, Tractor, Briefcase, Calculator, Truck, Landmark, Compass, BookCheck, Wallet, BookMarked, Shield, Box, Ship, CreditCard, Loader2 } from "lucide-react"
 
 const allNavItems = [
   { href: "/admin-dashboard", icon: Shield, label: "Admin Dashboard", roles: ['admin'] },
@@ -42,22 +40,46 @@ const allNavItems = [
   { href: "/notifications", icon: Bell, label: "Notifications", roles: ['exporter', 'buyer', 'farmer', 'admin'] },
 ]
 
+const roleInfo: { [key: string]: { name: string, email: string } } = {
+  exporter: { name: "Exporter", email: "exporter@serenity.com" },
+  buyer: { name: "Buyer", email: "buyer@serenity.com" },
+  farmer: { name: "Farmer", email: "farmer@serenity.com" },
+  admin: { name: "Admin", email: "admin@serenity.com" },
+}
+
 export default function AuthenticatedLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
   const pathname = usePathname()
+  const router = useRouter()
   const [userRole, setUserRole] = useState<string | null>(null)
+  const [isAuthenticating, setIsAuthenticating] = useState(true)
 
   useEffect(() => {
     // On component mount, read the role from localStorage.
     const role = localStorage.getItem("userRole")
-    setUserRole(role)
-  }, [])
+    if (role && roleInfo[role]) {
+      setUserRole(role)
+    } else {
+      // If no role or invalid role, redirect to login
+      router.replace("/login")
+    }
+    setIsAuthenticating(false)
+  }, [router])
 
   // Filter navigation items based on the user's role.
   const navItems = allNavItems.filter(item => userRole && item.roles.includes(userRole))
+  const currentUser = userRole ? roleInfo[userRole] : null
+
+  if (isAuthenticating) {
+    return (
+      <div className="flex h-screen w-full items-center justify-center bg-background">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      </div>
+    )
+  }
 
   return (
     <SidebarProvider>
@@ -91,7 +113,7 @@ export default function AuthenticatedLayout({
             <div className="w-full flex-1">
               {/* Search form removed */}
             </div>
-            <UserNav />
+            <UserNav role={currentUser?.name} email={currentUser?.email} />
           </header>
           <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
             {children}

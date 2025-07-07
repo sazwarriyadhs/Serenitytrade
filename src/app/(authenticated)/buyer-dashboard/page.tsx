@@ -35,7 +35,7 @@ import {
   TabsTrigger,
 } from "@/components/ui/tabs"
 import { Input } from "@/components/ui/input"
-import React, { useState } from "react"
+import React, { useState, useMemo } from "react"
 import {
     Dialog,
     DialogContent,
@@ -50,8 +50,9 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Textarea } from "@/components/ui/textarea"
+import { useToast } from "@/hooks/use-toast"
 
-const availableCommodities = [
+const availableCommoditiesData = [
   {
     name: "Organic Hass Avocado",
     exporter: "Green Valley Exports",
@@ -131,8 +132,10 @@ const trendIcons = {
 }
 
 export default function BuyerDashboardPage() {
+    const { toast } = useToast()
     const [myRequests, setMyRequests] = useState(initialMyRequests)
     const [isRequestDialogOpen, setIsRequestDialogOpen] = useState(false)
+    const [searchTerm, setSearchTerm] = useState("")
 
     const form = useForm<RequestFormValues>({
         resolver: zodResolver(requestFormSchema),
@@ -145,7 +148,7 @@ export default function BuyerDashboardPage() {
 
     function onSubmit(data: RequestFormValues) {
         const newRequest = {
-            id: `REQ-${String(myRequests.length + 1).padStart(3, '0')}`,
+            id: `REQ-${String(myRequests.length + 3).padStart(3, '0')}`,
             commodity: data.commodity,
             quantity: data.quantity,
             status: "Finding Exporters",
@@ -153,8 +156,32 @@ export default function BuyerDashboardPage() {
             offers: 0,
         }
         setMyRequests(prev => [newRequest, ...prev])
+        toast({
+            title: "Request Created",
+            description: `Your request for ${data.commodity} has been submitted.`,
+        })
         form.reset()
         setIsRequestDialogOpen(false)
+    }
+
+    const availableCommodities = useMemo(() => {
+        if (!searchTerm) return availableCommoditiesData
+        return availableCommoditiesData.filter(c => 
+            c.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
+            c.origin.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+    }, [searchTerm])
+    
+    const handleMakeOffer = (commodityName: string) => {
+        form.setValue("commodity", commodityName)
+        setIsRequestDialogOpen(true)
+    }
+    
+    const handleRequestAction = (action: string) => {
+        toast({
+            title: "Action Triggered",
+            description: `${action} functionality is not implemented in this demo.`,
+        })
     }
 
     return (
@@ -170,7 +197,7 @@ export default function BuyerDashboardPage() {
                         <FileText className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
                     <CardContent>
-                        <div className="text-2xl font-bold">{myRequests.filter(r => r.status !== 'Offer Received').length}</div>
+                        <div className="text-2xl font-bold">{myRequests.filter(r => r.status === 'Finding Exporters').length}</div>
                         <p className="text-xs text-muted-foreground">
                             Awaiting exporter offers
                         </p>
@@ -244,7 +271,12 @@ export default function BuyerDashboardPage() {
                             <div className="pt-2">
                                  <div className="relative">
                                     <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-                                    <Input placeholder="Search by commodity or origin..." className="pl-8" />
+                                    <Input 
+                                        placeholder="Search by commodity or origin..." 
+                                        className="pl-8"
+                                        value={searchTerm}
+                                        onChange={(e) => setSearchTerm(e.target.value)}
+                                    />
                                 </div>
                             </div>
                         </CardHeader>
@@ -271,7 +303,7 @@ export default function BuyerDashboardPage() {
                                             <div className="font-semibold">${item.price.toFixed(2)}/kg</div>
                                             <div className="text-muted-foreground">Min. {item.minOrder} kg</div>
                                         </div>
-                                        <Button size="sm">Make Offer</Button>
+                                        <Button size="sm" onClick={() => handleMakeOffer(item.name)}>Make Offer</Button>
                                     </CardFooter>
                                 </Card>
                             ))}
@@ -386,9 +418,9 @@ export default function BuyerDashboardPage() {
                                                 </DropdownMenuTrigger>
                                                 <DropdownMenuContent align="end">
                                                     <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                                                    <DropdownMenuItem>View Offers</DropdownMenuItem>
-                                                    <DropdownMenuItem>Edit Request</DropdownMenuItem>
-                                                     <DropdownMenuItem>Cancel Request</DropdownMenuItem>
+                                                    <DropdownMenuItem onSelect={() => handleRequestAction("View Offers")}>View Offers</DropdownMenuItem>
+                                                    <DropdownMenuItem onSelect={() => handleRequestAction("Edit Request")}>Edit Request</DropdownMenuItem>
+                                                     <DropdownMenuItem onSelect={() => handleRequestAction("Cancel Request")}>Cancel Request</DropdownMenuItem>
                                                 </DropdownMenuContent>
                                                 </DropdownMenu>
                                             </TableCell>
@@ -426,7 +458,7 @@ export default function BuyerDashboardPage() {
                                            <TableCell><Badge variant="secondary">{neg.status}</Badge></TableCell>
                                            <TableCell>{neg.lastUpdate}</TableCell>
                                            <TableCell>
-                                                <Button variant="outline" size="sm">View Chat</Button>
+                                                <Button variant="outline" size="sm" onClick={() => handleRequestAction("View Chat")}>View Chat</Button>
                                            </TableCell>
                                        </TableRow>
                                    ))}

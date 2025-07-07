@@ -5,6 +5,8 @@ import { useForm } from "react-hook-form"
 import * as z from "zod"
 import { CalendarIcon, PlusCircle, Upload, FileText, CheckCircle2, Wallet, Handshake } from "lucide-react"
 import { format } from "date-fns"
+import React, { useState } from "react"
+import { useToast } from "@/hooks/use-toast"
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -67,16 +69,17 @@ type HarvestFormValues = z.infer<typeof harvestFormSchema>
 const certFormSchema = z.object({
   certName: z.string().min(1, "Certification name is required."),
   certFile: z.instanceof(FileList).refine(files => files?.length === 1, "File is required."),
+  product: z.string({ required_error: "Please select a product." }),
 });
 type CertFormValues = z.infer<typeof certFormSchema>
 
 // Mock data
-const recentHarvests = [
+const initialHarvests = [
   { id: "HARV-001", commodity: "Hass Avocado", quantity: "1500 kg", date: "2023-10-28", grade: "A" },
   { id: "HARV-002", commodity: "Arabica Coffee", quantity: "800 kg", date: "2023-10-25", grade: "Premium" },
 ];
 
-const farmerProducts = [
+const initialFarmerProducts = [
     { id: "PROD-01", name: "Hass Avocado", certs: ["Organik Indonesia"], stock: "1200 kg" },
     { id: "PROD-02", name: "Arabica Coffee", certs: ["Fair Trade"], stock: "500 kg" },
 ];
@@ -93,6 +96,10 @@ const partnerships = [
 ]
 
 export default function FarmerDashboardPage() {
+  const { toast } = useToast()
+  const [recentHarvests, setRecentHarvests] = useState(initialHarvests)
+  const [farmerProducts, setFarmerProducts] = useState(initialFarmerProducts)
+
   const harvestForm = useForm<HarvestFormValues>({
     resolver: zodResolver(harvestFormSchema),
   })
@@ -107,14 +114,33 @@ export default function FarmerDashboardPage() {
   const certFileRef = certForm.register("certFile");
 
   function onHarvestSubmit(data: HarvestFormValues) {
-    console.log(data)
-    alert("Harvest data submitted!")
+    const newHarvest = {
+      id: `HARV-${String(recentHarvests.length + 1).padStart(3, '0')}`,
+      commodity: data.commodity,
+      quantity: `${data.quantity} kg`,
+      date: format(data.harvestDate, "yyyy-MM-dd"),
+      grade: data.qualityGrade,
+    }
+    setRecentHarvests(prev => [newHarvest, ...prev]);
+    toast({
+      title: "Harvest Logged",
+      description: `Successfully logged ${data.quantity}kg of ${data.commodity}.`,
+    })
     harvestForm.reset();
   }
   
   function onCertSubmit(data: CertFormValues) {
-    console.log(data)
-    alert(`Certification '${data.certName}' submitted with file: ${data.certFile[0].name}`)
+    setFarmerProducts(prev => prev.map(p => {
+        if (p.id === data.product) {
+            return { ...p, certs: [...p.certs, data.certName] }
+        }
+        return p
+    }))
+
+    toast({
+      title: "Certification Submitted",
+      description: `Certification '${data.certName}' for ${data.product} submitted for verification. File: ${data.certFile[0].name}`,
+    })
     certForm.reset();
   }
 
@@ -335,7 +361,7 @@ export default function FarmerDashboardPage() {
                                 <TableRow key={prod.id}>
                                     <TableCell className="font-medium">{prod.name}</TableCell>
                                     <TableCell>
-                                        <div className="flex gap-1">
+                                        <div className="flex gap-1 flex-wrap">
                                             {prod.certs.map(cert => <Badge key={cert} variant="outline">{cert}</Badge>)}
                                         </div>
                                     </TableCell>
@@ -354,19 +380,43 @@ export default function FarmerDashboardPage() {
                 <CardContent>
                      <Form {...certForm}>
                         <form onSubmit={certForm.handleSubmit(onCertSubmit)} className="space-y-4">
-                             <FormField
-                                control={certForm.control}
-                                name="certName"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel>Certification Name</FormLabel>
-                                        <FormControl>
-                                            <Input placeholder="e.g., USDA Organic" {...field} />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
+                            <div className="grid md:grid-cols-2 gap-4">
+                                <FormField
+                                    control={certForm.control}
+                                    name="product"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>Product</FormLabel>
+                                            <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                                <FormControl>
+                                                <SelectTrigger>
+                                                    <SelectValue placeholder="Select a product" />
+                                                </SelectTrigger>
+                                                </FormControl>
+                                                <SelectContent>
+                                                    {farmerProducts.map(p => (
+                                                        <SelectItem key={p.id} value={p.id}>{p.name}</SelectItem>
+                                                    ))}
+                                                </SelectContent>
+                                            </Select>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+                                <FormField
+                                    control={certForm.control}
+                                    name="certName"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>Certification Name</FormLabel>
+                                            <FormControl>
+                                                <Input placeholder="e.g., USDA Organic" {...field} />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+                            </div>
                              <FormField
                                 control={certForm.control}
                                 name="certFile"

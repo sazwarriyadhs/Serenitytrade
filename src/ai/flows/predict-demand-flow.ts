@@ -14,7 +14,7 @@ const PredictDemandInputSchema = z.object({
   country: z.string().describe('The destination country for the commodity.'),
   commodity: z.string().describe('The commodity to predict demand for.'),
 });
-export type PredictDemandInput = z.infer<typeof PredictDemandInputSchema>;
+type PredictDemandInput = z.infer<typeof PredictDemandInputSchema>;
 
 const PredictDemandOutputSchema = z.object({
   country: z.string().describe('The destination country.'),
@@ -28,7 +28,7 @@ const PredictDemandOutputSchema = z.object({
   keyFactors: z.array(z.string()).describe('A list of key factors influencing the demand.'),
   recommendations: z.array(z.string()).describe('A list of recommended actions for exporters.'),
 });
-export type PredictDemandOutput = z.infer<typeof PredictDemandOutputSchema>;
+type PredictDemandOutput = z.infer<typeof PredictDemandOutputSchema>;
 
 export async function predictDemand(input: PredictDemandInput): Promise<PredictDemandOutput> {
   return predictDemandFlow(input);

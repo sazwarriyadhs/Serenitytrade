@@ -18,9 +18,31 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { predictDemand, type PredictDemandOutput } from "@/ai/flows/predict-demand-flow"
+import { predictDemand } from "@/ai/flows/predict-demand-flow"
 import { Loader2, TrendingUp } from "lucide-react"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { z } from "zod"
+
+const PredictDemandInputSchema = z.object({
+  country: z.string().describe('The destination country for the commodity.'),
+  commodity: z.string().describe('The commodity to predict demand for.'),
+});
+type PredictDemandInput = z.infer<typeof PredictDemandInputSchema>;
+
+const PredictDemandOutputSchema = z.object({
+  country: z.string().describe('The destination country.'),
+  commodity: z.string().describe('The commodity.'),
+  predictedDemand: z.object({
+      volume: z.string().describe('The predicted demand volume, as a formatted string (e.g., "10,000 - 12,000").'),
+      unit: z.string().describe('The unit of measurement for the volume (e.g., "metric tons").'),
+  }),
+  confidenceLevel: z.string().describe('The confidence level of the prediction (e.g., "High", "Medium", "Low").'),
+  summary: z.string().describe('A brief summary of the demand prediction for the next quarter.'),
+  keyFactors: z.array(z.string()).describe('A list of key factors influencing the demand.'),
+  recommendations: z.array(z.string()).describe('A list of recommended actions for exporters.'),
+});
+type PredictDemandOutput = z.infer<typeof PredictDemandOutputSchema>;
+
 
 // Mock data, can be expanded
 const countries = [

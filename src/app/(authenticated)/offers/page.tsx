@@ -1,4 +1,6 @@
-import Image from "next/image"
+'use client'
+
+import React, { useState } from "react"
 import { MoreHorizontal, PlusCircle } from "lucide-react"
 
 import { Badge } from "@/components/ui/badge"
@@ -9,7 +11,17 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
+  CardFooter
 } from "@/components/ui/card"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -25,8 +37,15 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import * as z from "zod"
+import { useToast } from "@/hooks/use-toast"
 
-const offers = [
+const initialOffers = [
   {
     id: "OFF-001",
     commodity: "Organic Hass Avocado",
@@ -79,7 +98,52 @@ const offers = [
   },
 ];
 
+const offerFormSchema = z.object({
+  commodity: z.string().min(1, "Commodity is required."),
+  buyer: z.string().min(1, "Buyer is required."),
+  quantity: z.string().min(1, "Quantity is required."),
+  price: z.coerce.number().positive("Price must be a positive number."),
+})
+
+type OfferFormValues = z.infer<typeof offerFormSchema>
+
+
 export default function OffersPage() {
+  const { toast } = useToast()
+  const [offers, setOffers] = useState(initialOffers)
+  const [isDialogOpen, setIsDialogOpen] = useState(false)
+
+  const form = useForm<OfferFormValues>({
+    resolver: zodResolver(offerFormSchema),
+  })
+
+  function onSubmit(data: OfferFormValues) {
+    const newOffer = {
+      id: `OFF-${String(offers.filter(o => o.id.startsWith("OFF")).length + 5).padStart(3, '0')}`,
+      commodity: data.commodity,
+      exporter: "My Export Company", // Assume a logged-in exporter
+      buyer: data.buyer,
+      quantity: data.quantity,
+      price: `$${data.price.toLocaleString()}`,
+      status: "Offer Sent",
+      date: new Date().toISOString().split('T')[0],
+    }
+    setOffers(prev => [newOffer, ...prev])
+    toast({
+      title: "Offer Sent",
+      description: `Your offer for ${data.commodity} has been sent to ${data.buyer}.`
+    })
+    form.reset()
+    setIsDialogOpen(false)
+  }
+  
+  const handleAction = (action: string) => {
+    toast({
+      title: "Action Triggered",
+      description: `${action} functionality is not implemented in this demo.`,
+    })
+  }
+
   return (
     <Card>
       <CardHeader className="flex flex-row items-center">
@@ -89,12 +153,92 @@ export default function OffersPage() {
             Manage your export offers and buyer requests.
             </CardDescription>
         </div>
-        <Button asChild size="sm" className="ml-auto gap-1">
-            <a href="#">
-            <PlusCircle className="h-4 w-4" />
-            New Offer
-            </a>
-        </Button>
+        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+          <DialogTrigger asChild>
+            <Button size="sm" className="ml-auto gap-1">
+              <PlusCircle className="h-4 w-4" />
+              New Offer
+            </Button>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Create New Offer</DialogTitle>
+              <DialogDescription>
+                Fill out the form to send a new offer to a buyer.
+              </DialogDescription>
+            </DialogHeader>
+            <Form {...form}>
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                <FormField
+                  control={form.control}
+                  name="commodity"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Commodity</FormLabel>
+                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select a commodity" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value="Organic Hass Avocado">Organic Hass Avocado</SelectItem>
+                          <SelectItem value="Arabica Coffee Beans">Arabica Coffee Beans</SelectItem>
+                          <SelectItem value="Sun-dried Tomatoes">Sun-dried Tomatoes</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                 <FormField
+                  control={form.control}
+                  name="buyer"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Buyer</FormLabel>
+                      <FormControl>
+                        <Input placeholder="e.g., FreshMart EU" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <div className="grid grid-cols-2 gap-4">
+                   <FormField
+                    control={form.control}
+                    name="quantity"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Quantity</FormLabel>
+                        <FormControl>
+                          <Input placeholder="e.g., 5,000 kg" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                   <FormField
+                    control={form.control}
+                    name="price"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Total Price (USD)</FormLabel>
+                        <FormControl>
+                          <Input type="number" placeholder="e.g., 12500" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+                 <DialogFooter>
+                  <Button type="submit">Send Offer</Button>
+                </DialogFooter>
+              </form>
+            </Form>
+          </DialogContent>
+        </Dialog>
     </CardHeader>
       <CardContent>
         <Table>
@@ -153,9 +297,9 @@ export default function OffersPage() {
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end">
                     <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                    <DropdownMenuItem>View Details</DropdownMenuItem>
-                    <DropdownMenuItem>Negotiate</DropdownMenuItem>
-                    <DropdownMenuItem>Cancel</DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => handleAction("View Details")}>View Details</DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => handleAction("Negotiate")}>Negotiate</DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => handleAction("Cancel")}>Cancel</DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
               </TableCell>

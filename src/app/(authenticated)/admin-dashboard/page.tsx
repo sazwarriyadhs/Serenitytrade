@@ -1,6 +1,7 @@
 
 'use client'
 
+import React, { useState, useMemo } from "react"
 import {
   Card,
   CardContent,
@@ -27,6 +28,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Input } from "@/components/ui/input"
+import { useToast } from "@/hooks/use-toast"
 
 const platformStats = {
   totalRevenue: 75230.50,
@@ -35,7 +37,7 @@ const platformStats = {
   totalTransactions: 240,
 }
 
-const recentUsers = [
+const recentUsersData = [
   { id: "USR-001", name: "Green Valley Exports", role: "Exporter", status: "Verified", joined: "2023-10-15" },
   { id: "USR-002", name: "Farm Fresh Organics", role: "Farmer", status: "Verified", joined: "2023-10-12" },
   { id: "USR-003", name: "FreshMart EU", role: "Buyer", status: "Verified", joined: "2023-10-10" },
@@ -52,6 +54,23 @@ const recentTransactions = [
 
 
 export default function AdminDashboardPage() {
+  const { toast } = useToast()
+  const [searchTerm, setSearchTerm] = useState("")
+
+  const filteredUsers = useMemo(() => {
+    if (!searchTerm) return recentUsersData;
+    return recentUsersData.filter(user => 
+      user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      user.role.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+  }, [searchTerm])
+
+  const handleAction = (action: string) => {
+    toast({
+      title: "Action Triggered",
+      description: `${action} functionality is not implemented in this demo.`,
+    })
+  }
 
   return (
     <div className="flex flex-col gap-8">
@@ -119,7 +138,12 @@ export default function AdminDashboardPage() {
                 <div className="pt-2">
                     <div className="relative">
                         <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-                        <Input placeholder="Search users by name or role..." className="pl-8" />
+                        <Input 
+                          placeholder="Search users by name or role..." 
+                          className="pl-8"
+                          value={searchTerm}
+                          onChange={(e) => setSearchTerm(e.target.value)}
+                        />
                     </div>
                 </div>
             </CardHeader>
@@ -135,7 +159,7 @@ export default function AdminDashboardPage() {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {recentUsers.map((user) => (
+                        {filteredUsers.map((user) => (
                             <TableRow key={user.id}>
                                 <TableCell className="font-medium">{user.name}</TableCell>
                                 <TableCell>{user.role}</TableCell>
@@ -155,9 +179,9 @@ export default function AdminDashboardPage() {
                                         </DropdownMenuTrigger>
                                         <DropdownMenuContent align="end">
                                             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                                            <DropdownMenuItem>View Profile</DropdownMenuItem>
-                                            {user.status !== "Verified" && <DropdownMenuItem>Verify User</DropdownMenuItem>}
-                                            <DropdownMenuItem>Suspend User</DropdownMenuItem>
+                                            <DropdownMenuItem onSelect={() => handleAction("View Profile")}>View Profile</DropdownMenuItem>
+                                            {user.status !== "Verified" && <DropdownMenuItem onSelect={() => handleAction("Verify User")}>Verify User</DropdownMenuItem>}
+                                            <DropdownMenuItem onSelect={() => handleAction("Suspend User")}>Suspend User</DropdownMenuItem>
                                         </DropdownMenuContent>
                                     </DropdownMenu>
                                 </TableCell>

@@ -13,10 +13,32 @@ import {
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { findMarket, type FindMarketOutput } from "@/ai/flows/find-market-flow"
+import { findMarket } from "@/ai/flows/find-market-flow"
 import { Loader2, Compass, MapPin, BarChart, AlertTriangle } from "lucide-react"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Badge } from "@/components/ui/badge"
+import { z } from 'zod';
+
+const FindMarketInputSchema = z.object({
+  commodityName: z.string().describe('The name of the agricultural commodity.'),
+  description: z.string().describe('A brief description of the commodity, including its unique qualities or certifications.'),
+});
+type FindMarketInput = z.infer<typeof FindMarketInputSchema>;
+
+const PotentialMarketSchema = z.object({
+    country: z.string().describe("The suggested destination country."),
+    rationale: z.string().describe("The reasoning behind why this country is a good potential market."),
+    potentialDemand: z.string().describe("An estimate of the demand level (e.g., High, Medium, Low)."),
+    keyConsiderations: z.array(z.string()).describe("A list of key considerations or challenges for exporting to this country."),
+});
+
+const FindMarketOutputSchema = z.object({
+  commodityName: z.string().describe("The name of the commodity analyzed."),
+  summary: z.string().describe("A brief overall summary of the market potential for this commodity."),
+  potentialMarkets: z.array(PotentialMarketSchema).describe('A list of top 3-5 potential export markets.'),
+});
+type FindMarketOutput = z.infer<typeof FindMarketOutputSchema>;
+
 
 export default function FindMarketPage() {
   const [commodityName, setCommodityName] = useState<string>("")

@@ -41,8 +41,8 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
+import { useToast } from "@/hooks/use-toast"
 
 const initialCommodities = [
   {
@@ -102,6 +102,7 @@ const commodityFormSchema = z.object({
 type CommodityFormValues = z.infer<typeof commodityFormSchema>
 
 export default function CommoditiesPage() {
+  const { toast } = useToast()
   const [commodities, setCommodities] = useState(initialCommodities)
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const form = useForm<CommodityFormValues>({
@@ -117,8 +118,59 @@ export default function CommoditiesPage() {
       status: "active",
     }
     setCommodities(prev => [newCommodity, ...prev])
+    toast({
+      title: "Commodity Added",
+      description: `${data.name} has been successfully added to your listings.`,
+    })
     form.reset()
     setIsDialogOpen(false)
+  }
+
+  const handleExport = () => {
+    const activeCommodities = commodities.filter(c => c.status === 'active');
+    if (activeCommodities.length === 0) {
+      toast({
+        variant: 'destructive',
+        title: 'No Active Commodities',
+        description: 'There are no active commodities to export.',
+      });
+      return;
+    }
+    const headers = ["Name", "Description", "Price ($/kg)", "Stock (kg)", "Origin", "Certifications"];
+    const csvContent = [
+      headers.join(','),
+      ...activeCommodities.map(c => [
+        `"${c.name.replace(/"/g, '""')}"`,
+        `"${c.description.replace(/"/g, '""')}"`,
+        c.price,
+        c.stock,
+        `"${c.origin.replace(/"/g, '""')}"`,
+        `"${c.certifications.join('; ')}"`
+      ].join(','))
+    ].join('\n');
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement("a");
+    if (link.download !== undefined) {
+        const url = URL.createObjectURL(blob);
+        link.setAttribute("href", url);
+        link.setAttribute("download", "commodities_export.csv");
+        link.style.visibility = 'hidden';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        toast({
+            title: "Export Successful",
+            description: "Active commodities have been exported to CSV.",
+        })
+    }
+  }
+
+  const handleAction = (action: string) => {
+    toast({
+      title: "Action Triggered",
+      description: `${action} functionality is not implemented in this demo.`,
+    })
   }
 
   return (
@@ -132,7 +184,7 @@ export default function CommoditiesPage() {
           </TabsTrigger>
         </TabsList>
         <div className="ml-auto flex items-center gap-2">
-          <Button size="sm" variant="outline" className="h-8 gap-1">
+          <Button size="sm" variant="outline" className="h-8 gap-1" onClick={handleExport}>
             <File className="h-3.5 w-3.5" />
             <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
               Export
@@ -264,8 +316,8 @@ export default function CommoditiesPage() {
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
                       <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                      <DropdownMenuItem>Edit</DropdownMenuItem>
-                      <DropdownMenuItem>Delete</DropdownMenuItem>
+                      <DropdownMenuItem onSelect={() => handleAction("Edit")}>Edit</DropdownMenuItem>
+                      <DropdownMenuItem onSelect={() => handleAction("Delete")}>Delete</DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
                 <div className="relative h-40 w-full">
@@ -314,8 +366,58 @@ export default function CommoditiesPage() {
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
                       <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                      <DropdownMenuItem>Edit</DropdownMenuItem>
-                      <DropdownMenuItem>Delete</DropdownMenuItem>
+                      <DropdownMenuItem onSelect={() => handleAction("Edit")}>Edit</DropdownMenuItem>
+                      <DropdownMenuItem onSelect={() => handleAction("Delete")}>Delete</DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                <div className="relative h-40 w-full">
+                  <Image
+                    src={item.image}
+                    alt={item.name}
+                    fill
+                    className="rounded-md object-cover"
+                    data-ai-hint={item.imageHint}
+                  />
+                </div>
+              </CardHeader>
+              <CardContent>
+                <CardTitle className="text-lg font-headline">{item.name}</CardTitle>
+                <p className="text-sm text-muted-foreground mt-1">{item.description}</p>
+                 <div className="mt-4 flex flex-wrap gap-2">
+                  {item.certifications.map(cert => (
+                    <Badge key={cert} variant="secondary">{cert}</Badge>
+                  ))}
+                </div>
+              </CardContent>
+              <CardFooter className="flex justify-between text-sm">
+                <div className="font-semibold">${item.price.toFixed(2)}/kg</div>
+                <div className="text-muted-foreground">{item.stock} kg in stock</div>
+              </CardFooter>
+            </Card>
+          ))}
+        </div>
+      </TabsContent>
+       <TabsContent value="archived">
+        <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-3 xl:grid-cols-4">
+          {commodities.filter(c => c.status === 'archived').map((item, index) => (
+             <Card key={`${item.name}-${index}`}>
+              <CardHeader className="relative">
+                <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button
+                        aria-haspopup="true"
+                        size="icon"
+                        variant="ghost"
+                        className="absolute top-4 right-4 h-6 w-6"
+                      >
+                        <MoreHorizontal className="h-4 w-4" />
+                        <span className="sr-only">Toggle menu</span>
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end">
+                      <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                      <DropdownMenuItem onSelect={() => handleAction("Unarchive")}>Unarchive</DropdownMenuItem>
+                      <DropdownMenuItem onSelect={() => handleAction("Delete")}>Delete</DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
                 <div className="relative h-40 w-full">

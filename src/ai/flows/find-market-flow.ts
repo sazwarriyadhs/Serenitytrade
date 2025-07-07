@@ -14,7 +14,7 @@ const FindMarketInputSchema = z.object({
   commodityName: z.string().describe('The name of the agricultural commodity.'),
   description: z.string().describe('A brief description of the commodity, including its unique qualities or certifications.'),
 });
-export type FindMarketInput = z.infer<typeof FindMarketInputSchema>;
+type FindMarketInput = z.infer<typeof FindMarketInputSchema>;
 
 const PotentialMarketSchema = z.object({
     country: z.string().describe("The suggested destination country."),
@@ -28,7 +28,7 @@ const FindMarketOutputSchema = z.object({
   summary: z.string().describe("A brief overall summary of the market potential for this commodity."),
   potentialMarkets: z.array(PotentialMarketSchema).describe('A list of top 3-5 potential export markets.'),
 });
-export type FindMarketOutput = z.infer<typeof FindMarketOutputSchema>;
+type FindMarketOutput = z.infer<typeof FindMarketOutputSchema>;
 
 export async function findMarket(input: FindMarketInput): Promise<FindMarketOutput> {
   return findMarketFlow(input);
