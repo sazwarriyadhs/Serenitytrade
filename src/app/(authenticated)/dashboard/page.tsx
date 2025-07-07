@@ -1,3 +1,4 @@
+
 'use client'
 
 import dynamic from 'next/dynamic'
@@ -17,7 +18,7 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { Skeleton } from '@/components/ui/skeleton'
-import { DollarSign, Package, Users, ArrowUpRight } from "lucide-react"
+import { DollarSign, Package, Users, ArrowUpRight, TrendingUp, TrendingDown, Minus } from "lucide-react"
 
 const DashboardChart = dynamic(() => import('@/components/dashboard-chart'), {
   ssr: false,
@@ -35,6 +36,20 @@ const DashboardChart = dynamic(() => import('@/components/dashboard-chart'), {
     </Card>
   ),
 })
+
+const recommendedSellPrices = [
+  { name: "Organic Hass Avocado", targetPrice: 2.55, trend: 'up' },
+  { name: "Arabica Coffee Beans", targetPrice: 15.20, trend: 'stable' },
+  { name: "Sun-dried Tomatoes", targetPrice: 12.35, trend: 'up' },
+  { name: "King Quinoa", targetPrice: 9.05, trend: 'stable' },
+];
+
+const trendIcons = {
+  up: <TrendingUp className="h-5 w-5 text-green-600" />,
+  down: <TrendingDown className="h-5 w-5 text-destructive" />,
+  stable: <Minus className="h-5 w-5 text-muted-foreground" />,
+}
+
 
 export default function DashboardPage() {
   return (
@@ -101,9 +116,35 @@ export default function DashboardPage() {
           </CardContent>
         </Card>
       </div>
-      <div className="grid gap-4 md:gap-8 lg:grid-cols-2 xl:grid-cols-3">
+      <div className="grid gap-4 md:gap-8 lg:grid-cols-2 xl:grid-cols-4">
         <DashboardChart />
-        <Card>
+        <Card className="xl:col-span-1">
+            <CardHeader>
+                <CardTitle>Price Recommendations (Sell)</CardTitle>
+                <CardDescription>AI-powered target sell prices. Prices are more favorable when the trend is up.</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <Table>
+                    <TableHeader>
+                        <TableRow>
+                            <TableHead>Commodity</TableHead>
+                            <TableHead className="text-right">Price/kg</TableHead>
+                            <TableHead className="text-right">Trend</TableHead>
+                        </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                        {recommendedSellPrices.map((item) => (
+                            <TableRow key={item.name}>
+                                <TableCell className="font-medium text-sm">{item.name}</TableCell>
+                                <TableCell className="text-right">${item.targetPrice.toFixed(2)}</TableCell>
+                                <TableCell className="flex justify-end">{trendIcons[item.trend as keyof typeof trendIcons]}</TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </CardContent>
+        </Card>
+        <Card className="xl:col-span-1">
           <CardHeader>
             <CardTitle>Recent Offers</CardTitle>
             <CardDescription>

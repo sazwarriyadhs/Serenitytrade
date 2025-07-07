@@ -8,7 +8,7 @@ import { Logo } from '@/components/logo'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { Globe, ArrowRight, Ship, Handshake, Leaf } from 'lucide-react'
+import { Globe, ArrowRight, Ship, Handshake, Leaf, ArrowUp, ArrowDown } from 'lucide-react'
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
 import Autoplay from "embla-carousel-autoplay"
 
@@ -60,6 +60,11 @@ const translations = {
     step2Desc: 'Utilize secure payment options like L/C and Escrow. We handle logistics and documentation for smooth shipping.',
     step3Title: 'Receive & Grow',
     step3Desc: 'Receive high-quality products at your destination port and grow your business with reliable supply chains.',
+    // Real-time prices
+    realTimePricesTitle: 'Global Commodity Prices',
+    realTimePricesSubtitle: 'Real-time price movements from global markets.',
+    pricePerUnit: 'Price/Ton',
+    dayChange: '24h Change',
     // Footer
     footerRights: 'All rights reserved.',
   },
@@ -99,6 +104,11 @@ const translations = {
     step2Desc: 'Gunakan opsi pembayaran yang aman seperti L/C dan Escrow. Kami menangani logistik dan dokumentasi untuk pengiriman yang lancar.',
     step3Title: 'Terima & Kembangkan',
     step3Desc: 'Terima produk berkualitas tinggi di pelabuhan tujuan Anda dan kembangkan bisnis Anda dengan rantai pasokan yang andal.',
+    // Real-time prices
+    realTimePricesTitle: 'Harga Komoditas Global',
+    realTimePricesSubtitle: 'Pergerakan harga real-time dari pasar global.',
+    pricePerUnit: 'Harga/Ton',
+    dayChange: 'Perubahan 24j',
     // Footer
     footerRights: 'Hak cipta dilindungi.',
   },
@@ -112,6 +122,7 @@ const translations = {
     step1Title: 'Trouver & Négocier', step1Desc: '[Description étape 1 en Français]',
     step2Title: 'Sécuriser & Expédier', step2Desc: '[Description étape 2 en Français]',
     step3Title: 'Recevoir & Croître', step3Desc: '[Description étape 3 en Français]',
+    realTimePricesTitle: 'Prix Mondiaux des Matières Premières', realTimePricesSubtitle: 'Mouvements des prix en temps réel sur les marchés mondiaux.', pricePerUnit: 'Prix/Tonne', dayChange: 'Chg 24h',
     footerRights: 'Tous droits réservés.',
   },
   zh: {
@@ -124,6 +135,7 @@ const translations = {
     step1Title: '寻找与谈判', step1Desc: '[中文步骤1描述]',
     step2Title: '安全与运输', step2Desc: '[中文步骤2描述]',
     step3Title: '接收与发展', step3Desc: '[中文步骤3描述]',
+    realTimePricesTitle: '全球商品价格', realTimePricesSubtitle: '全球市场的实时价格变动。', pricePerUnit: '价格/吨', dayChange: '24小时变化',
     footerRights: '版权所有。',
   },
   ar: {
@@ -136,6 +148,7 @@ const translations = {
     step1Title: 'البحث والتفاوض', step1Desc: '[وصف الخطوة 1 بالعربية]',
     step2Title: 'التأمين والشحن', step2Desc: '[وصف الخطوة 2 بالعربية]',
     step3Title: 'الاستلام والنمو', step3Desc: '[وصف الخطوة 3 بالعربية]',
+    realTimePricesTitle: 'أسعار السلع العالمية', realTimePricesSubtitle: 'تحركات الأسعار في الوقت الفعلي من الأسواق العالمية.', pricePerUnit: 'السعر/طن', dayChange: 'تغير 24 ساعة',
     footerRights: 'كل الحقوق محفوظة.',
   },
   ja: {
@@ -148,6 +161,7 @@ const translations = {
     step1Title: '検索と交渉', step1Desc: '[日本語のステップ1説明]',
     step2Title: '確保と発送', step2Desc: '[日本語のステップ2説明]',
     step3Title: '受け取りと成長', step3Desc: '[日本語のステップ3説明]',
+    realTimePricesTitle: '世界の商品の価格', realTimePricesSubtitle: '世界市場からのリアルタイムの価格変動。', pricePerUnit: '価格/トン', dayChange: '24時間変動',
     footerRights: '無断複写・転載を禁じます。',
   },
   pt: {
@@ -160,6 +174,7 @@ const translations = {
     step1Title: 'Encontrar & Negociar', step1Desc: '[Descrição do Passo 1 em Português]',
     step2Title: 'Segurança & Envio', step2Desc: '[Descrição do Passo 2 em Português]',
     step3Title: 'Receber & Crescer', step3Desc: '[Descrição do Passo 3 em Português]',
+    realTimePricesTitle: 'Preços Globais de Commodities', realTimePricesSubtitle: 'Movimentos de preços em tempo real dos mercados globais.', pricePerUnit: 'Preço/Ton', dayChange: 'Mudança 24h',
     footerRights: 'Todos os direitos reservados.',
   }
 }
@@ -183,6 +198,16 @@ const bannerImages = [
   { src: '/images/banner-3.png', alt: 'Farmer smiling in a field of crops', hint: 'farmer smiling field', titleKey: 'banner3Title', subtitleKey: 'banner3Subtitle' },
   { src: '/images/banner-4.png', alt: 'Crates of fresh vegetables', hint: 'vegetables crate', titleKey: 'banner4Title', subtitleKey: 'banner4Subtitle' },
 ]
+
+const commodityPrices = [
+  { name: 'Wheat (Chicago)', price: 420.50, change: '+1.25%', trend: 'up' },
+  { name: 'Corn (CBOT)', price: 355.75, change: '-0.80%', trend: 'down' },
+  { name: 'Soybeans (CBOT)', price: 1350.25, change: '+2.15%', trend: 'up' },
+  { name: 'Arabica Coffee (ICE)', price: 1850.30, change: '-0.50%', trend: 'down' },
+  { name: 'Palm Oil (Bursa)', price: 3900.00, change: '+0.75%', trend: 'up' },
+  { name: 'Sugar (ICE)', price: 550.00, change: '+0.15%', trend: 'up' },
+];
+
 
 export default function LandingPage() {
     const [lang, setLang] = useState('en');
@@ -312,6 +337,45 @@ export default function LandingPage() {
                                     <p className="mt-2 text-muted-foreground">{t[step.descKey as keyof typeof t]}</p>
                                </div>
                            ))}
+                        </div>
+                    </div>
+                 </section>
+
+                 {/* Global Commodity Prices Section */}
+                 <section className="py-20 bg-secondary/50">
+                    <div className="container">
+                        <div className="text-center">
+                            <h2 className="text-3xl font-bold font-headline">{t.realTimePricesTitle}</h2>
+                            <p className="mt-2 text-muted-foreground">{t.realTimePricesSubtitle}</p>
+                        </div>
+                        <div className="mt-10 max-w-4xl mx-auto">
+                            <Card>
+                                <CardHeader>
+                                    <div className="flex justify-between items-baseline text-sm text-muted-foreground">
+                                        <span>Commodity</span>
+                                        <div className="flex gap-8">
+                                            <span>{t.pricePerUnit} (USD)</span>
+                                            <span>{t.dayChange}</span>
+                                        </div>
+                                    </div>
+                                </CardHeader>
+                                <CardContent className="p-4 pt-0">
+                                    <ul className="space-y-2">
+                                        {commodityPrices.map(item => (
+                                            <li key={item.name} className="flex items-center justify-between p-3 rounded-md hover:bg-muted/50 transition-colors">
+                                                <span className="font-medium text-base">{item.name}</span>
+                                                <div className="flex items-center gap-8 font-mono">
+                                                    <span className="w-24 text-right">{item.price.toFixed(2)}</span>
+                                                    <span className={`w-20 text-right font-semibold flex items-center justify-end gap-1 ${item.trend === 'up' ? 'text-green-600' : 'text-destructive'}`}>
+                                                        {item.trend === 'up' ? <ArrowUp className="h-4 w-4" /> : <ArrowDown className="h-4 w-4" />}
+                                                        {item.change}
+                                                    </span>
+                                                </div>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </CardContent>
+                            </Card>
                         </div>
                     </div>
                  </section>

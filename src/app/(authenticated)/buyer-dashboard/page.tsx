@@ -2,7 +2,7 @@
 'use client'
 
 import Image from "next/image"
-import { PlusCircle, MoreHorizontal, Briefcase, FileText, Search } from "lucide-react"
+import { PlusCircle, MoreHorizontal, Briefcase, FileText, Search, TrendingUp, TrendingDown, Minus } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import {
@@ -117,6 +117,18 @@ const requestFormSchema = z.object({
 })
 type RequestFormValues = z.infer<typeof requestFormSchema>
 
+const recommendedPrices = [
+  { name: "Organic Hass Avocado", targetPrice: 2.45, trend: 'stable' },
+  { name: "Arabica Coffee Beans", targetPrice: 14.85, trend: 'down' },
+  { name: "Sun-dried Tomatoes", targetPrice: 12.10, trend: 'up' },
+  { name: "Peruvian Quinoa", targetPrice: 8.50, trend: 'down' },
+];
+
+const trendIcons = {
+  up: <TrendingUp className="h-5 w-5 text-destructive" />,
+  down: <TrendingDown className="h-5 w-5 text-green-600" />,
+  stable: <Minus className="h-5 w-5 text-muted-foreground" />,
+}
 
 export default function BuyerDashboardPage() {
     const [myRequests, setMyRequests] = useState(initialMyRequests)
@@ -189,6 +201,33 @@ export default function BuyerDashboardPage() {
                     </CardContent>
                 </Card>
             </div>
+            
+            <Card>
+                <CardHeader>
+                    <CardTitle>Real-time Price Recommendations (Buy)</CardTitle>
+                    <CardDescription>AI-powered target buy prices based on current market data. Prices are more favorable when the trend is down.</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <Table>
+                        <TableHeader>
+                            <TableRow>
+                                <TableHead>Commodity</TableHead>
+                                <TableHead className="text-right">Target Price/kg</TableHead>
+                                <TableHead className="text-right">Trend</TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                            {recommendedPrices.map((item) => (
+                                <TableRow key={item.name}>
+                                    <TableCell className="font-medium">{item.name}</TableCell>
+                                    <TableCell className="text-right">${item.targetPrice.toFixed(2)}</TableCell>
+                                    <TableCell className="flex justify-end">{trendIcons[item.trend as keyof typeof trendIcons]}</TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </CardContent>
+            </Card>
 
             <Tabs defaultValue="browse">
                 <TabsList className="grid w-full grid-cols-3">
