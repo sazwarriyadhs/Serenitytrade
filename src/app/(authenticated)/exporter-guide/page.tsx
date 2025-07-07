@@ -398,6 +398,63 @@ export default function ExporterGuidePage() {
               </AccordionContent>
             </AccordionItem>
 
+            <AccordionItem value="item-10">
+              <AccordionTrigger className="text-base font-semibold">
+                10. Contoh Komoditas Perikanan & Hasil Hutan
+              </AccordionTrigger>
+              <AccordionContent className="text-muted-foreground">
+                <div className="space-y-8">
+                  <div>
+                    <h4 className="text-lg font-semibold text-foreground mb-2">PRODUK PERIKANAN LAUT</h4>
+                    <ul className="list-disc pl-5 space-y-3">
+                      <li><strong>Ikan Laut:</strong> Tuna, Cakalang, Tongkol, Tenggiri, Kerapu, Kakap, Bandeng laut<p className="text-xs pl-4 mt-1">Bentuk Produk: Segar, beku, fillet, asap, kalengan</p></li>
+                      <li><strong>Udang Laut:</strong> Udang windu, vaname<p className="text-xs pl-4 mt-1">Bentuk Produk: Segar, beku, olahan</p></li>
+                      <li><strong>Cumi & Sotong:</strong> Cumi-cumi, sotong<p className="text-xs pl-4 mt-1">Bentuk Produk: Beku, kering, asin</p></li>
+                      <li><strong>Kerang-kerangan:</strong> Kerang dara, kerang hijau, tiram<p className="text-xs pl-4 mt-1">Bentuk Produk: Segar, kupas, beku</p></li>
+                      <li><strong>Rumput Laut:</strong> Eucheuma cottonii, gracilaria<p className="text-xs pl-4 mt-1">Bentuk Produk: Kering, semi-refined carrageenan (SRC), olahan</p></li>
+                      <li><strong>Rajungan & Kepiting:</strong> Rajungan, kepiting bakau<p className="text-xs pl-4 mt-1">Bentuk Produk: Hidup, beku, daging olahan</p></li>
+                      <li><strong>Teripang Laut:</strong> Teripang pasir<p className="text-xs pl-4 mt-1">Bentuk Produk: Kering, beku, olahan</p></li>
+                      <li><strong>Lobster:</strong> Lobster mutiara, batu<p className="text-xs pl-4 mt-1">Bentuk Produk: Hidup, beku</p></li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4 className="text-lg font-semibold text-foreground mb-2">PRODUK PERIKANAN DARAT</h4>
+                    <ul className="list-disc pl-5 space-y-3">
+                      <li><strong>Ikan Tawar:</strong> Lele, Nila, Gurame, Patin, Mujair, Mas<p className="text-xs pl-4 mt-1">Bentuk Produk: Hidup, segar, beku, fillet</p></li>
+                      <li><strong>Udang Air Tawar:</strong> Udang galah<p className="text-xs pl-4 mt-1">Bentuk Produk: Hidup, beku</p></li>
+                      <li><strong>Belut:</strong> Belut sawah<p className="text-xs pl-4 mt-1">Bentuk Produk: Hidup, olahan</p></li>
+                      <li><strong>Ikan Hias:</strong> Guppy, Koi, Cupang, Arwana<p className="text-xs pl-4 mt-1">Bentuk Produk: Hidup</p></li>
+                      <li><strong>Kepiting Air Tawar:</strong> Kepiting sawah<p className="text-xs pl-4 mt-1">Bentuk Produk: Hidup, olahan</p></li>
+                    </ul>
+                  </div>
+                   <div>
+                    <h4 className="text-lg font-semibold text-foreground mb-2">HASIL HUTAN</h4>
+                    <div className="space-y-4">
+                        <div>
+                           <h5 className="font-medium text-foreground/90">a. Hasil Hutan Kayu:</h5>
+                            <ul className="list-decimal list-inside pl-2 mt-2 space-y-1">
+                                <li><strong>Kayu Meranti, Jati, Ulin:</strong> Kayu keras untuk bangunan dan furnitur</li>
+                                <li><strong>Kayu Sengon, Albasia:</strong> Kayu ringan untuk plywood</li>
+                                <li><strong>Kayu Gaharu:</strong> Aromatik bernilai tinggi</li>
+                                <li><strong>Rotan:</strong> Untuk mebel dan kerajinan</li>
+                            </ul>
+                        </div>
+                        <div>
+                           <h5 className="font-medium text-foreground/90">b. Hasil Hutan Non-Kayu:</h5>
+                            <ul className="list-decimal list-inside pl-2 mt-2 space-y-1">
+                                <li><strong>Madu hutan:</strong> Madu alami dari lebah hutan</li>
+                                <li><strong>Getah & Resin:</strong> Damar, kopal, getah pinus</li>
+                                <li><strong>Buah-buahan hutan:</strong> Duku hutan, durian hutan, kemiri</li>
+                                <li><strong>Jamur hutan:</strong> Jamur kayu, lingzhi</li>
+                                <li><strong>Tanaman herbal & rempah:</strong> Kayu manis, akar bajakah, kapulaga</li>
+                            </ul>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+
           </Accordion>
         </CardContent>
       </Card>
