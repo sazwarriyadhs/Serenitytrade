@@ -1,7 +1,7 @@
 
 'use client'
 
-import { useState, useRef } from 'react'
+import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Logo } from '@/components/logo'
@@ -9,8 +9,6 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Globe, ArrowRight, Ship, Handshake, Leaf, ArrowUp, ArrowDown, FileText } from 'lucide-react'
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
-import Autoplay from "embla-carousel-autoplay"
 
 // --- Data for i18n ---
 const languages = [
@@ -205,13 +203,6 @@ const howItWorksSteps = [
     { icon: Leaf, titleKey: 'step3Title', descKey: 'step3Desc' },
 ]
 
-const bannerImages = [
-  { src: '/images/banner-1.png', alt: 'Fresh agricultural produce being harvested', hint: 'agriculture harvest field', titleKey: 'banner1Title', subtitleKey: 'banner1Subtitle' },
-  { src: '/images/banner-2.png', alt: 'Global trade and logistics with shipping containers', hint: 'shipping containers port', titleKey: 'banner2Title', subtitleKey: 'banner2Subtitle' },
-  { src: '/images/banner-3.png', alt: 'Farmer smiling in a field of crops', hint: 'farmer smiling field', titleKey: 'banner3Title', subtitleKey: 'banner3Subtitle' },
-  { src: '/images/banner-4.png', alt: 'Crates of fresh vegetables', hint: 'vegetables crate', titleKey: 'banner4Title', subtitleKey: 'banner4Subtitle' },
-]
-
 const commodityPrices = [
   { name: 'Wheat (Chicago)', price: 420.50, change: '+1.25%', trend: 'up' },
   { name: 'Corn (CBOT)', price: 355.75, change: '-0.80%', trend: 'down' },
@@ -225,9 +216,6 @@ const commodityPrices = [
 export default function LandingPage() {
     const [lang, setLang] = useState('en');
     const t = translations[lang as keyof typeof translations];
-    const plugin = useRef(
-      Autoplay({ delay: 5000, stopOnInteraction: true })
-    )
     
     return (
         <div className="flex min-h-screen flex-col bg-background text-foreground">
@@ -261,48 +249,27 @@ export default function LandingPage() {
 
             <main className="flex-1">
                 {/* Hero Section */}
-                <section className="relative w-full h-[60vh] md:h-[70vh] group">
-                    <Carousel
-                        plugins={[plugin.current]}
-                        className="w-full h-full"
-                        onMouseEnter={plugin.current.stop}
-                        onMouseLeave={plugin.current.reset}
-                        opts={{
-                          loop: true,
-                        }}
-                    >
-                        <CarouselContent className="ml-0">
-                            {bannerImages.map((img, index) => (
-                                <CarouselItem key={index} className="pl-0">
-                                    <div className="relative w-full h-full">
-                                        <Image
-                                            src={img.src}
-                                            alt={img.alt}
-                                            fill
-                                            className="object-cover"
-                                            data-ai-hint={img.hint}
-                                            priority={index === 0}
-                                        />
-                                        <div className="absolute inset-0 bg-black/50" />
-                                        <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-white z-10 p-4">
-                                            <h1 className="text-4xl font-bold tracking-tight font-headline md:text-6xl drop-shadow-lg">{t[img.titleKey as keyof typeof t]}</h1>
-                                            <p className="mt-4 max-w-2xl mx-auto text-lg drop-shadow-md">{t[img.subtitleKey as keyof typeof t]}</p>
-                                            <div className="mt-8 flex justify-center gap-4">
-                                                <Button size="lg" asChild>
-                                                    <Link href="/commodities">{t.browseCommodities} <ArrowRight className="ml-2 h-5 w-5"/></Link>
-                                                </Button>
-                                                 <Button size="lg" variant="secondary" asChild>
-                                                    <Link href="/register">{t.registerNow}</Link>
-                                                </Button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </CarouselItem>
-                            ))}
-                        </CarouselContent>
-                        <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2 z-10 opacity-0 group-hover:opacity-100 transition-opacity" />
-                        <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2 z-10 opacity-0 group-hover:opacity-100 transition-opacity" />
-                    </Carousel>
+                <section className="relative w-full h-[60vh] md:h-[70vh] overflow-hidden">
+                    <video
+                        src="/images/splashscreen.mp4"
+                        autoPlay
+                        loop
+                        muted
+                        className="absolute top-0 left-0 w-full h-full object-cover -z-10"
+                    />
+                    <div className="absolute inset-0 bg-black/50" />
+                    <div className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white p-4">
+                        <h1 className="text-4xl font-bold tracking-tight font-headline md:text-6xl drop-shadow-lg">{t.banner1Title}</h1>
+                        <p className="mt-4 max-w-2xl mx-auto text-lg drop-shadow-md">{t.banner1Subtitle}</p>
+                        <div className="mt-8 flex justify-center gap-4">
+                            <Button size="lg" asChild>
+                                <Link href="/commodities">{t.browseCommodities} <ArrowRight className="ml-2 h-5 w-5"/></Link>
+                            </Button>
+                                <Button size="lg" variant="secondary" asChild>
+                                <Link href="/register">{t.registerNow}</Link>
+                            </Button>
+                        </div>
+                    </div>
                 </section>
                 
                 {/* Featured Commodities Section */}
