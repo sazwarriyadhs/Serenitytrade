@@ -74,7 +74,7 @@ export default function FeeCalculatorPage() {
           <Card>
             <CardHeader>
               <CardTitle>Exporter Payout Calculator</CardTitle>
-              <CardDescription>Simulate fees for transactions between exporters and buyers.</CardDescription>
+              <CardDescription>Simulate fees for transactions between exporters and international buyers.</CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="grid gap-2">
@@ -103,7 +103,7 @@ export default function FeeCalculatorPage() {
                   value={adminFee}
                   onValueChange={handleFeeChange}
                 />
-                 <p className="text-xs text-muted-foreground">Standard range is 10% - 15% for exporter transactions.</p>
+                 <p className="text-xs text-muted-foreground">Standard fee range is 10% - 15% for international trade transactions.</p>
               </div>
             </CardContent>
           </Card>
@@ -134,7 +134,7 @@ export default function FeeCalculatorPage() {
                   <span className="text-destructive font-bold">-{formatCurrency(adminFeeAmount)}</span>
                 </div>
                 <p className="text-xs text-muted-foreground mt-1">
-                  A standard 10-15% fee is deducted for platform operations.
+                  A 10-15% fee is deducted from the total transaction value for platform operations and services.
                 </p>
               </div>
 
