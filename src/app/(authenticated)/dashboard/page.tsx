@@ -18,9 +18,18 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/components/ui/tabs"
 import { Skeleton } from '@/components/ui/skeleton'
-import { Wallet, Package, Users, ArrowUpRight, TrendingUp, TrendingDown, Minus } from "lucide-react"
+import { Wallet, Package, Users, ArrowUpRight, TrendingUp, TrendingDown, Minus, Handshake } from "lucide-react"
 import { Button } from '@/components/ui/button'
+import { useToast } from "@/hooks/use-toast"
+import { Badge } from "@/components/ui/badge"
+
 
 const DashboardChart = dynamic(() => import('@/components/dashboard-chart'), {
   ssr: false,
@@ -52,8 +61,28 @@ const trendIcons = {
   stable: <Minus className="h-5 w-5 text-muted-foreground" />,
 }
 
+const partneredFarmers = [
+  { id: 'FARM-001', name: 'Sunrise Farms', specialty: 'Organic Avocados', since: '2023-10-15', status: 'Active' },
+  { id: 'FARM-002', name: 'Highland Coffee Farm', specialty: 'Arabica Coffee', since: '2023-09-01', status: 'Active' },
+];
+
+const potentialPartners = [
+  { id: 'FARM-003', name: 'Andean Grains', specialty: 'Quinoa, Amaranth', location: 'Peru', capacity: '100 tons/year' },
+  { id: 'FARM-004', name: 'Berry Fields', specialty: 'Blueberries, Strawberries', location: 'Chile', capacity: '75 tons/year' },
+  { id: 'FARM-005', name: 'Java Spices', specialty: 'Cloves, Nutmeg', location: 'Indonesia', capacity: '20 tons/year' },
+];
+
 
 export default function DashboardPage() {
+  const { toast } = useToast()
+
+  const handleAction = (action: string) => {
+    toast({
+      title: "Action Triggered",
+      description: `${action} functionality is not implemented in this demo.`,
+    })
+  }
+
   return (
     <>
       <div className="mb-4">
@@ -204,6 +233,89 @@ export default function DashboardPage() {
               </TableBody>
             </Table>
           </CardContent>
+        </Card>
+      </div>
+
+      <div className="grid gap-4 md:gap-8">
+        <Card>
+            <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                    <Handshake />
+                    Farmer Partnerships
+                </CardTitle>
+                <CardDescription>
+                    Manage your farmer network and discover new partnership opportunities. You can partner with up to 10 farmers.
+                </CardDescription>
+            </CardHeader>
+            <CardContent>
+                <Tabs defaultValue="my-partners">
+                    <TabsList className="grid w-full grid-cols-2">
+                        <TabsTrigger value="my-partners">My Partners ({partneredFarmers.length})</TabsTrigger>
+                        <TabsTrigger value="find-farmers">Find New Farmers</TabsTrigger>
+                    </TabsList>
+                    <TabsContent value="my-partners" className="pt-4">
+                        <Table>
+                            <TableHeader>
+                                <TableRow>
+                                    <TableHead>Farmer Name</TableHead>
+                                    <TableHead>Primary Commodity</TableHead>
+                                    <TableHead>Partner Since</TableHead>
+                                    <TableHead>Status</TableHead>
+                                    <TableHead className="text-right">Actions</TableHead>
+                                </TableRow>
+                            </TableHeader>
+                            <TableBody>
+                                {partneredFarmers.map((farmer) => (
+                                    <TableRow key={farmer.id}>
+                                        <TableCell className="font-medium">{farmer.name}</TableCell>
+                                        <TableCell>{farmer.specialty}</TableCell>
+                                        <TableCell>{farmer.since}</TableCell>
+                                        <TableCell><Badge variant="default" className="bg-green-600/20 text-green-700 border-green-600/20 hover:bg-green-600/30">{farmer.status}</Badge></TableCell>
+                                        <TableCell className="text-right">
+                                            <Button variant="outline" size="sm" onClick={() => handleAction(`Manage partnership with ${farmer.name}`)}>
+                                                Manage
+                                            </Button>
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TabsContent>
+                    <TabsContent value="find-farmers" className="pt-4">
+                        <Table>
+                            <TableHeader>
+                                <TableRow>
+                                    <TableHead>Farmer Name</TableHead>
+                                    <TableHead>Specialty</TableHead>
+                                    <TableHead>Location</TableHead>
+                                    <TableHead>Annual Capacity</TableHead>
+                                    <TableHead className="text-right">Actions</TableHead>
+                                </TableRow>
+                            </TableHeader>
+                            <TableBody>
+                                {potentialPartners.map((farmer) => (
+                                    <TableRow key={farmer.id}>
+                                        <TableCell className="font-medium">{farmer.name}</TableCell>
+                                        <TableCell>{farmer.specialty}</TableCell>
+                                        <TableCell>{farmer.location}</TableCell>
+                                        <TableCell>{farmer.capacity}</TableCell>
+                                        <TableCell className="text-right">
+                                            <Button size="sm" onClick={() => handleAction(`Send partnership request to ${farmer.name}`)} disabled={partneredFarmers.length >= 10}>
+                                                Send Request
+                                            </Button>
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                         {partneredFarmers.length >= 10 && (
+                            <p className="text-sm text-center text-muted-foreground mt-4">
+                                You have reached the maximum of 10 farmer partnerships.
+                            </p>
+                        )}
+                    </TabsContent>
+                </Tabs>
+            </CardContent>
         </Card>
       </div>
     </>
