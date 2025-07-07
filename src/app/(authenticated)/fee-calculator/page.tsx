@@ -154,13 +154,13 @@ export default function FeeCalculatorPage() {
               <div className="text-center pt-4 text-sm text-muted-foreground">
                 <div className="p-3 rounded-md border bg-background flex items-start gap-3">
                   <Tractor className="h-5 w-5 mt-0.5 text-primary shrink-0" />
-                  <p className="text-left"><span className="font-semibold text-foreground">Note for Farmers:</span> For direct transactions with exporters on our platform, a reduced service fee of 5% applies.</p>
+                  <p className="text-left"><span className="font-semibold text-foreground">Note for Farmers:</span> Direct transactions between local farmers and exporters are exempt from marketplace fees (0% fee).</p>
                 </div>
               </div>
               <div className="text-center pt-2 text-sm text-muted-foreground">
                 <div className="p-3 rounded-md border bg-background flex items-start gap-3">
                   <Landmark className="h-5 w-5 mt-0.5 text-green-600 shrink-0" />
-                  <p className="text-left"><span className="font-semibold text-foreground">Local Buyers (Indonesia):</span> Transactions involving domestic Indonesian buyers are exempt from marketplace fees (0% fee).</p>
+                  <p className="text-left"><span className="font-semibold text-foreground">Local Buyers (Indonesia):</span> Transactions with domestic Indonesian buyers are exempt from marketplace fees (0% fee).</p>
                 </div>
               </div>
             </CardContent>
