@@ -29,8 +29,14 @@ const translations = {
     login: 'Login',
     signUp: 'Sign Up',
     // Hero
-    heroTitle: 'Connecting Global Agriculture Trade',
-    heroSubtitle: 'The trusted B2B marketplace for farmers, exporters, and buyers to trade agricultural commodities with confidence and transparency.',
+    banner1Title: 'Connecting Global Agriculture Trade',
+    banner1Subtitle: 'The trusted B2B marketplace for farmers, exporters, and buyers to trade agricultural commodities with confidence and transparency.',
+    banner2Title: 'From Farm to Global Market',
+    banner2Subtitle: 'Empowering local farmers by connecting their harvest with international buyers, ensuring quality and fair trade.',
+    banner3Title: 'Seamless & Secure Logistics',
+    banner3Subtitle: 'We handle the complexities of global shipping and documentation, so you can focus on your business.',
+    banner4Title: 'Quality You Can Depend On',
+    banner4Subtitle: 'Access a diverse range of high-quality agricultural products, sourced directly from verified and sustainable farms.',
     browseCommodities: 'Browse Commodities',
     registerNow: 'Register Now',
     // Featured
@@ -62,8 +68,14 @@ const translations = {
     login: 'Masuk',
     signUp: 'Daftar',
     // Hero
-    heroTitle: 'Menghubungkan Perdagangan Pertanian Global',
-    heroSubtitle: 'Marketplace B2B tepercaya bagi petani, eksportir, dan pembeli untuk memperdagangkan komoditas pertanian dengan keyakinan dan transparansi.',
+    banner1Title: 'Menghubungkan Perdagangan Pertanian Global',
+    banner1Subtitle: 'Marketplace B2B tepercaya bagi petani, eksportir, dan pembeli untuk memperdagangkan komoditas pertanian dengan keyakinan dan transparansi.',
+    banner2Title: 'Dari Ladang ke Pasar Global',
+    banner2Subtitle: 'Memberdayakan petani lokal dengan menghubungkan hasil panen mereka kepada pembeli internasional, menjamin kualitas dan perdagangan yang adil.',
+    banner3Title: 'Logistik yang Mulus & Aman',
+    banner3Subtitle: 'Kami menangani kerumitan pengiriman dan dokumentasi global, sehingga Anda dapat fokus pada bisnis Anda.',
+    banner4Title: 'Kualitas yang Dapat Diandalkan',
+    banner4Subtitle: 'Akses beragam produk pertanian berkualitas tinggi, yang bersumber langsung dari pertanian terverifikasi dan berkelanjutan.',
     browseCommodities: 'Jelajahi Komoditas',
     registerNow: 'Daftar Sekarang',
     // Featured
@@ -166,10 +178,10 @@ const howItWorksSteps = [
 ]
 
 const bannerImages = [
-  { src: '/images/banner-1.png', alt: 'Fresh agricultural produce being harvested', hint: 'agriculture harvest field' },
-  { src: '/images/banner-2.png', alt: 'Global trade and logistics with shipping containers', hint: 'shipping containers port' },
-  { src: '/images/banner-3.png', alt: 'Farmer smiling in a field of crops', hint: 'farmer smiling field' },
-  { src: '/images/banner-4.png', alt: 'Crates of fresh vegetables', hint: 'vegetables crate' },
+  { src: '/images/banner-1.png', alt: 'Fresh agricultural produce being harvested', hint: 'agriculture harvest field', titleKey: 'banner1Title', subtitleKey: 'banner1Subtitle' },
+  { src: '/images/banner-2.png', alt: 'Global trade and logistics with shipping containers', hint: 'shipping containers port', titleKey: 'banner2Title', subtitleKey: 'banner2Subtitle' },
+  { src: '/images/banner-3.png', alt: 'Farmer smiling in a field of crops', hint: 'farmer smiling field', titleKey: 'banner3Title', subtitleKey: 'banner3Subtitle' },
+  { src: '/images/banner-4.png', alt: 'Crates of fresh vegetables', hint: 'vegetables crate', titleKey: 'banner4Title', subtitleKey: 'banner4Subtitle' },
 ]
 
 export default function LandingPage() {
@@ -234,6 +246,18 @@ export default function LandingPage() {
                                             priority={index === 0}
                                         />
                                         <div className="absolute inset-0 bg-black/50" />
+                                        <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-white z-10 p-4">
+                                            <h1 className="text-4xl font-bold tracking-tight font-headline md:text-6xl drop-shadow-lg">{t[img.titleKey as keyof typeof t]}</h1>
+                                            <p className="mt-4 max-w-2xl mx-auto text-lg drop-shadow-md">{t[img.subtitleKey as keyof typeof t]}</p>
+                                            <div className="mt-8 flex justify-center gap-4">
+                                                <Button size="lg" asChild>
+                                                    <Link href="/commodities">{t.browseCommodities} <ArrowRight className="ml-2 h-5 w-5"/></Link>
+                                                </Button>
+                                                 <Button size="lg" variant="secondary" asChild>
+                                                    <Link href="/register">{t.registerNow}</Link>
+                                                </Button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </CarouselItem>
                             ))}
@@ -241,18 +265,6 @@ export default function LandingPage() {
                         <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2 z-10 opacity-0 group-hover:opacity-100 transition-opacity" />
                         <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2 z-10 opacity-0 group-hover:opacity-100 transition-opacity" />
                     </Carousel>
-                    <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-white z-10 p-4">
-                        <h1 className="text-4xl font-bold tracking-tight font-headline md:text-6xl drop-shadow-lg">{t.heroTitle}</h1>
-                        <p className="mt-4 max-w-2xl mx-auto text-lg drop-shadow-md">{t.heroSubtitle}</p>
-                        <div className="mt-8 flex justify-center gap-4">
-                            <Button size="lg" asChild>
-                                <Link href="/commodities">{t.browseCommodities} <ArrowRight className="ml-2 h-5 w-5"/></Link>
-                            </Button>
-                             <Button size="lg" variant="secondary" asChild>
-                                <Link href="/register">{t.registerNow}</Link>
-                            </Button>
-                        </div>
-                    </div>
                 </section>
                 
                 {/* Featured Commodities Section */}
