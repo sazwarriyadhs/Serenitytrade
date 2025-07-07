@@ -10,14 +10,14 @@ export function Logo({
 }) {
   const sizes = {
     default: {
-      width: 138,
-      height: 60, // Original aspect ratio reference
-      className: 'h-14 w-auto', // Significantly larger in header (was h-[48px], now h-[56px] in a 64px header)
+      width: 160,
+      height: 70,
+      className: 'h-16 w-auto', // Fills the header height
     },
     large: {
-      width: 275,
-      height: 120, // Original aspect ratio reference
-      className: 'h-[120px] w-auto', // Significantly larger for splash/login pages (was h-[80px])
+      width: 365,
+      height: 160, 
+      className: 'h-[160px] w-auto', // Significantly larger for splash/login pages
     },
   };
 
