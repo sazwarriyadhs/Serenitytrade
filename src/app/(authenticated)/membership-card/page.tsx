@@ -59,8 +59,8 @@ const ExpiryDate = new Date(new Date().setFullYear(new Date().getFullYear() + 1)
 
 const roleDisplayNames = {
     farmer: "PETANI",
-    exporter: "EKSPORTIR",
-    buyer: "BUYER",
+    exporter: "EKSPORTIR / BUYER",
+    buyer: "EKSPORTIR / BUYER",
     admin: "ADMIN",
 };
 
@@ -89,12 +89,12 @@ const MemberCard = ({
     <div className="flex">
       {/* Left section */}
       <div className="w-[65%] bg-white p-4 sm:p-6 flex flex-col text-foreground">
-        <div className="w-40">
-          <Logo />
+        <div className="w-52">
+          <Logo size="large" className="!h-auto" />
         </div>
-        <div className="mt-4">
-          <p className="text-sm font-bold tracking-wider text-black">KARTU ANGGOTA</p>
-          <p className="text-sm font-bold tracking-wider text-black -mt-1">
+        <div className="mt-6">
+          <p className="text-base font-bold tracking-wider text-black">KARTU ANGGOTA</p>
+          <p className="text-base font-bold tracking-wider text-black -mt-1">
             {roleDisplayNames[role] || "ANGGOTA"}
           </p>
         </div>
