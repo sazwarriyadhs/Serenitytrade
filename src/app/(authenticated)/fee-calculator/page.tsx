@@ -1,3 +1,4 @@
+
 'use client'
 
 import { useState, useMemo } from 'react'
@@ -13,7 +14,7 @@ import { Label } from "@/components/ui/label"
 import { Slider } from "@/components/ui/slider"
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from 'recharts'
 import { Badge } from '@/components/ui/badge'
-import { DollarSign, ArrowDown } from 'lucide-react'
+import { DollarSign, ArrowDown, Tractor } from 'lucide-react'
 
 const feeAllocationConfig = [
   { name: "Infrastructure & Hosting", percentage: 25, color: "hsl(var(--chart-1))" },
@@ -25,7 +26,7 @@ const feeAllocationConfig = [
 
 export default function FeeCalculatorPage() {
   const [transactionValue, setTransactionValue] = useState(8000)
-  const [adminFee, setAdminFee] = useState([6])
+  const [adminFee, setAdminFee] = useState([12.5])
 
   const handleTransactionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value === '' ? 0 : parseFloat(e.target.value)
@@ -72,8 +73,8 @@ export default function FeeCalculatorPage() {
         <div className="lg:col-span-2 space-y-8">
           <Card>
             <CardHeader>
-              <CardTitle>Payout Calculator</CardTitle>
-              <CardDescription>Simulate fees for transactions made by exporters and farmers.</CardDescription>
+              <CardTitle>Exporter Payout Calculator</CardTitle>
+              <CardDescription>Simulate fees for transactions between exporters and buyers.</CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="grid gap-2">
@@ -91,18 +92,18 @@ export default function FeeCalculatorPage() {
               </div>
               <div className="grid gap-2">
                 <div className="flex justify-between items-center">
-                   <Label htmlFor="admin-fee">Admin Fee Percentage</Label>
+                   <Label htmlFor="admin-fee">Marketplace Fee (%)</Label>
                    <Badge variant="secondary" className="text-base">{adminFee[0]}%</Badge>
                 </div>
                 <Slider
                   id="admin-fee"
-                  min={0}
-                  max={20}
+                  min={10}
+                  max={15}
                   step={0.5}
                   value={adminFee}
                   onValueChange={handleFeeChange}
                 />
-                 <p className="text-xs text-muted-foreground">Standard range is 5% - 8%.</p>
+                 <p className="text-xs text-muted-foreground">Standard range is 10% - 15% for exporter transactions.</p>
               </div>
             </CardContent>
           </Card>
@@ -119,7 +120,7 @@ export default function FeeCalculatorPage() {
                   <span>{formatCurrency(transactionValue)}</span>
                 </div>
                 <p className="text-xs text-muted-foreground mt-1">
-                  Total transaction value. Optional fees ($10-$50) may apply for additional verification services.
+                  Total transaction value for a commodity.
                 </p>
               </div>
 
@@ -133,7 +134,7 @@ export default function FeeCalculatorPage() {
                   <span className="text-destructive font-bold">-{formatCurrency(adminFeeAmount)}</span>
                 </div>
                 <p className="text-xs text-muted-foreground mt-1">
-                  A standard 5-8% fee is deducted for platform operations.
+                  A standard 10-15% fee is deducted for platform operations.
                 </p>
               </div>
 
@@ -143,7 +144,7 @@ export default function FeeCalculatorPage() {
 
               <div className="p-3 border rounded-md">
                 <div className="flex justify-between items-center font-bold text-lg text-primary">
-                  <span>Exporter/Farmer Receives</span>
+                  <span>Exporter Receives</span>
                   <span>{formatCurrency(exporterPayout)}</span>
                 </div>
                 <p className="text-xs text-muted-foreground mt-1">
@@ -152,7 +153,10 @@ export default function FeeCalculatorPage() {
               </div>
               
               <div className="text-center pt-4 text-sm text-muted-foreground">
-                <p className="font-semibold">💡 Farmers are paid in full by the exporter under a separate agreement.</p>
+                <div className="p-3 rounded-md border bg-background flex items-start gap-3">
+                  <Tractor className="h-5 w-5 mt-0.5 text-primary shrink-0" />
+                  <p className="text-left"><span className="font-semibold text-foreground">Note for Farmers:</span> For direct transactions with exporters on our platform, a reduced service fee of 5% applies.</p>
+                </div>
               </div>
             </CardContent>
           </Card>
