@@ -6,7 +6,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion"
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card"
-import { CheckCircle2, FileWarning, Ban } from "lucide-react"
+import { CheckCircle2, FileWarning, Ban, ExternalLink } from "lucide-react"
 import {
   Table,
   TableBody,
@@ -15,6 +15,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+import { Button } from "@/components/ui/button"
 
 const commodityExamples = [
   { no: 1, commodity: "Beras organik", category: "Pangan pokok", exportForm: "Beras kemasan", destination: "Singapura, Uni Emirat Arab, Jepang" },
@@ -98,6 +99,12 @@ export default function ExporterGuidePage() {
                     <div>
                       <h4 className="font-medium text-foreground">Certificate of Origin (COO) / Surat Keterangan Asal (SKA)</h4>
                       <p>Dokumen yang menyatakan negara asal barang, seringkali dibutuhkan untuk mendapatkan fasilitas bea masuk di negara tujuan.</p>
+                       <Button variant="link" size="sm" className="h-auto p-0 mt-2 text-xs" asChild>
+                            <a href="https://e-ska.kemendag.go.id" target="_blank" rel="noopener noreferrer">
+                                Kunjungi Portal e-SKA
+                                <ExternalLink className="ml-1.5 h-3 w-3" />
+                            </a>
+                        </Button>
                     </div>
                   </li>
                   <li className="flex items-start gap-3">

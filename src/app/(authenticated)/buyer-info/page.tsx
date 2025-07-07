@@ -7,6 +7,8 @@ import {
 } from "@/components/ui/accordion"
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import { Button } from "@/components/ui/button"
+import { ExternalLink } from "lucide-react"
 
 
 export default function BuyerInfoPage() {
@@ -51,6 +53,14 @@ export default function BuyerInfoPage() {
                   <li>
                     <h4 className="font-medium text-foreground">✅ Certificate of Origin (COO)</h4>
                     <p className="pl-6">Dikeluarkan oleh KADIN/Disperindag untuk menunjukkan asal barang (penting untuk FTA).</p>
+                    <div className="pl-6">
+                        <Button variant="link" size="sm" className="h-auto p-0 mt-2 text-xs" asChild>
+                            <a href="https://e-ska.kemendag.go.id" target="_blank" rel="noopener noreferrer">
+                                Kunjungi Portal e-SKA
+                                <ExternalLink className="ml-1.5 h-3 w-3" />
+                            </a>
+                        </Button>
+                    </div>
                   </li>
                   <li>
                     <h4 className="font-medium text-foreground">✅ Dokumen Karantina dan Sertifikasi</h4>
