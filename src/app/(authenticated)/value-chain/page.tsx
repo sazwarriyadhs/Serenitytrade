@@ -45,7 +45,7 @@ const platformRoles = [
     {
         icon: Handshake,
         title: "Facilitator",
-        description: "Connects all parties in a secure and transparent B2B environment. For farmers, the platform facilitates international transactions by recommending top-rated exporters based on performance and rating to assist with logistics and documentation."
+        description: "Connects all parties in a secure and transparent B2B environment. For farmers, the platform facilitates international transactions by recommending top-rated exporters based on performance and rating to assist with logistics and documentation. Kemitraan hanya berlaku untuk eksportir dan petani yang terverifikasi oleh Serenity AgriExport Hub."
     },
     {
         icon: ShieldCheck,
