@@ -13,7 +13,7 @@ const roles = [
     responsibilities: [
       "Crop cultivation & harvesting",
       "Initial quality control",
-      "Partnership with exporters"
+      "Can partner with admin-recommended exporters for international sales",
     ]
   },
   {
@@ -23,7 +23,8 @@ const roles = [
      responsibilities: [
       "Manages export documents (PEB, COO)",
       "Handles logistics and shipping",
-      "Negotiates with buyers"
+      "Negotiates with buyers",
+      "Can partner with farmers to facilitate their international sales",
     ]
   },
   {
@@ -42,7 +43,7 @@ const platformRoles = [
     {
         icon: Handshake,
         title: "Facilitator",
-        description: "Connects all parties in a secure and transparent B2B environment."
+        description: "Connects all parties in a secure and transparent B2B environment. For farmers, the platform facilitates international transactions by recommending top-rated exporters based on performance and rating to assist with logistics and documentation."
     },
     {
         icon: ShieldCheck,
