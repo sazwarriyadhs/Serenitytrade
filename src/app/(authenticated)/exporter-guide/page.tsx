@@ -7,6 +7,33 @@ import {
 } from "@/components/ui/accordion"
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card"
 import { CheckCircle2, FileWarning, Ban } from "lucide-react"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
+
+const commodityExamples = [
+  { no: 1, commodity: "Beras organik", category: "Pangan pokok", exportForm: "Beras kemasan", destination: "Singapura, Uni Emirat Arab, Jepang" },
+  { no: 2, commodity: "Jagung", category: "Pangan pokok", exportForm: "Jagung pipil kering", destination: "Malaysia, Filipina, Korea Selatan" },
+  { no: 3, commodity: "Kacang mete", category: "Kacang-kacangan", exportForm: "Kernel kacang mete", destination: "India, Vietnam, Belanda" },
+  { no: 4, commodity: "Kedelai", category: "Kacang-kacangan", exportForm: "Kedelai organik, non-GMO", destination: "Jepang, Taiwan, Jerman" },
+  { no: 5, commodity: "Bawang merah", category: "Sayuran", exportForm: "Bawang merah segar/olahan", destination: "Thailand, Malaysia, Vietnam" },
+  { no: 6, commodity: "Cabai", category: "Sayuran", exportForm: "Cabai segar/kering/olah", destination: "Korea Selatan, Jepang, Hongkong" },
+  { no: 7, commodity: "Nanas", category: "Buah-buahan", exportForm: "Nanas segar, kalengan, jus", destination: "Tiongkok, Uni Emirat Arab, Rusia" },
+  { no: 8, commodity: "Mangga", category: "Buah-buahan", exportForm: "Mangga segar, puree", destination: "Tiongkok, Timur Tengah, Eropa" },
+  { no: 9, commodity: "Salak", category: "Buah-buahan", exportForm: "Salak segar, manisan, keripik", destination: "Belanda, Singapura, Malaysia" },
+  { no: 10, commodity: "Kopi", category: "Perkebunan pangan", exportForm: "Biji kopi sangrai, bubuk kopi", destination: "AS, Italia, Jepang, Inggris" },
+  { no: 11, commodity: "Kakao", category: "Perkebunan pangan", exportForm: "Biji kakao, bubuk, pasta", destination: "Jerman, AS, Belgia, Belanda" },
+  { no: 12, commodity: "Jahe", category: "Rempah-rempah", exportForm: "Jahe segar, kering, bubuk", destination: "India, Bangladesh, Timur Tengah" },
+  { no: 13, commodity: "Lada hitam/putih", category: "Rempah-rempah", exportForm: "Lada kering, bubuk", destination: "Vietnam, AS, Tiongkok" },
+  { no: 14, commodity: "Ikan beku (tuna)", category: "Produk hewani", exportForm: "Fillet beku, utuh, kalengan", destination: "Jepang, AS, Thailand" },
+  { no: 15, commodity: "Udang", category: "Produk hewani", exportForm: "Udang beku, kupas, olahan", destination: "AS, Jepang, Uni Eropa" },
+];
+
 
 export default function ExporterGuidePage() {
   return (
@@ -248,6 +275,36 @@ export default function ExporterGuidePage() {
                 </div>
               </AccordionContent>
             </AccordionItem>
+            
+            <AccordionItem value="item-7">
+              <AccordionTrigger className="text-base font-semibold">
+                7. Contoh Komoditas Pangan Ekspor Unggulan Indonesia
+              </AccordionTrigger>
+              <AccordionContent>
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead className="w-[50px]">No</TableHead>
+                      <TableHead>Komoditi Pangan</TableHead>
+                      <TableHead>Kategori</TableHead>
+                      <TableHead>Bentuk Produk Ekspor</TableHead>
+                      <TableHead>Negara Tujuan Utama</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {commodityExamples.map((item) => (
+                      <TableRow key={item.no}>
+                        <TableCell className="font-medium">{item.no}</TableCell>
+                        <TableCell>{item.commodity}</TableCell>
+                        <TableCell>{item.category}</TableCell>
+                        <TableCell>{item.exportForm}</TableCell>
+                        <TableCell>{item.destination}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </AccordionContent>
+            </AccordionItem>
 
           </Accordion>
         </CardContent>
@@ -255,3 +312,5 @@ export default function ExporterGuidePage() {
     </div>
   )
 }
+
+    
