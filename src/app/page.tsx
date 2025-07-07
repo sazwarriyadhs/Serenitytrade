@@ -1,7 +1,7 @@
 
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Logo } from '@/components/logo'
@@ -9,6 +9,8 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Globe, ArrowRight, Ship, Handshake, Leaf, ArrowUp, ArrowDown, FileText } from 'lucide-react'
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
+import Autoplay from "embla-carousel-autoplay"
 
 // --- Data for i18n ---
 const languages = [
@@ -190,6 +192,33 @@ const translations = {
   }
 }
 
+const heroSlides = [
+  {
+    titleKey: 'banner1Title',
+    subtitleKey: 'banner1Subtitle',
+    image: 'https://placehold.co/1920x1080.png',
+    imageHint: 'global trade'
+  },
+  {
+    titleKey: 'banner2Title',
+    subtitleKey: 'banner2Subtitle',
+    image: 'https://placehold.co/1920x1080.png',
+    imageHint: 'farm market'
+  },
+  {
+    titleKey: 'banner3Title',
+    subtitleKey: 'banner3Subtitle',
+    image: 'https://placehold.co/1920x1080.png',
+    imageHint: 'shipping logistics'
+  },
+  {
+    titleKey: 'banner4Title',
+    subtitleKey: 'banner4Subtitle',
+    image: 'https://placehold.co/1920x1080.png',
+    imageHint: 'quality produce'
+  },
+];
+
 const featuredCommodities = [
   { id: 'avocado', nameKey: 'avocado', originKey: 'avocadoOrigin', image: '/images/Hass Avocado.png', imageHint: 'avocado fruit' },
   { id: 'coffee', nameKey: 'coffee', originKey: 'coffeeOrigin', image: '/images/Arabica Coffee.png', imageHint: 'coffee beans' },
@@ -217,6 +246,9 @@ export default function LandingPage() {
     const [lang, setLang] = useState('en');
     const [showSplash, setShowSplash] = useState(true);
     const t = translations[lang as keyof typeof translations];
+    const plugin = useRef(
+        Autoplay({ delay: 5000, stopOnInteraction: true })
+    );
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -268,27 +300,46 @@ export default function LandingPage() {
 
             <main className="flex-1">
                 {/* Hero Section */}
-                <section className="relative w-full h-[60vh] md:h-[70vh] overflow-hidden">
-                    <video
-                        src="/images/splashscreen.mp4"
-                        autoPlay
-                        loop
-                        muted
-                        className="absolute top-0 left-0 w-full h-full object-cover -z-10"
-                    />
-                    <div className="absolute inset-0 bg-black/50" />
-                    <div className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white p-4">
-                        <h1 className="text-4xl font-bold tracking-tight font-headline md:text-6xl drop-shadow-lg">{t.banner1Title}</h1>
-                        <p className="mt-4 max-w-2xl mx-auto text-lg drop-shadow-md">{t.banner1Subtitle}</p>
-                        <div className="mt-8 flex justify-center gap-4">
-                            <Button size="lg" asChild>
-                                <Link href="/commodities">{t.browseCommodities} <ArrowRight className="ml-2 h-5 w-5"/></Link>
-                            </Button>
-                                <Button size="lg" variant="secondary" asChild>
-                                <Link href="/register">{t.registerNow}</Link>
-                            </Button>
-                        </div>
-                    </div>
+                <section className="relative w-full">
+                    <Carousel
+                        plugins={[plugin.current]}
+                        className="w-full"
+                        opts={{ loop: true }}
+                        onMouseEnter={plugin.current.stop}
+                        onMouseLeave={plugin.current.reset}
+                    >
+                        <CarouselContent>
+                            {heroSlides.map((slide, index) => (
+                                <CarouselItem key={index}>
+                                    <div className="relative w-full h-[60vh] md:h-[70vh]">
+                                        <Image
+                                            src={slide.image}
+                                            alt={t[slide.titleKey as keyof typeof t]}
+                                            fill
+                                            className="object-cover"
+                                            data-ai-hint={slide.imageHint}
+                                            priority={index === 0}
+                                        />
+                                        <div className="absolute inset-0 bg-black/50" />
+                                        <div className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white p-4">
+                                            <h1 className="text-4xl font-bold tracking-tight font-headline md:text-6xl drop-shadow-lg">{t[slide.titleKey as keyof typeof t]}</h1>
+                                            <p className="mt-4 max-w-2xl mx-auto text-lg drop-shadow-md">{t[slide.subtitleKey as keyof typeof t]}</p>
+                                            <div className="mt-8 flex justify-center gap-4">
+                                                <Button size="lg" asChild>
+                                                    <Link href="/commodities">{t.browseCommodities} <ArrowRight className="ml-2 h-5 w-5"/></Link>
+                                                </Button>
+                                                <Button size="lg" variant="secondary" asChild>
+                                                    <Link href="/register">{t.registerNow}</Link>
+                                                </Button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </CarouselItem>
+                            ))}
+                        </CarouselContent>
+                        <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2 z-20 hidden sm:flex" />
+                        <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2 z-20 hidden sm:flex" />
+                    </Carousel>
                 </section>
                 
                 {/* Featured Commodities Section */}
@@ -417,3 +468,5 @@ export default function LandingPage() {
         </div>
     )
 }
+
+    
