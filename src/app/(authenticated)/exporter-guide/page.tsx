@@ -306,11 +306,60 @@ export default function ExporterGuidePage() {
               </AccordionContent>
             </AccordionItem>
 
+            <AccordionItem value="item-8">
+              <AccordionTrigger className="text-base font-semibold">
+                8. Spesifikasi Produk Ekspor Unggulan
+              </AccordionTrigger>
+              <AccordionContent className="text-muted-foreground">
+                <p className="mb-4">Berikut adalah contoh spesifikasi standar untuk beberapa komoditas ekspor unggulan Indonesia yang umum diminta oleh pasar internasional. Spesifikasi ini dapat bervariasi tergantung permintaan buyer.</p>
+                <div className="space-y-6">
+                    <div>
+                        <h4 className="font-medium text-foreground">Kopi Arabika (Specialty Grade)</h4>
+                        <ul className="list-disc pl-6 mt-2 space-y-1">
+                            <li><strong>Asal:</strong> Gayo, Kintamani, Toraja (Single Origin)</li>
+                            <li><strong>Ukuran Biji (Screen Size):</strong> 16-18</li>
+                            <li><strong>Kadar Air (Moisture Content):</strong> 10% - 12.5%</li>
+                            <li><strong>Tingkat Cacat (Defect Value):</strong> Maksimal 5 cacat per 300 gram sampel</li>
+                            <li><strong>Proses:</strong> Washed (Giling Basah), Semi-Washed, Natural</li>
+                            <li><strong>Catatan Rasa (Cupping Notes):</strong> Deskripsi profil rasa (e.g., fruity, floral, spicy)</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 className="font-medium text-foreground">Udang Windu (Black Tiger Shrimp)</h4>
+                        <ul className="list-disc pl-6 mt-2 space-y-1">
+                            <li><strong>Bentuk:</strong> Head-On Shell-On (HOSO), Headless Shell-On (HLSO), Peeled and Deveined (PND)</li>
+                            <li><strong>Ukuran (Size per lb):</strong> 16/20, 21/25, 26/30</li>
+                            <li><strong>Glasir (Glazing):</strong> 10% - 20% (sesuai permintaan buyer)</li>
+                            <li><strong>Kualitas:</strong> Tidak ada black spots, daging kenyal, warna seragam</li>
+                            <li><strong>Pembekuan:</strong> Individually Quick Frozen (IQF)</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 className="font-medium text-foreground">Nanas (MD2 / Queen)</h4>
+                        <ul className="list-disc pl-6 mt-2 space-y-1">
+                            <li><strong>Tingkat Kematangan:</strong> 75% - 85% (warna kulit dominan kuning)</li>
+                            <li><strong>Tingkat Brix (Kemanisan):</strong> Minimal 12°</li>
+                            <li><strong>Berat per Buah:</strong> 1.2 - 2.0 kg</li>
+                            <li><strong>Kondisi:</strong> Bebas dari memar, busuk, dan kerusakan hama</li>
+                            <li><strong>Mahkota:</strong> Segar, hijau, tidak layu</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 className="font-medium text-foreground">Kernel Kacang Mete</h4>
+                        <ul className="list-disc pl-6 mt-2 space-y-1">
+                            <li><strong>Grade:</strong> WW240, WW320 (Whole White)</li>
+                            <li><strong>Kadar Air:</strong> Maksimal 5%</li>
+                            <li><strong>Kondisi:</strong> Utuh, tidak ada serangga hidup atau mati, bebas dari bau apek</li>
+                            <li><strong>Kemasan:</strong> Vakum dalam kantong plastik dan dikemas dalam karton</li>
+                        </ul>
+                    </div>
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+
           </Accordion>
         </CardContent>
       </Card>
     </div>
   )
 }
-
-    
