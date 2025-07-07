@@ -34,6 +34,21 @@ import {
   TabsTrigger,
 } from "@/components/ui/tabs"
 import { Input } from "@/components/ui/input"
+import React, { useState } from "react"
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog"
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import * as z from "zod"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
+import { Textarea } from "@/components/ui/textarea"
 
 const availableCommodities = [
   {
@@ -65,7 +80,7 @@ const availableCommodities = [
   },
 ];
 
-const myRequests = [
+const initialMyRequests = [
     {
         id: "REQ-001",
         commodity: "Peruvian Quinoa",
@@ -94,7 +109,41 @@ const negotiations = [
     }
 ]
 
+const requestFormSchema = z.object({
+    commodity: z.string().min(1, "Commodity name is required."),
+    quantity: z.string().min(1, "Quantity is required."),
+    specifications: z.string().optional(),
+})
+type RequestFormValues = z.infer<typeof requestFormSchema>
+
+
 export default function BuyerDashboardPage() {
+    const [myRequests, setMyRequests] = useState(initialMyRequests)
+    const [isRequestDialogOpen, setIsRequestDialogOpen] = useState(false)
+
+    const form = useForm<RequestFormValues>({
+        resolver: zodResolver(requestFormSchema),
+        defaultValues: {
+            commodity: "",
+            quantity: "",
+            specifications: "",
+        },
+    })
+
+    function onSubmit(data: RequestFormValues) {
+        const newRequest = {
+            id: `REQ-${String(myRequests.length + 1).padStart(3, '0')}`,
+            commodity: data.commodity,
+            quantity: data.quantity,
+            status: "Finding Exporters",
+            date: new Date().toISOString().split('T')[0],
+            offers: 0,
+        }
+        setMyRequests(prev => [newRequest, ...prev])
+        form.reset()
+        setIsRequestDialogOpen(false)
+    }
+
     return (
         <div className="flex flex-col gap-8">
             <div>
@@ -108,7 +157,7 @@ export default function BuyerDashboardPage() {
                         <FileText className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
                     <CardContent>
-                        <div className="text-2xl font-bold">2</div>
+                        <div className="text-2xl font-bold">{myRequests.filter(r => r.status !== 'Offer Received').length}</div>
                         <p className="text-xs text-muted-foreground">
                             Awaiting exporter offers
                         </p>
@@ -120,9 +169,9 @@ export default function BuyerDashboardPage() {
                         <Briefcase className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
                     <CardContent>
-                        <div className="text-2xl font-bold">5</div>
+                        <div className="text-2xl font-bold">{myRequests.reduce((acc, req) => acc + req.offers, 0)}</div>
                         <p className="text-xs text-muted-foreground">
-                            Across 2 active requests
+                            Across {myRequests.length} active requests
                         </p>
                     </CardContent>
                 </Card>
@@ -132,9 +181,9 @@ export default function BuyerDashboardPage() {
                         <Briefcase className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
                     <CardContent>
-                        <div className="text-2xl font-bold">1</div>
+                        <div className="text-2xl font-bold">{negotiations.length}</div>
                         <p className="text-xs text-muted-foreground">
-                            With 'Green Valley Exports'
+                            With {negotiations.length} exporter(s)
                         </p>
                     </CardContent>
                 </Card>
@@ -196,12 +245,70 @@ export default function BuyerDashboardPage() {
                                <CardTitle>My Commodity Requests</CardTitle>
                                <CardDescription>Track the status of your procurement requests.</CardDescription>
                            </div>
-                           <Button size="sm" className="ml-auto gap-1">
-                               <PlusCircle className="h-3.5 w-3.5" />
-                               <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-                                   Create Request
-                               </span>
-                           </Button>
+                           <Dialog open={isRequestDialogOpen} onOpenChange={setIsRequestDialogOpen}>
+                                <DialogTrigger asChild>
+                                    <Button size="sm" className="ml-auto gap-1">
+                                       <PlusCircle className="h-3.5 w-3.5" />
+                                       <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
+                                           Create Request
+                                       </span>
+                                   </Button>
+                                </DialogTrigger>
+                                <DialogContent className="sm:max-w-[425px]">
+                                    <DialogHeader>
+                                        <DialogTitle>Create Commodity Request</DialogTitle>
+                                        <DialogDescription>
+                                            Fill in the details below to create a new request for quotation.
+                                        </DialogDescription>
+                                    </DialogHeader>
+                                    <Form {...form}>
+                                        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                                            <FormField
+                                                control={form.control}
+                                                name="commodity"
+                                                render={({ field }) => (
+                                                    <FormItem>
+                                                        <FormLabel>Commodity Name</FormLabel>
+                                                        <FormControl>
+                                                            <Input placeholder="e.g., Peruvian Quinoa" {...field} />
+                                                        </FormControl>
+                                                        <FormMessage />
+                                                    </FormItem>
+                                                )}
+                                            />
+                                            <FormField
+                                                control={form.control}
+                                                name="quantity"
+                                                render={({ field }) => (
+                                                    <FormItem>
+                                                        <FormLabel>Quantity</FormLabel>
+                                                        <FormControl>
+                                                            <Input placeholder="e.g., 10,000 kg" {...field} />
+                                                        </FormControl>
+                                                        <FormMessage />
+                                                    </FormItem>
+                                                )}
+                                            />
+                                            <FormField
+                                                control={form.control}
+                                                name="specifications"
+                                                render={({ field }) => (
+                                                    <FormItem>
+                                                        <FormLabel>Specifications (Optional)</FormLabel>
+                                                        <FormControl>
+                                                            <Textarea placeholder="Describe quality requirements, certifications, etc." {...field} />
+                                                        </FormControl>
+                                                        <FormMessage />
+                                                    </FormItem>
+                                                )}
+                                            />
+                                            <DialogFooter>
+                                                <Button type="submit">Submit Request</Button>
+                                            </DialogFooter>
+                                        </form>
+                                    </Form>
+                                </DialogContent>
+                            </Dialog>
                        </CardHeader>
                        <CardContent>
                            <Table>

@@ -1,3 +1,6 @@
+'use client'
+
+import React, { useState } from "react"
 import Image from "next/image"
 import { PlusCircle, MoreHorizontal, File } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
@@ -18,21 +21,29 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table"
-import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
 } from "@/components/ui/tabs"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import * as z from "zod"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Textarea } from "@/components/ui/textarea"
 
-const commodities = [
+const initialCommodities = [
   {
     name: "Organic Hass Avocado",
     description: "Creamy, nutrient-rich avocados from certified organic farms.",
@@ -79,7 +90,36 @@ const commodities = [
   },
 ];
 
+const commodityFormSchema = z.object({
+  name: z.string().min(3, "Commodity name must be at least 3 characters."),
+  description: z.string().min(10, "Description must be at least 10 characters."),
+  price: z.coerce.number().positive("Price must be a positive number."),
+  stock: z.coerce.number().int().positive("Stock must be a positive number."),
+  origin: z.string().min(2, "Origin is required."),
+  certifications: z.string().optional(),
+})
+type CommodityFormValues = z.infer<typeof commodityFormSchema>
+
 export default function CommoditiesPage() {
+  const [commodities, setCommodities] = useState(initialCommodities)
+  const [isDialogOpen, setIsDialogOpen] = useState(false)
+  const form = useForm<CommodityFormValues>({
+    resolver: zodResolver(commodityFormSchema),
+  })
+
+  function onSubmit(data: CommodityFormValues) {
+    const newCommodity = {
+      ...data,
+      certifications: data.certifications ? data.certifications.split(',').map(s => s.trim()) : [],
+      image: "https://placehold.co/600x400.png",
+      imageHint: "new commodity",
+      status: "active",
+    }
+    setCommodities(prev => [newCommodity, ...prev])
+    form.reset()
+    setIsDialogOpen(false)
+  }
+
   return (
     <Tabs defaultValue="all">
       <div className="flex items-center">
@@ -97,18 +137,117 @@ export default function CommoditiesPage() {
               Export
             </span>
           </Button>
-          <Button size="sm" className="h-8 gap-1">
-            <PlusCircle className="h-3.5 w-3.5" />
-            <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-              Add Commodity
-            </span>
-          </Button>
+          <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+            <DialogTrigger asChild>
+              <Button size="sm" className="h-8 gap-1">
+                <PlusCircle className="h-3.5 w-3.5" />
+                <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
+                  Add Commodity
+                </span>
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-md">
+              <DialogHeader>
+                <DialogTitle>Add New Commodity</DialogTitle>
+                <DialogDescription>
+                  Fill out the form below to list a new commodity for export.
+                </DialogDescription>
+              </DialogHeader>
+              <Form {...form}>
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                  <FormField
+                    control={form.control}
+                    name="name"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Commodity Name</FormLabel>
+                        <FormControl>
+                          <Input placeholder="e.g., Organic Hass Avocado" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                   <FormField
+                    control={form.control}
+                    name="description"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Description</FormLabel>
+                        <FormControl>
+                          <Textarea placeholder="Describe the product..." {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <div className="grid grid-cols-2 gap-4">
+                    <FormField
+                      control={form.control}
+                      name="price"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Price ($/kg)</FormLabel>
+                          <FormControl>
+                            <Input type="number" step="0.01" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                     <FormField
+                      control={form.control}
+                      name="stock"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Stock (kg)</FormLabel>
+                          <FormControl>
+                            <Input type="number" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                   <FormField
+                      control={form.control}
+                      name="origin"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Origin</FormLabel>
+                          <FormControl>
+                            <Input placeholder="e.g., Mexico" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="certifications"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Certifications (comma-separated)</FormLabel>
+                          <FormControl>
+                            <Input placeholder="e.g., USDA Organic, Fair Trade" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                   <DialogFooter>
+                      <Button type="submit">Add Commodity</Button>
+                  </DialogFooter>
+                </form>
+              </Form>
+            </DialogContent>
+          </Dialog>
         </div>
       </div>
       <TabsContent value="all">
         <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-3 xl:grid-cols-4">
-          {commodities.map((item) => (
-             <Card key={item.name}>
+          {commodities.map((item, index) => (
+             <Card key={`${item.name}-${index}`}>
               <CardHeader className="relative">
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
@@ -157,8 +296,8 @@ export default function CommoditiesPage() {
       </TabsContent>
       <TabsContent value="active">
          <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-3 xl:grid-cols-4">
-          {commodities.filter(c => c.status === 'active').map((item) => (
-             <Card key={item.name}>
+          {commodities.filter(c => c.status === 'active').map((item, index) => (
+             <Card key={`${item.name}-${index}`}>
               <CardHeader className="relative">
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>

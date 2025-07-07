@@ -27,7 +27,6 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 import {
   Popover,
   PopoverContent,
@@ -63,8 +62,13 @@ const harvestFormSchema = z.object({
   qualityGrade: z.string().min(1, "Quality grade is required."),
   notes: z.string().optional(),
 })
-
 type HarvestFormValues = z.infer<typeof harvestFormSchema>
+
+const certFormSchema = z.object({
+  certName: z.string().min(1, "Certification name is required."),
+  certFile: z.instanceof(FileList).refine(files => files?.length === 1, "File is required."),
+});
+type CertFormValues = z.infer<typeof certFormSchema>
 
 // Mock data
 const recentHarvests = [
@@ -89,15 +93,31 @@ const partnerships = [
 ]
 
 export default function FarmerDashboardPage() {
-  const form = useForm<HarvestFormValues>({
+  const harvestForm = useForm<HarvestFormValues>({
     resolver: zodResolver(harvestFormSchema),
   })
 
-  function onSubmit(data: HarvestFormValues) {
-    // In a real app, you'd send this data to your server.
+  const certForm = useForm<CertFormValues>({
+    resolver: zodResolver(certFormSchema),
+    defaultValues: {
+        certName: "",
+    }
+  })
+
+  const certFileRef = certForm.register("certFile");
+
+  function onHarvestSubmit(data: HarvestFormValues) {
     console.log(data)
     alert("Harvest data submitted!")
+    harvestForm.reset();
   }
+  
+  function onCertSubmit(data: CertFormValues) {
+    console.log(data)
+    alert(`Certification '${data.certName}' submitted with file: ${data.certFile[0].name}`)
+    certForm.reset();
+  }
+
 
   return (
     <div className="flex flex-col gap-8">
@@ -120,11 +140,11 @@ export default function FarmerDashboardPage() {
                     <CardDescription>Enter the details of your recent harvest to update your inventory.</CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <Form {...form}>
-                        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+                    <Form {...harvestForm}>
+                        <form onSubmit={harvestForm.handleSubmit(onHarvestSubmit)} className="space-y-8">
                             <div className="grid md:grid-cols-2 gap-4">
                                 <FormField
-                                    control={form.control}
+                                    control={harvestForm.control}
                                     name="commodity"
                                     render={({ field }) => (
                                         <FormItem>
@@ -146,7 +166,7 @@ export default function FarmerDashboardPage() {
                                     )}
                                 />
                                 <FormField
-                                    control={form.control}
+                                    control={harvestForm.control}
                                     name="harvestDate"
                                     render={({ field }) => (
                                         <FormItem className="flex flex-col">
@@ -187,7 +207,7 @@ export default function FarmerDashboardPage() {
                                     )}
                                 />
                                 <FormField
-                                    control={form.control}
+                                    control={harvestForm.control}
                                     name="quantity"
                                     render={({ field }) => (
                                         <FormItem>
@@ -200,7 +220,7 @@ export default function FarmerDashboardPage() {
                                     )}
                                 />
                                 <FormField
-                                    control={form.control}
+                                    control={harvestForm.control}
                                     name="qualityGrade"
                                     render={({ field }) => (
                                         <FormItem>
@@ -214,7 +234,7 @@ export default function FarmerDashboardPage() {
                                 />
                             </div>
                             <FormField
-                                control={form.control}
+                                control={harvestForm.control}
                                 name="notes"
                                 render={({ field }) => (
                                     <FormItem>
@@ -301,25 +321,41 @@ export default function FarmerDashboardPage() {
                     <CardTitle>Upload Certification</CardTitle>
                     <CardDescription>Add new certifications for your products to increase buyer trust.</CardDescription>
                 </CardHeader>
-                <CardContent className="space-y-4">
-                    <div className="grid gap-2">
-                        <Label htmlFor="cert-name">Certification Name</Label>
-                        <Input id="cert-name" placeholder="e.g., USDA Organic"/>
-                    </div>
-                     <div className="grid gap-2">
-                        <Label htmlFor="cert-file">Certification Document</Label>
-                        <Input id="cert-file" type="file" className="hidden"/>
-                         <Button asChild variant="outline">
-                             <label htmlFor="cert-file" className="cursor-pointer">
-                                 <Upload className="mr-2"/>
-                                 Choose File
-                             </label>
-                        </Button>
-                    </div>
-                     <Button>
-                        <FileText className="mr-2" />
-                        Submit Certification
-                    </Button>
+                <CardContent>
+                     <Form {...certForm}>
+                        <form onSubmit={certForm.handleSubmit(onCertSubmit)} className="space-y-4">
+                             <FormField
+                                control={certForm.control}
+                                name="certName"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Certification Name</FormLabel>
+                                        <FormControl>
+                                            <Input placeholder="e.g., USDA Organic" {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                             <FormField
+                                control={certForm.control}
+                                name="certFile"
+                                render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Certification Document</FormLabel>
+                                    <FormControl>
+                                         <Input type="file" {...certFileRef} />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                                )}
+                            />
+                            <Button type="submit">
+                                <FileText className="mr-2" />
+                                Submit Certification
+                            </Button>
+                        </form>
+                    </Form>
                 </CardContent>
             </Card>
         </TabsContent>
