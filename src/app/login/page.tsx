@@ -1,3 +1,4 @@
+
 "use client"
 
 import Link from "next/link"
@@ -47,11 +48,13 @@ export default function LoginPage() {
     // Store role in localStorage to be used by the layout
     localStorage.setItem("userRole", role)
 
-    if (role === "farmer") {
+    if (role === "admin") {
+      router.push("/admin-dashboard")
+    } else if (role === "farmer") {
       router.push("/farmer-dashboard")
     } else if (role === "buyer") {
       router.push("/buyer-dashboard")
-    } else { // exporter and admin
+    } else { // exporter
       router.push("/dashboard")
     }
   }
