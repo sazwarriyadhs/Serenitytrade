@@ -1,3 +1,4 @@
+
 import {
   Accordion,
   AccordionContent,
@@ -101,8 +102,10 @@ export default function FarmerGuidePage() {
                         <h4 className="font-medium text-foreground">Contoh Penerapan</h4>
                         <ul className="list-disc pl-6 mt-2 space-y-2">
                            <li><strong>Produk Sayuran:</strong> Kemasan plastik transparan dengan lubang ventilasi untuk menjaga kesegaran.</li>
-                           <li><strong>Produk Biji-bijian:</strong> Kemasan kedap udara dengan lapisan aluminium foil untuk melindungi dari kelembaban dan serangga.</li>
-                           <li><strong>Produk Cair:</strong> Botol plastik atau kaca dengan tutup yang rapat dapat digunakan untuk mengemas produk cair seperti susu atau jus.</li>
+                           <li><strong>Produk Biji-bijian:</strong> Kemasan kedap udara seperti karung plastik atau karung goni dengan lapisan dalam untuk melindungi dari kelembaban dan serangga.</li>
+                           <li><strong>Produk Umbi-umbian (Kentang, Ubi):</strong> Menggunakan jaring (waring) atau karung berventilasi untuk sirkulasi udara dan mencegah pembusukan.</li>
+                           <li><strong>Produk Rempah:</strong> Kemasan kedap udara dan cahaya (seperti kantong foil atau botol gelap) untuk menjaga aroma dan rasa.</li>
+                           <li><strong>Produk Olahan Kering:</strong> Kemasan vakum atau kantong *resealable* (zip-lock) untuk menjaga kerenyahan dan mencegah kontaminasi.</li>
                         </ul>
                     </div>
                     <p className="pt-4 text-sm font-medium">Dengan menerapkan standar pengemasan yang tepat, petani dapat meningkatkan kualitas, memperpanjang umur simpan, dan menaikkan daya saing produk mereka di pasaran.</p>

@@ -235,6 +235,16 @@ export default function ExporterGuidePage() {
                       <li><strong>Dokumen Pendukung:</strong> Pastikan Anda memiliki semua dokumen ekspor yang relevan seperti invoice, packing list, dan Bill of Lading.</li>
                     </ul>
                   </div>
+                  <div>
+                    <h4 className="font-medium text-foreground">5. Contoh Penerapan per Kategori Komoditas</h4>
+                    <ul className="list-disc pl-6 mt-2 space-y-2">
+                      <li><strong>Kopi, Kakao, Biji-bijian:</strong> Menggunakan karung goni yang dilapisi kantong plastik kedap udara (seperti GrainPro) untuk melindungi dari kelembaban dan menjaga aroma khas.</li>
+                      <li><strong>Buah-buahan Segar (Mangga, Manggis):</strong> Dikemas dalam kotak karton bergelombang (corrugated box) dengan sekat individual untuk mencegah benturan dan lubang ventilasi untuk sirkulasi udara.</li>
+      <li><strong>Hasil Laut Beku (Ikan, Udang):</strong> Kemasan vakum primer untuk mencegah dehidrasi, kemudian dimasukkan ke dalam kotak styrofoam atau karton berlapis lilin untuk menjaga suhu rendah selama transportasi.</li>
+                      <li><strong>Rempah-rempah (Lada, Cengkeh):</strong> Kemasan vakum dalam kantong aluminium foil untuk pengiriman massal guna melindungi dari cahaya dan udara. Untuk ritel, botol kaca gelap lebih diutamakan.</li>
+                      <li><strong>Produk Olahan (Keripik, Makanan Ringan):</strong> Menggunakan kemasan fleksibel multilayer (plastik/foil) yang diisi dengan nitrogen (Nitrogen Flushing) untuk menjaga kerenyahan dan memperpanjang umur simpan.</li>
+                    </ul>
+                  </div>
                 </div>
               </AccordionContent>
             </AccordionItem>
