@@ -116,7 +116,7 @@ export default function ExporterGuidePage() {
                     <strong className="text-foreground">Dapatkan Penawaran & Negosiasi:</strong> Buat penawaran (offer) untuk komoditas Anda di platform ini. Tanggapi permintaan (request) dari buyer dan lakukan negosiasi harga, volume, dan jadwal pengiriman.
                   </li>
                   <li>
-                    <strong className="text-foreground">Buat Kontrak Penjualan (Sales Contract):</strong> Setelah kesepakatan tercapai, buatlah kontrak penjualan yang mengikat dan merinci semua kesepakatan dengan buyer.
+                    <strong className="text-foreground">Buat Kontrak Penjualan (Sales Contract):</strong> Setelah kesepakatan tercapai, buatlah kontrak penjualan yang mengikat dan merinci semua kesepakatan dengan buyer. Semua perjanjian akan divalidasi oleh admin untuk memastikan kesesuaian dengan ketentuan yang berlaku di Indonesia.
                   </li>
                   <li>
                     <strong className="text-foreground">Siapkan Barang dan Kemasan:</strong> Siapkan komoditas sesuai spesifikasi pesanan. Gunakan kemasan standar ekspor yang kuat dan aman untuk perjalanan jauh.

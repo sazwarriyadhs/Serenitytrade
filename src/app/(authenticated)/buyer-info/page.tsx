@@ -135,7 +135,7 @@ export default function BuyerInfoPage() {
               <AccordionContent className="text-muted-foreground">
                  <ol className="list-decimal pl-5 space-y-4">
                     <li>
-                        <strong className="text-foreground">Negosiasi & Kontrak:</strong> Eksportir dan buyer menyepakati spesifikasi produk, harga, Incoterms, dan metode pembayaran. Dituangkan dalam Sales Contract.
+                        <strong className="text-foreground">Negosiasi & Kontrak:</strong> Eksportir dan buyer menyepakati spesifikasi produk, harga, Incoterms, dan metode pembayaran. Dituangkan dalam Sales Contract yang kemudian akan divalidasi oleh admin sesuai ketentuan yang berlaku di Indonesia.
                     </li>
                     <li>
                         <strong className="text-foreground">Persiapan Barang & Dokumen:</strong> Eksportir menyiapkan barang sesuai pesanan, pengemasan standar ekspor, serta mengurus semua dokumen (Invoice, Packing List, COO).

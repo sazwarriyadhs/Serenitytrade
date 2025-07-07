@@ -1,3 +1,4 @@
+
 'use client'
 
 import * as React from "react"
@@ -45,8 +46,8 @@ const platformRoles = [
     },
     {
         icon: ShieldCheck,
-        title: "Service Provider",
-        description: "Offers value-added services like secure payments (Escrow, L/C), document verification, and logistics tracking."
+        title: "Service Provider & Validator",
+        description: "Offers value-added services like secure payments (Escrow, L/C), and logistics tracking. All transaction agreements are validated by the admin to ensure compliance with regulations in the Republic of Indonesia."
     }
 ]
 
