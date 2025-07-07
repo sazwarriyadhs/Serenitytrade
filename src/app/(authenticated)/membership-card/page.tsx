@@ -32,6 +32,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import { QrCode, Upload } from "lucide-react"
 import { useToast } from '@/hooks/use-toast'
+import { Logo } from '@/components/logo'
 
 const membershipFormSchema = z.object({
   membershipType: z.enum(['individual', 'company'], { required_error: "Please select a membership type." }),
@@ -265,14 +266,14 @@ export default function MembershipCardPage() {
         <div className="lg:col-span-1">
             <Card className="sticky top-20">
               <CardHeader>
-                <div className="flex justify-between items-start">
-                  <div>
-                    <CardTitle>Membership Card</CardTitle>
-                    <CardDescription>
+                <div className="flex justify-between items-start gap-4">
+                  <Logo className="h-8" />
+                  <div className="text-right">
+                    <Badge variant="outline">Preview</Badge>
+                    <p className="text-xs text-muted-foreground mt-2">
                       {membershipType === 'individual' ? 'Individual Member' : 'Company Member'}
-                    </CardDescription>
+                    </p>
                   </div>
-                  <Badge variant="outline">Preview</Badge>
                 </div>
               </CardHeader>
               <CardContent className="grid gap-4">
