@@ -1,3 +1,4 @@
+
 import {
   Accordion,
   AccordionContent,
@@ -50,16 +51,8 @@ export default function BuyerInfoPage() {
                     <p className="pl-6">Dikeluarkan oleh perusahaan pengangkutan (laut/udara) untuk mengurus pengangkutan.</p>
                   </li>
                   <li>
-                    <h4 className="font-medium text-foreground">✅ Certificate of Origin (COO)</h4>
+                    <h4 className="font-medium text-foreground">✅ Certificate of Origin (COO) / Surat Keterangan Asal (SKA)</h4>
                     <p className="pl-6">Dokumen yang menyatakan negara asal barang, diajukan via portal e-SKA, dan wajib untuk mendapatkan fasilitas bea masuk di negara tujuan (FTA).</p>
-                    <div className="pl-6">
-                        <Button variant="link" size="sm" className="h-auto p-0 mt-2 text-xs" asChild>
-                            <a href="https://e-ska.kemendag.go.id" target="_blank" rel="noopener noreferrer">
-                                Kunjungi Portal e-SKA
-                                <ExternalLink className="ml-1.5 h-3 w-3" />
-                            </a>
-                        </Button>
-                    </div>
                   </li>
                   <li>
                     <h4 className="font-medium text-foreground">✅ Dokumen Karantina dan Sertifikasi</h4>
