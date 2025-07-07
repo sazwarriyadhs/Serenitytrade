@@ -420,7 +420,7 @@ export default function LandingPage() {
                                         <div>
                                             <p className="font-medium">{t.legalBasisDescription}</p>
                                             <Button asChild className="mt-4">
-                                                <a href="https://m.foodreview.co.id/link-regulasi.html" target="_blank" rel="noopener noreferrer">
+                                                <a href="https://m.foodreview.co.id/link-regulasi.html" rel="noopener noreferrer">
                                                     {t.viewRegulation} <ArrowRight className="ml-2 h-4 w-4" />
                                                 </a>
                                             </Button>
