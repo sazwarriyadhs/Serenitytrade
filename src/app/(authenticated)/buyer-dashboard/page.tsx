@@ -75,7 +75,7 @@ const availableCommodities = [
     origin: "Italy",
     price: 12.20,
     minOrder: 100,
-    image: "https://placehold.co/600x400.png",
+    image: "/images/komoditi/Sun-dried Tomatoes.png",
     imageHint: "dried tomatoes",
   },
 ];

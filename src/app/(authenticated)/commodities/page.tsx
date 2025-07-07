@@ -51,7 +51,7 @@ const initialCommodities = [
     stock: 1500,
     origin: "Mexico",
     certifications: ["USDA Organic", "Fair Trade"],
-    image: "https://placehold.co/600x400.png",
+    image: "/images/komoditi/Hass Avocado.png",
     imageHint: "avocado fruit",
     status: "active"
   },
@@ -62,7 +62,7 @@ const initialCommodities = [
     stock: 800,
     origin: "Colombia",
     certifications: ["Rainforest Alliance"],
-    image: "https://placehold.co/600x400.png",
+    image: "/images/komoditi/Arabica Coffee.png",
     imageHint: "coffee beans",
     status: "active"
   },
@@ -73,7 +73,7 @@ const initialCommodities = [
     stock: 2200,
     origin: "Peru",
     certifications: ["Non-GMO Project"],
-    image: "https://placehold.co/600x400.png",
+    image: "/images/komoditi/Royal Quinoa.png",
     imageHint: "quinoa seeds",
     status: "archived"
   },
@@ -84,7 +84,7 @@ const initialCommodities = [
     stock: 650,
     origin: "Italy",
     certifications: [],
-    image: "https://placehold.co/600x400.png",
+    image: "/images/komoditi/Sun-dried Tomatoes.png",
     imageHint: "dried tomatoes",
     status: "active"
   },
