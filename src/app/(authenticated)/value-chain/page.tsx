@@ -9,7 +9,7 @@ const roles = [
   {
     icon: Tractor,
     name: "Farmer",
-    description: "Produces and harvests high-quality agricultural commodities.",
+    description: "Produces and harvests high-quality agricultural commodities. For international sales, farmers can partner with top-rated exporters recommended by the platform admin based on performance.",
     responsibilities: [
       "Crop cultivation & harvesting",
       "Initial quality control",
@@ -25,6 +25,7 @@ const roles = [
       "Handles logistics and shipping",
       "Negotiates with buyers",
       "Can partner with farmers to facilitate their international sales",
+      "Dapat bekerja sama dengan maksimal 10 petani yang berbeda untuk menjaga fokus dan kualitas layanan.",
     ]
   },
   {
