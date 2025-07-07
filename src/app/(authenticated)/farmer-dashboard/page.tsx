@@ -1,9 +1,10 @@
+
 'use client'
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
-import { CalendarIcon, PlusCircle, Upload, FileText, CheckCircle2, Wallet, Handshake } from "lucide-react"
+import { CalendarIcon, PlusCircle, Upload, FileText, CheckCircle2, Wallet, Handshake, Landmark } from "lucide-react"
 import { format } from "date-fns"
 import React, { useState } from "react"
 import { useToast } from "@/hooks/use-toast"
@@ -95,6 +96,13 @@ const partnerships = [
     { exporter: "Highland Coffee Co.", status: "Negotiating" },
 ]
 
+const localCommunityPrices = [
+  { name: "Cabai Merah Keriting", price: 55000, unit: "kg" },
+  { name: "Bawang Merah", price: 42000, unit: "kg" },
+  { name: "Kopi Robusta Lampung", price: 38000, unit: "kg" },
+  { name: "Gabah Kering Giling (GKG)", price: 6800, unit: "kg" },
+];
+
 export default function FarmerDashboardPage() {
   const { toast } = useToast()
   const [recentHarvests, setRecentHarvests] = useState(initialHarvests)
@@ -139,9 +147,17 @@ export default function FarmerDashboardPage() {
 
     toast({
       title: "Certification Submitted",
-      description: `Certification '${data.certName}' for ${data.product} submitted for verification. File: ${data.certFile[0].name}`,
+      description: `Certification '${data.certName}' for ${farmerProducts.find(p => p.id === data.product)?.name} submitted for verification. File: ${data.certFile[0].name}`,
     })
     certForm.reset();
+  }
+
+  const formatIDR = (value: number) => {
+    return new Intl.NumberFormat('id-ID', {
+        style: 'currency',
+        currency: 'IDR',
+        minimumFractionDigits: 0,
+    }).format(value);
   }
 
 
@@ -181,6 +197,37 @@ export default function FarmerDashboardPage() {
             </CardContent>
         </Card>
       </div>
+      
+      <Card>
+          <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                  <Landmark className="h-5 w-5 text-primary" />
+                  Harga Komunitas Lokal
+              </CardTitle>
+              <CardDescription>
+                  Harga rata-rata dari komunitas petani lokal (sumber tidak resmi).
+              </CardDescription>
+          </CardHeader>
+          <CardContent>
+              <Table>
+                  <TableHeader>
+                      <TableRow>
+                          <TableHead>Komoditas</TableHead>
+                          <TableHead className="text-right">Harga Perkiraan / kg</TableHead>
+                      </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                      {localCommunityPrices.map((item) => (
+                          <TableRow key={item.name}>
+                              <TableCell className="font-medium">{item.name}</TableCell>
+                              <TableCell className="text-right font-mono">{formatIDR(item.price)}</TableCell>
+                          </TableRow>
+                      ))}
+                  </TableBody>
+              </Table>
+          </CardContent>
+      </Card>
+
 
       <Tabs defaultValue="harvest">
         <TabsList className="grid w-full grid-cols-3">
@@ -495,3 +542,5 @@ export default function FarmerDashboardPage() {
     </div>
   )
 }
+
+    
