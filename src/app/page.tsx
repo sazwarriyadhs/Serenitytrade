@@ -65,11 +65,6 @@ const translations = {
     realTimePricesSubtitle: 'Real-time price movements from global markets.',
     pricePerUnit: 'Price/Ton',
     dayChange: '24h Change',
-    // Legal Basis
-    legalBasisTitle: 'Legal Basis & Transparency',
-    legalBasisSubtitle: 'Our platform operates in accordance with Indonesian government regulations to ensure fair and secure trade.',
-    legalBasisDescription: 'Our platform adheres to the latest food export and import regulations from the Indonesian government. Access a comprehensive list of regulations to ensure your trade compliance.',
-    viewRegulation: 'View Regulation Directory',
     // Footer
     footerRights: 'All rights reserved.',
   },
@@ -114,11 +109,6 @@ const translations = {
     realTimePricesSubtitle: 'Pergerakan harga real-time dari pasar global.',
     pricePerUnit: 'Harga/Ton',
     dayChange: 'Perubahan 24j',
-    // Legal Basis
-    legalBasisTitle: 'Dasar Hukum & Transparansi',
-    legalBasisSubtitle: 'Platform kami beroperasi sesuai dengan peraturan pemerintah Indonesia untuk memastikan perdagangan yang adil dan aman.',
-    legalBasisDescription: 'Platform kami mengacu pada regulasi ekspor dan impor pangan terbaru dari pemerintah Indonesia. Akses daftar lengkap peraturan untuk memastikan kepatuhan perdagangan Anda.',
-    viewRegulation: 'Lihat Kumpulan Regulasi',
     // Footer
     footerRights: 'Hak cipta dilindungi.',
   },
@@ -133,9 +123,6 @@ const translations = {
     step2Title: 'Sécuriser & Expédier', step2Desc: '[Description étape 2 en Français]',
     step3Title: 'Recevoir & Croître', step3Desc: '[Description étape 3 en Français]',
     realTimePricesTitle: 'Prix Mondiaux des Matières Premières', realTimePricesSubtitle: 'Mouvements des prix en temps réel sur les marchés mondiaux.', pricePerUnit: 'Prix/Tonne', dayChange: 'Chg 24h',
-    legalBasisTitle: 'Base Juridique & Transparence', legalBasisSubtitle: '[Sous-titre Légal en Français]',
-    legalBasisDescription: 'Notre plateforme adhère aux dernières réglementations sur l\'exportation et l\'importation de produits alimentaires du gouvernement indonésien. Accédez à une liste complète de réglementations pour garantir votre conformité commerciale.',
-    viewRegulation: 'Voir la liste des règlements',
     footerRights: 'Tous droits réservés.',
   },
   zh: {
@@ -149,9 +136,6 @@ const translations = {
     step2Title: '安全与运输', step2Desc: '[中文步骤2描述]',
     step3Title: '接收与发展', step3Desc: '[中文步骤3描述]',
     realTimePricesTitle: '全球商品价格', realTimePricesSubtitle: '全球市场的实时价格变动。', pricePerUnit: '价格/吨', dayChange: '24小时变化',
-    legalBasisTitle: '法律依据与透明度', legalBasisSubtitle: '[法律依据副标题]',
-    legalBasisDescription: '我们的平台遵守印度尼西亚政府最新的食品进出口法规。访问完整的法规列表以确保您的贸易合规。',
-    viewRegulation: '查看法规目录',
     footerRights: '版权所有。',
   },
   ar: {
@@ -165,9 +149,6 @@ const translations = {
     step2Title: 'التأمين والشحن', step2Desc: '[وصف الخطوة 2 بالعربية]',
     step3Title: 'الاستلام والنمو', step3Desc: '[وصف الخطوة 3 بالعربية]',
     realTimePricesTitle: 'أسعار السلع العالمية', realTimePricesSubtitle: 'تحركات الأسعار في الوقت الفعلي من الأسواق العالمية.', pricePerUnit: 'السعر/طن', dayChange: 'تغير 24 ساعة',
-    legalBasisTitle: 'الأساس القانوني والشفافية', legalBasisSubtitle: '[عنوان فرعي للأساس القانوني]',
-    legalBasisDescription: 'تلتزم منصتنا بأحدث لوائح تصدير واستيراد المواد الغذائية من الحكومة الإندونيسية. يمكنك الوصول إلى قائمة شاملة باللوائح لضمان امتثالك التجاري.',
-    viewRegulation: 'عرض دليل اللوائح',
     footerRights: 'كل الحقوق محفوظة.',
   },
   ja: {
@@ -181,9 +162,6 @@ const translations = {
     step2Title: '確保と発送', step2Desc: '[日本語のステップ2説明]',
     step3Title: '受け取りと成長', step3Desc: '[日本語のステップ3説明]',
     realTimePricesTitle: '世界の商品の価格', realTimePricesSubtitle: '世界市場からのリアルタイムの価格変動。', pricePerUnit: '価格/トン', dayChange: '24時間変動',
-    legalBasisTitle: '法的根拠と透明性', legalBasisSubtitle: '[法的根拠のサブタイトル]',
-    legalBasisDescription: '当社のプラットフォームは、インドネシア政府の最新の食品輸出入規制を遵守しています。貿易コンプライアンスを確保するために、包括的な規制リストにアクセスしてください。',
-    viewRegulation: '規制一覧を見る',
     footerRights: '無断複写・転載を禁じます。',
   },
   pt: {
@@ -197,9 +175,6 @@ const translations = {
     step2Title: 'Segurança & Envio', step2Desc: '[Descrição do Passo 2 em Português]',
     step3Title: 'Receber & Crescer', step3Desc: '[Descrição do Passo 3 em Português]',
     realTimePricesTitle: 'Preços Globais de Commodities', realTimePricesSubtitle: 'Movimentos de preços em tempo real dos mercados globais.', pricePerUnit: 'Preço/Ton', dayChange: 'Mudança 24h',
-    legalBasisTitle: 'Base Legal e Transparência', legalBasisSubtitle: '[Subtítulo da Base Legal]',
-    legalBasisDescription: 'Nossa plataforma adere aos mais recentes regulamentos de exportação e importação de alimentos do governo indonésio. Acesse uma lista abrangente de regulamentos para garantir a conformidade de sua negociação.',
-    viewRegulation: 'Ver Diretório de Regulamentos',
     footerRights: 'Todos os direitos reservados.',
   }
 }
@@ -404,39 +379,11 @@ export default function LandingPage() {
                         </div>
                     </div>
                  </section>
-
-                {/* Legal Basis Section */}
-                <section className="py-20">
-                    <div className="container text-center">
-                        <h2 className="text-3xl font-bold font-headline">{t.legalBasisTitle}</h2>
-                        <p className="mt-2 max-w-3xl mx-auto text-muted-foreground">{t.legalBasisSubtitle}</p>
-                        <div className="mt-8 max-w-3xl mx-auto space-y-4">
-                            <Card className="text-left">
-                                <CardContent className="p-6">
-                                    <div className="flex items-start gap-4">
-                                        <div className="flex-shrink-0 pt-1">
-                                           <FileText className="h-6 w-6 text-primary" />
-                                        </div>
-                                        <div>
-                                            <p className="font-medium">{t.legalBasisDescription}</p>
-                                            <Button asChild className="mt-4">
-                                                <a href="https://m.foodreview.co.id/link-regulasi.html" rel="noopener noreferrer">
-                                                    {t.viewRegulation} <ArrowRight className="ml-2 h-4 w-4" />
-                                                </a>
-                                            </Button>
-                                        </div>
-                                    </div>
-                                </CardContent>
-                            </Card>
-                        </div>
-                    </div>
-                </section>
             </main>
 
             {/* Footer */}
             <footer className="border-t">
-                <div className="container flex flex-col items-center justify-between gap-4 py-6 sm:flex-row">
-                    <Logo />
+                <div className="container flex flex-col items-center justify-center gap-4 py-6 sm:flex-row">
                     <p className="text-sm text-muted-foreground">
                         © {new Date().getFullYear()} Serenity AgriExport Hub. {t.footerRights}
                     </p>
