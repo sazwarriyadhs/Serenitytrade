@@ -55,7 +55,7 @@ export default function BuyerInfoPage() {
                     <p className="pl-6">Dokumen yang menyatakan negara asal barang, diajukan via portal e-SKA, dan wajib untuk mendapatkan fasilitas bea masuk di negara tujuan (FTA).</p>
                   </li>
                   <li>
-                    <h4 className="font-medium text-foreground">✅ Dokumen Karantina dan Sertifikasi</h4>
+                    <h4 className="font-medium text-foreground">✅ Sertifikat Karantina (Phytosanitary/Health Certificate)</h4>
                     <p className="pl-6">Sertifikat Phytosanitary (pertanian) atau Health Certificate (pangan) yang diterbitkan oleh Badan Karantina/BPOM untuk menjamin produk bebas hama dan penyakit.</p>
                   </li>
                 </ul>
@@ -164,6 +164,7 @@ export default function BuyerInfoPage() {
               </AccordionTrigger>
               <AccordionContent className="text-muted-foreground">
                 <ul className="list-disc pl-5 space-y-2">
+                  <li>Prioritaskan eksportir dengan rating tinggi. Mereka biasanya melampirkan dokumen penting seperti SKA, PEB, dan Sertifikat Karantina yang lengkap, yang menunjukkan profesionalisme dan kelancaran proses.</li>
                   <li>Daftarkan perusahaan Anda di marketplace B2B global seperti Alibaba, TradeMap, atau TradeHub.</li>
                   <li>Gunakan portal resmi seperti SIPPO, INATRADE, atau situs Kementerian Perdagangan sebagai panduan.</li>
                   <li>Selalu simpan cadangan (backup) digital dari semua dokumen ekspor untuk arsip dan keamanan.</li>

@@ -194,6 +194,9 @@ export default function ExporterGuidePage() {
                     <strong className="text-foreground">Tonjolkan Keunggulan Produk:</strong> Apakah produk Anda organik? Punya sertifikasi Fair Trade? Atau berasal dari daerah yang terkenal? Sebutkan semua keunggulan ini dalam deskripsi produk.
                   </li>
                   <li>
+                    <strong className="text-foreground">Lengkapi Dokumen Pendukung:</strong> Unggah dokumen seperti SKA, PEB, dan Sertifikat Karantina pada setiap penawaran atau transaksi. Kelengkapan dokumen akan meningkatkan rating dan kepercayaan dari buyer.
+                  </li>
+                  <li>
                     <strong className="text-foreground">Bangun Reputasi Baik:</strong> Pastikan setiap transaksi berjalan lancar dan buyer puas. Ulasan positif dari buyer akan meningkatkan kepercayaan calon buyer lain.
                   </li>
                    <li>
