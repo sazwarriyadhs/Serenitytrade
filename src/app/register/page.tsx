@@ -12,7 +12,7 @@ export default function RegisterPage() {
       <Card className="mx-auto w-full max-w-md shadow-lg">
         <CardHeader>
           <div className="flex justify-center mb-4">
-            <Logo />
+            <Logo size="large" />
           </div>
           <CardTitle className="text-2xl font-headline text-center">Create an account</CardTitle>
           <CardDescription className="text-center">

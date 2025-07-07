@@ -67,7 +67,7 @@ export default function LoginPage() {
       <Card className="mx-auto w-full max-w-sm shadow-lg">
         <CardHeader>
           <div className="flex justify-center mb-4">
-            <Logo />
+            <Logo size="large" />
           </div>
           <CardTitle className="text-2xl font-headline text-center">Login as {roleInfo[role as keyof typeof roleInfo].title}</CardTitle>
           <CardDescription className="text-center">
