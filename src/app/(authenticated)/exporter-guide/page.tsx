@@ -193,6 +193,52 @@ export default function ExporterGuidePage() {
               </AccordionContent>
             </AccordionItem>
 
+            <AccordionItem value="item-6">
+              <AccordionTrigger className="text-base font-semibold">
+                6. Aspek Penting Pengemasan Produk Pangan
+              </AccordionTrigger>
+              <AccordionContent className="text-muted-foreground">
+                <div className="space-y-6">
+                  <div>
+                    <h4 className="font-medium text-foreground">1. Bahan Kemasan</h4>
+                    <ul className="list-disc pl-6 mt-2 space-y-2">
+                      <li><strong>Food Grade:</strong> Bahan kemasan harus aman bersentuhan dengan makanan dan tidak melepaskan zat berbahaya.</li>
+                      <li><strong>Perlindungan:</strong> Kemasan harus mampu melindungi produk dari kontaminasi, kerusakan fisik, dan perubahan suhu.</li>
+                      <li><strong>Jenis Kemasan:</strong> Pertimbangkan kemasan vakum, aseptik, kaleng, atau gelas sesuai karakteristik produk dan persyaratan negara tujuan.</li>
+                      <li><strong>Ramah Lingkungan:</strong> Perhatikan dampak lingkungan dari bahan kemasan, terutama jika negara tujuan memiliki regulasi terkait keberlanjutan.</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4 className="font-medium text-foreground">2. Label Kemasan</h4>
+                    <ul className="list-disc pl-6 mt-2 space-y-2">
+                      <li><strong>Informasi Produk:</strong> Cantumkan nama produk, komposisi, berat bersih, tanggal kedaluwarsa, nomor batch, produsen, dan informasi nutrisi.</li>
+                      <li><strong>Instruksi Penggunaan:</strong> Sertakan petunjuk penggunaan, penyimpanan, dan penanganan produk.</li>
+                      <li><strong>Peringatan:</strong> Jika ada potensi alergen, cantumkan peringatan yang jelas dan mudah dilihat.</li>
+                      <li><strong>Standar Negara Tujuan:</strong> Pastikan label sesuai dengan standar di negara tujuan, termasuk bahasa yang digunakan.</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4 className="font-medium text-foreground">3. Desain Kemasan</h4>
+                    <ul className="list-disc pl-6 mt-2 space-y-2">
+                      <li><strong>Fungsionalitas:</strong> Kemasan harus mudah dibuka, ditutup, dan digunakan oleh konsumen.</li>
+                      <li><strong>Estetika:</strong> Desain yang menarik dapat meningkatkan daya tarik produk.</li>
+                      <li><strong>Ketahanan:</strong> Pastikan kemasan kuat untuk menahan tekanan selama pengiriman.</li>
+                      <li><strong>Informasi:</strong> Label harus mudah dibaca, informatif, dan menyertakan logo merek.</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4 className="font-medium text-foreground">4. Standar Tambahan</h4>
+                    <ul className="list-disc pl-6 mt-2 space-y-2">
+                      <li><strong>ISO:</strong> Beberapa negara mungkin mensyaratkan standar ISO tertentu untuk kemasan.</li>
+                      <li><strong>Sertifikasi Halal:</strong> Diperlukan jika produk ditujukan untuk negara dengan mayoritas penduduk muslim.</li>
+                      <li><strong>Sertifikasi SNI:</strong> Di Indonesia, beberapa produk mungkin memerlukan sertifikasi SNI (Standar Nasional Indonesia).</li>
+                      <li><strong>Dokumen Pendukung:</strong> Pastikan Anda memiliki semua dokumen ekspor yang relevan seperti invoice, packing list, dan Bill of Lading.</li>
+                    </ul>
+                  </div>
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+
           </Accordion>
         </CardContent>
       </Card>
