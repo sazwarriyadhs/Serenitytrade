@@ -50,7 +50,7 @@ const platformRoles = [
     {
         icon: ShieldCheck,
         title: "Service Provider & Validator",
-        description: "Offers value-added services like secure payments (Escrow, L/C), and logistics tracking. All transaction agreements are validated by the admin to ensure compliance with regulations in the Republic of Indonesia."
+        description: "Offers value-added services like secure payments (Escrow, L/C), and logistics tracking. All transaction agreements are validated by the admin to ensure compliance with regulations in the Republic of Indonesia. Kemitraan akan berakhir setelah 1 tahun atau dapat diakhiri lebih awal berdasarkan kesepakatan kedua belah pihak yang disetujui oleh admin."
     }
 ]
 
