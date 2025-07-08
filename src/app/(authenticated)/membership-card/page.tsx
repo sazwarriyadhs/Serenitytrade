@@ -69,6 +69,7 @@ const roleDisplayNames: { [key: string]: string } = {
     exporter: "EKSPORTIR / BUYER",
     buyer: "EKSPORTIR / BUYER",
     admin: "ADMIN",
+    vendor: "VENDOR PENYEDIA",
 };
 
 const producerRoles = ['farmer', 'peternak', 'nelayan', 'pengelola_hasil_hutan', 'pengelola_hasil_kebun'];
