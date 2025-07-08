@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/sidebar"
 import { Logo } from "@/components/logo"
 import { UserNav } from "@/components/user-nav"
-import { LayoutDashboard, Leaf, ArrowRightLeft, Bell, Spline, TrendingUp, BookUser, Tractor, Briefcase, Calculator, Truck, Landmark, Compass, BookCheck, Wallet, BookMarked, Shield, Box, Ship, CreditCard, Loader2, ShoppingBasket, Factory, Store } from "lucide-react"
+import { LayoutDashboard, Leaf, ArrowRightLeft, Bell, Spline, TrendingUp, BookUser, Tractor, Briefcase, Calculator, Truck, Landmark, Compass, BookCheck, Wallet, BookMarked, Shield, Box, Ship, CreditCard, Loader2, ShoppingBasket, Factory, Store, Map } from "lucide-react"
 
 const producerRoles = ['farmer', 'peternak', 'nelayan', 'pengelola_hasil_hutan', 'pengelola_hasil_kebun'];
 
@@ -33,8 +33,9 @@ const allNavItems = [
   { href: "/find-market", icon: Compass, label: "Find Market", roles: ['exporter', 'admin'] },
   { href: "/commodities", icon: Leaf, label: "Commodities", roles: ['exporter', 'buyer', 'admin', ...producerRoles] },
   { href: "/offers", icon: ArrowRightLeft, label: "Offers & Requests", roles: ['exporter', 'buyer', 'admin'] },
-  { href: "/tracking", icon: Truck, label: "Shipment Tracking", roles: ['exporter', 'buyer', 'admin', ...producerRoles] },
+  { href: "/tracking", icon: Map, label: "Shipment Tracking", roles: ['exporter', 'buyer', 'admin', ...producerRoles] },
   { href: "/shipping-partners", icon: Ship, label: "Shipping Partners", roles: ['exporter', 'admin'] },
+  { href: "/expedition-partners", icon: Truck, label: "Mitra Ekspedisi", roles: ['exporter', 'admin', ...producerRoles, 'vendor'] },
   { href: "/payment-tracking", icon: Landmark, label: "Payment Tracking", roles: ['exporter', 'buyer', 'admin', ...producerRoles] },
   { href: "/prediction", icon: TrendingUp, label: "Demand Prediction", roles: ['exporter', 'admin'] },
   { href: "/value-chain", icon: Spline, label: "Value Chain", roles: ['exporter', 'buyer', 'admin', ...producerRoles] },
