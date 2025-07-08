@@ -2,8 +2,12 @@
 
 A trusted B2B marketplace designed to connect farmers, exporters, and international buyers, facilitating seamless and transparent trade of agricultural commodities. This platform empowers local farmers by providing access to global markets and equips exporters and buyers with the tools they need for efficient and secure transactions.
 
-![Serenity AgriExport Hub Screenshot](https://placehold.co/1200x600.png?text=Serenity+AgriExport+Hub)
-*<p align="center">A placeholder image of the application dashboard.</p>*
+<p align="center">
+  <img src="https://github.com/sazwarriyadhs/Serenitytrade/blob/main/public/images/logogith.png" alt="Serenitytrade Logo" width="300"/>
+</p>
+
+<p align="center"><em>A placeholder image of the application dashboard.</em></p>
+
 
 ---
 
