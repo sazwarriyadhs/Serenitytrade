@@ -84,8 +84,8 @@ export default function DashboardPage() {
   }
 
   return (
-    <>
-      <div className="mb-4">
+    <div className="flex flex-col gap-6">
+      <div>
         <h1 className="text-3xl font-bold font-headline">Exporter Dashboard</h1>
         <p className="text-muted-foreground">Monitor your sales, offers, and export performance.</p>
       </div>
@@ -318,6 +318,6 @@ export default function DashboardPage() {
             </CardContent>
         </Card>
       </div>
-    </>
+    </div>
   )
 }
