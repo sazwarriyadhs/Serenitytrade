@@ -241,25 +241,25 @@ const heroSlides = [
   {
     titleKey: 'banner1Title',
     subtitleKey: 'banner1Subtitle',
-    image: 'https://placehold.co/1200x800.png',
+    image: '/images/banner-1.png',
     imageHint: 'global trade'
   },
   {
     titleKey: 'banner2Title',
     subtitleKey: 'banner2Subtitle',
-    image: 'https://placehold.co/1200x800.png',
+    image: '/images/banner-2.png',
     imageHint: 'farm market'
   },
   {
     titleKey: 'banner3Title',
     subtitleKey: 'banner3Subtitle',
-    image: 'https://placehold.co/1200x800.png',
+    image: '/images/banner-3.png',
     imageHint: 'shipping logistics'
   },
   {
     titleKey: 'banner4Title',
     subtitleKey: 'banner4Subtitle',
-    image: 'https://placehold.co/1200x800.png',
+    image: '/images/banner-4.png',
     imageHint: 'quality produce'
   },
 ];
