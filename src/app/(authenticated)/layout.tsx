@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/sidebar"
 import { Logo } from "@/components/logo"
 import { UserNav } from "@/components/user-nav"
-import { LayoutDashboard, Leaf, ArrowRightLeft, Bell, Spline, TrendingUp, BookUser, Tractor, Briefcase, Calculator, Truck, Landmark, Compass, BookCheck, Wallet, BookMarked, Shield, Box, Ship, CreditCard, Loader2, ShoppingBasket, Factory } from "lucide-react"
+import { LayoutDashboard, Leaf, ArrowRightLeft, Bell, Spline, TrendingUp, BookUser, Tractor, Briefcase, Calculator, Truck, Landmark, Compass, BookCheck, Wallet, BookMarked, Shield, Box, Ship, CreditCard, Loader2, ShoppingBasket, Factory, Store } from "lucide-react"
 
 const producerRoles = ['farmer', 'peternak', 'nelayan', 'pengelola_hasil_hutan', 'pengelola_hasil_kebun'];
 
@@ -25,6 +25,7 @@ const allNavItems = [
   { href: "/dashboard", icon: LayoutDashboard, label: "Exporter Dashboard", roles: ['exporter'] },
   { href: "/buyer-dashboard", icon: Briefcase, label: "Buyer Dashboard", roles: ['buyer'] },
   { href: "/farmer-dashboard", icon: Tractor, label: "Producer Dashboard", roles: [...producerRoles] },
+  { href: "/vendor-dashboard", icon: Store, label: "Vendor Dashboard", roles: ['vendor'] },
   { href: "/supplies-market", icon: ShoppingBasket, label: "Pasar Kebutuhan", roles: ['exporter', 'admin', ...producerRoles] },
   { href: "/vendors", icon: Factory, label: "Mitra Pemasok", roles: ['exporter', 'admin', ...producerRoles] },
   { href: "/membership-card", icon: CreditCard, label: "Membership Card", roles: ['exporter', 'buyer', 'admin', ...producerRoles] },
@@ -41,7 +42,7 @@ const allNavItems = [
   { href: "/packaging-recommender", icon: Box, label: "Packaging Recommender", roles: ['exporter', 'admin'] },
   { href: "/exporter-guide", icon: BookCheck, label: "Panduan Ekspor", roles: ['exporter', 'admin'] },
   { href: "/buyer-info", icon: BookUser, label: "Info Buyer", roles: ['buyer', 'admin'] },
-  { href: "/notifications", icon: Bell, label: "Notifications", roles: ['exporter', 'buyer', 'admin', ...producerRoles] },
+  { href: "/notifications", icon: Bell, label: "Notifications", roles: ['exporter', 'buyer', 'admin', ...producerRoles, 'vendor'] },
 ]
 
 const roleInfo: { [key: string]: { name: string, email: string } } = {
@@ -52,6 +53,7 @@ const roleInfo: { [key: string]: { name: string, email: string } } = {
   nelayan: { name: "Fisherman", email: "nelayan@serenity.com" },
   pengelola_hasil_hutan: { name: "Forest Manager", email: "hutan@serenity.com" },
   pengelola_hasil_kebun: { name: "Plantation Manager", email: "kebun@serenity.com" },
+  vendor: { name: "Supplies Vendor", email: "vendor@serenity.com" },
   admin: { name: "Admin", email: "admin@serenity.com" },
 }
 

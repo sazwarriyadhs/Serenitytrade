@@ -53,6 +53,11 @@ const roleInfo = {
     description: "Login to manage your plantation products and partnerships.",
     email: "kebun@serenity.com"
   },
+  vendor: {
+    title: "Supplies Vendor",
+    description: "Login to manage your product listings and orders.",
+    email: "vendor@serenity.com"
+  },
   admin: {
     title: "Admin",
     description: "Login to access all dashboards and system settings.",
@@ -76,6 +81,8 @@ export default function LoginPage() {
       router.push("/farmer-dashboard")
     } else if (role === "buyer") {
       router.push("/buyer-dashboard")
+    } else if (role === "vendor") {
+      router.push("/vendor-dashboard")
     } else { // exporter
       router.push("/dashboard")
     }
@@ -137,6 +144,7 @@ export default function LoginPage() {
                     <SelectItem value="nelayan">Fisherman (Nelayan)</SelectItem>
                     <SelectItem value="pengelola_hasil_hutan">Forest Manager (Pengelola Hutan)</SelectItem>
                     <SelectItem value="pengelola_hasil_kebun">Plantation Manager (Pengelola Kebun)</SelectItem>
+                    <SelectItem value="vendor">Supplies Vendor</SelectItem>
                     <SelectItem value="exporter">Exporter</SelectItem>
                     <SelectItem value="buyer">Overseas Buyer</SelectItem>
                     <SelectItem value="admin">Admin</SelectItem>

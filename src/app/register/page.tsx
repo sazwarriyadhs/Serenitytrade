@@ -80,6 +80,7 @@ export default function RegisterPage() {
                     <SelectItem value="nelayan">Fisherman (Nelayan)</SelectItem>
                     <SelectItem value="pengelola_hasil_hutan">Forest Manager (Pengelola Hutan)</SelectItem>
                     <SelectItem value="pengelola_hasil_kebun">Plantation Manager (Pengelola Kebun)</SelectItem>
+                    <SelectItem value="vendor">Supplies Vendor</SelectItem>
                     <SelectItem value="exporter">Exporter</SelectItem>
                     <SelectItem value="buyer">Overseas Buyer</SelectItem>
                   </SelectContent>
