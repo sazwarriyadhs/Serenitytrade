@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/sidebar"
 import { Logo } from "@/components/logo"
 import { UserNav } from "@/components/user-nav"
-import { LayoutDashboard, Leaf, ArrowRightLeft, Bell, Spline, TrendingUp, BookUser, Tractor, Briefcase, Calculator, Truck, Landmark, Compass, BookCheck, Wallet, BookMarked, Shield, Box, Ship, CreditCard, Loader2, ShoppingBasket } from "lucide-react"
+import { LayoutDashboard, Leaf, ArrowRightLeft, Bell, Spline, TrendingUp, BookUser, Tractor, Briefcase, Calculator, Truck, Landmark, Compass, BookCheck, Wallet, BookMarked, Shield, Box, Ship, CreditCard, Loader2, ShoppingBasket, Factory } from "lucide-react"
 
 const producerRoles = ['farmer', 'peternak', 'nelayan', 'pengelola_hasil_hutan', 'pengelola_hasil_kebun'];
 
@@ -26,6 +26,7 @@ const allNavItems = [
   { href: "/buyer-dashboard", icon: Briefcase, label: "Buyer Dashboard", roles: ['buyer'] },
   { href: "/farmer-dashboard", icon: Tractor, label: "Producer Dashboard", roles: [...producerRoles] },
   { href: "/supplies-market", icon: ShoppingBasket, label: "Pasar Kebutuhan", roles: ['exporter', 'admin', ...producerRoles] },
+  { href: "/vendors", icon: Factory, label: "Mitra Pemasok", roles: ['exporter', 'admin', ...producerRoles] },
   { href: "/membership-card", icon: CreditCard, label: "Membership Card", roles: ['exporter', 'buyer', 'admin', ...producerRoles] },
   { href: "/farmer-guide", icon: BookMarked, label: "Panduan Petani", roles: ['admin', ...producerRoles] },
   { href: "/find-market", icon: Compass, label: "Find Market", roles: ['exporter', 'admin'] },
@@ -122,7 +123,7 @@ export default function AuthenticatedLayout({
             </div>
             <UserNav role={currentUser?.name} email={currentUser?.email} />
           </header>
-          <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6">
+          <main className="flex-1 p-4 md:p-6">
             {children}
           </main>
         </SidebarInset>
