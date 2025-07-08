@@ -265,10 +265,10 @@ const heroSlides = [
 ];
 
 const featuredCommodities = [
-  { id: 'palm_oil', nameKey: 'palmOil', originKey: 'palmOilOrigin', image: 'https://placehold.co/600x400.png', imageHint: 'palm oil fruit' },
-  { id: 'coffee', nameKey: 'coffee', originKey: 'coffeeOrigin', image: 'https://placehold.co/600x400.png', imageHint: 'gayo coffee beans' },
-  { id: 'shrimp', nameKey: 'shrimp', originKey: 'shrimpOrigin', image: 'https://placehold.co/600x400.png', imageHint: 'frozen shrimp' },
-  { id: 'rattan', nameKey: 'rattan', originKey: 'rattanOrigin', image: 'https://placehold.co/600x400.png', imageHint: 'rattan furniture' },
+  { id: 'palm_oil', nameKey: 'palmOil', originKey: 'palmOilOrigin', image: '/images/crud.png', imageHint: 'palm oil fruit' },
+  { id: 'coffee', nameKey: 'coffee', originKey: 'coffeeOrigin', image: '/images/gayo.png', imageHint: 'gayo coffee beans' },
+  { id: 'shrimp', nameKey: 'shrimp', originKey: 'shrimpOrigin', image: '/images/shrimp.png', imageHint: 'frozen shrimp' },
+  { id: 'rattan', nameKey: 'rattan', originKey: 'rattanOrigin', image: '/images/rattan.png', imageHint: 'rattan furniture' },
 ];
 
 const howItWorksSteps = [

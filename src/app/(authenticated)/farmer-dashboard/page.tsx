@@ -74,16 +74,99 @@ const certFormSchema = z.object({
 });
 type CertFormValues = z.infer<typeof certFormSchema>
 
-// Mock data
-const initialHarvests = [
-  { id: "HARV-001", commodity: "Hass Avocado", quantity: "1500 kg", date: "2023-10-28", grade: "A" },
-  { id: "HARV-002", commodity: "Arabica Coffee", quantity: "800 kg", date: "2023-10-25", grade: "Premium" },
-];
-
-const initialFarmerProducts = [
-    { id: "PROD-01", name: "Hass Avocado", certs: ["Organik Indonesia"], stock: "1200 kg" },
-    { id: "PROD-02", name: "Arabica Coffee", certs: ["Fair Trade"], stock: "500 kg" },
-];
+// --- Role Specific Configurations ---
+const roleConfigs = {
+  farmer: {
+    dashboardTitle: "Farmer Dashboard",
+    logTitle: "Log New Harvest",
+    logButtonText: "Add Harvest Log",
+    logActionToast: "Harvest Logged",
+    recentLogsTitle: "Recent Harvests",
+    productLabel: "Commodity",
+    quantityUnit: "Kg",
+    commodities: ["Hass Avocado", "Arabica Coffee", "Vanilla Beans", "Corn", "Rice"],
+    initialProducts: [
+        { id: "PROD-01", name: "Hass Avocado", certs: ["Organik Indonesia"], stock: "1200 kg" },
+        { id: "PROD-02", name: "Arabica Coffee", certs: ["Fair Trade"], stock: "500 kg" },
+    ],
+    initialHarvests: [
+      { id: "HARV-001", commodity: "Hass Avocado", quantity: "1500 kg", date: "2023-10-28", grade: "A" },
+      { id: "HARV-002", commodity: "Arabica Coffee", quantity: "800 kg", date: "2023-10-25", grade: "Premium" },
+    ],
+  },
+  peternak: {
+    dashboardTitle: "Livestock Farmer Dashboard",
+    logTitle: "Log New Livestock Product",
+    logButtonText: "Add Livestock Log",
+    logActionToast: "Livestock Product Logged",
+    recentLogsTitle: "Recent Livestock Logs",
+    productLabel: "Livestock Product",
+    quantityUnit: "Kg/Pcs",
+    commodities: ["Beef (Carcass)", "Live Broiler Chicken", "Chicken Eggs", "Fresh Milk"],
+    initialProducts: [
+        { id: "PROD-01", name: "Beef (Carcass)", certs: ["Halal Certified"], stock: "500 kg" },
+        { id: "PROD-02", name: "Chicken Eggs", certs: ["Healthy Farm"], stock: "2000 pcs" },
+    ],
+    initialHarvests: [
+       { id: "HARV-001", commodity: "Beef (Carcass)", quantity: "500 kg", date: "2023-10-28", grade: "A" },
+       { id: "HARV-002", commodity: "Chicken Eggs", quantity: "2000 pcs", date: "2023-10-29", grade: "Grade 1" },
+    ]
+  },
+  nelayan: {
+    dashboardTitle: "Fisherman Dashboard",
+    logTitle: "Log New Catch",
+    logButtonText: "Add Catch Log",
+    logActionToast: "Catch Logged",
+    recentLogsTitle: "Recent Catches",
+    productLabel: "Seafood",
+    quantityUnit: "Kg",
+    commodities: ["Tuna", "Vannamei Shrimp", "Squid", "Crab", "Seaweed"],
+    initialProducts: [
+      { id: "PROD-01", name: "Tuna", certs: ["Dolphin Safe"], stock: "800 kg" },
+      { id: "PROD-02", name: "Vannamei Shrimp", certs: [], stock: "1200 kg" },
+    ],
+     initialHarvests: [
+       { id: "HARV-001", commodity: "Tuna", quantity: "800 kg", date: "2023-10-28", grade: "Export Grade" },
+       { id: "HARV-002", commodity: "Vannamei Shrimp", quantity: "1200 kg", date: "2023-10-27", grade: "A" },
+    ]
+  },
+  pengelola_hasil_kebun: {
+    dashboardTitle: "Plantation Dashboard",
+    logTitle: "Log New Plantation Yield",
+    logButtonText: "Add Yield Log",
+    logActionToast: "Plantation Yield Logged",
+    recentLogsTitle: "Recent Plantation Yields",
+    productLabel: "Plantation Product",
+    quantityUnit: "Tons",
+    commodities: ["Palm Oil (CPO)", "Robusta Coffee", "Cocoa Beans", "White Pepper", "Tea Leaves"],
+     initialProducts: [
+      { id: "PROD-01", name: "Palm Oil (CPO)", certs: ["RSPO Certified"], stock: "50 tons" },
+      { id: "PROD-02", name: "Robusta Coffee", certs: ["Fair Trade"], stock: "2 tons" },
+    ],
+    initialHarvests: [
+       { id: "HARV-001", commodity: "Palm Oil (CPO)", quantity: "50 tons", date: "2023-10-28", grade: "Grade 1" },
+       { id: "HARV-002", commodity: "Cocoa Beans", quantity: "5 tons", date: "2023-10-26", grade: "Fermented" },
+    ]
+  },
+  pengelola_hasil_hutan: {
+    dashboardTitle: "Forest Product Dashboard",
+    logTitle: "Log New Forest Product",
+    logButtonText: "Add Product Log",
+    logActionToast: "Forest Product Logged",
+    recentLogsTitle: "Recent Forest Products",
+    productLabel: "Forest Product",
+    quantityUnit: "m³/Tons",
+    commodities: ["Teak Wood", "Rattan", "Pine Resin", "Forest Honey"],
+     initialProducts: [
+      { id: "PROD-01", name: "Teak Wood", certs: ["FSC Certified"], stock: "30 m³" },
+      { id: "PROD-02", name: "Rattan", certs: [], stock: "15 tons" },
+    ],
+     initialHarvests: [
+       { id: "HARV-001", commodity: "Teak Wood", quantity: "30 m³", date: "2023-10-28", grade: "A" },
+       { id: "HARV-002", commodity: "Forest Honey", quantity: "500 liters", date: "2023-10-29", grade: "Pure" },
+    ]
+  },
+};
 
 const activityLog = [
     { date: "2023-10-29", activity: "Partnership request from 'Green Valley Exports'.", status: "Pending" },
@@ -135,24 +218,27 @@ const localPricesByRole: { [key: string]: { name: string; price: number; unit: s
   ]
 };
 
-
-const roleTitles: { [key: string]: string } = {
-  farmer: "Farmer Dashboard",
-  peternak: "Livestock Farmer Dashboard",
-  nelayan: "Fisherman Dashboard",
-  pengelola_hasil_hutan: "Forest Product Dashboard",
-  pengelola_hasil_kebun: "Plantation Dashboard",
-};
+const producerRoles = Object.keys(roleConfigs);
 
 export default function FarmerDashboardPage() {
   const { toast } = useToast()
-  const [recentHarvests, setRecentHarvests] = useState(initialHarvests)
-  const [farmerProducts, setFarmerProducts] = useState(initialFarmerProducts)
   const [userRole, setUserRole] = useState<string | null>(null);
+  const [config, setConfig] = useState(roleConfigs.farmer); // Default to farmer
+  const [recentHarvests, setRecentHarvests] = useState(config.initialHarvests)
+  const [farmerProducts, setFarmerProducts] = useState(config.initialProducts)
 
   useEffect(() => {
     const role = localStorage.getItem("userRole");
-    setUserRole(role);
+    if (role && producerRoles.includes(role)) {
+      const newConfig = roleConfigs[role as keyof typeof roleConfigs];
+      setUserRole(role);
+      setConfig(newConfig);
+      setRecentHarvests(newConfig.initialHarvests);
+      setFarmerProducts(newConfig.initialProducts);
+    } else {
+      // Fallback to farmer if role is invalid or not set
+      setUserRole('farmer');
+    }
   }, []);
 
   const harvestForm = useForm<HarvestFormValues>({
@@ -178,7 +264,7 @@ export default function FarmerDashboardPage() {
     }
     setRecentHarvests(prev => [newHarvest, ...prev]);
     toast({
-      title: "Harvest Logged",
+      title: config.logActionToast,
       description: `Successfully logged ${data.quantity}kg of ${data.commodity}.`,
     })
     harvestForm.reset();
@@ -207,14 +293,13 @@ export default function FarmerDashboardPage() {
     }).format(value);
   }
   
-  const dashboardTitle = userRole ? (roleTitles[userRole] || "Producer Dashboard") : "Farmer Dashboard";
   const localCommunityPrices = userRole ? (localPricesByRole[userRole] || localPricesByRole.default) : [];
 
   return (
     <div className="flex flex-col gap-8">
        <div>
-        <h1 className="text-3xl font-bold font-headline">{dashboardTitle}</h1>
-        <p className="text-muted-foreground">Manage your harvests, products, and partnerships.</p>
+        <h1 className="text-3xl font-bold font-headline">{config.dashboardTitle}</h1>
+        <p className="text-muted-foreground">Manage your products, logs, and partnerships.</p>
       </div>
 
       <div className="grid gap-4 md:grid-cols-2">
@@ -280,7 +365,7 @@ export default function FarmerDashboardPage() {
 
       <Tabs defaultValue="harvest">
         <TabsList className="grid w-full grid-cols-3">
-            <TabsTrigger value="harvest">Harvest Log</TabsTrigger>
+            <TabsTrigger value="harvest">Product Log</TabsTrigger>
             <TabsTrigger value="products">My Products & Certs</TabsTrigger>
             <TabsTrigger value="activity">Activity & Partnerships</TabsTrigger>
         </TabsList>
@@ -288,8 +373,8 @@ export default function FarmerDashboardPage() {
         <TabsContent value="harvest" className="space-y-4">
             <Card>
                 <CardHeader>
-                    <CardTitle>Log New Harvest</CardTitle>
-                    <CardDescription>Enter the details of your recent harvest to update your inventory.</CardDescription>
+                    <CardTitle>{config.logTitle}</CardTitle>
+                    <CardDescription>Enter the details of your recent production to update your inventory.</CardDescription>
                 </CardHeader>
                 <CardContent>
                     <Form {...harvestForm}>
@@ -300,17 +385,15 @@ export default function FarmerDashboardPage() {
                                     name="commodity"
                                     render={({ field }) => (
                                         <FormItem>
-                                        <FormLabel>Commodity</FormLabel>
+                                        <FormLabel>{config.productLabel}</FormLabel>
                                         <Select onValueChange={field.onChange} defaultValue={field.value}>
                                             <FormControl>
                                             <SelectTrigger>
-                                                <SelectValue placeholder="Select a commodity" />
+                                                <SelectValue placeholder={`Select a ${config.productLabel.toLowerCase()}`} />
                                             </SelectTrigger>
                                             </FormControl>
                                             <SelectContent>
-                                                <SelectItem value="Hass Avocado">Hass Avocado</SelectItem>
-                                                <SelectItem value="Arabica Coffee">Arabica Coffee</SelectItem>
-                                                <SelectItem value="Vanilla Beans">Vanilla Beans</SelectItem>
+                                                {config.commodities.map(c => <SelectItem key={c} value={c}>{c}</SelectItem>)}
                                             </SelectContent>
                                         </Select>
                                         <FormMessage />
@@ -322,7 +405,7 @@ export default function FarmerDashboardPage() {
                                     name="harvestDate"
                                     render={({ field }) => (
                                         <FormItem className="flex flex-col">
-                                        <FormLabel>Harvest Date</FormLabel>
+                                        <FormLabel>Date</FormLabel>
                                         <Popover>
                                             <PopoverTrigger asChild>
                                             <FormControl>
@@ -363,7 +446,7 @@ export default function FarmerDashboardPage() {
                                     name="quantity"
                                     render={({ field }) => (
                                         <FormItem>
-                                            <FormLabel>Quantity (in Kg)</FormLabel>
+                                            <FormLabel>Quantity (in {config.quantityUnit})</FormLabel>
                                             <FormControl>
                                                 <Input type="number" placeholder="e.g., 500" {...field} />
                                             </FormControl>
@@ -392,7 +475,7 @@ export default function FarmerDashboardPage() {
                                     <FormItem>
                                         <FormLabel>Notes</FormLabel>
                                         <FormControl>
-                                            <Textarea placeholder="Any additional notes about this harvest..." {...field} />
+                                            <Textarea placeholder="Any additional notes about this product log..." {...field} />
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>
@@ -400,7 +483,7 @@ export default function FarmerDashboardPage() {
                             />
                             <Button type="submit">
                                 <PlusCircle className="mr-2"/>
-                                Add Harvest Log
+                                {config.logButtonText}
                             </Button>
                         </form>
                     </Form>
@@ -408,14 +491,14 @@ export default function FarmerDashboardPage() {
             </Card>
             <Card>
                 <CardHeader>
-                    <CardTitle>Recent Harvests</CardTitle>
+                    <CardTitle>{config.recentLogsTitle}</CardTitle>
                 </CardHeader>
                 <CardContent>
                     <Table>
                         <TableHeader>
                             <TableRow>
                                 <TableHead>ID</TableHead>
-                                <TableHead>Commodity</TableHead>
+                                <TableHead>{config.productLabel}</TableHead>
                                 <TableHead>Quantity</TableHead>
                                 <TableHead>Date</TableHead>
                                 <TableHead>Grade</TableHead>
@@ -591,5 +674,3 @@ export default function FarmerDashboardPage() {
     </div>
   )
 }
-
-    
