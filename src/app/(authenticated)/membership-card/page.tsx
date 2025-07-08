@@ -2,10 +2,6 @@
 'use client'
 
 import React, { useState, useEffect, useRef } from 'react'
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import * as z from "zod"
-import Image from "next/image"
 import { toPng } from 'html-to-image'
 import { QRCodeSVG } from 'qrcode.react'
 
@@ -13,50 +9,14 @@ import { Button } from "@/components/ui/button"
 import {
   Card,
   CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
   CardFooter
 } from "@/components/ui/card"
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
-import { Upload, Download, RefreshCw } from "lucide-react"
+import { Download, RefreshCw, Loader2 } from "lucide-react"
 import { useToast } from '@/hooks/use-toast'
 import { Logo } from '@/components/logo'
 import { cn } from "@/lib/utils"
-
-const membershipFormSchema = z.object({
-  membershipType: z.enum(['individual', 'company'], { required_error: "Please select a membership type." }),
-  idNumber: z.string().min(8, "ID Number must be at least 8 characters."),
-  name: z.string().min(3, "Name must be at least 3 characters."),
-  address: z.string().min(10, "Address is required."),
-  nib: z.string().optional(),
-  taxNumber: z.string().min(10, "Tax number is required."),
-  photo: z.any()
-    .refine((files) => files?.length === 1, "Photo is required.")
-    .refine((files) => files?.[0]?.size <= 2000000, "Max file size is 2MB.")
-    .refine(
-      (files) => ["image/jpeg", "image/png", "image/webp"].includes(files?.[0]?.type),
-      ".jpg, .png and .webp files are accepted."
-    ),
-}).refine(data => data.membershipType === 'individual' || (data.membershipType === 'company' && data.nib && data.nib.length > 0), {
-  message: "NIB is required for company membership.",
-  path: ["nib"],
-});
-
-type MembershipFormValues = z.infer<typeof membershipFormSchema>
 
 const ExpiryDate = new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric' });
 
@@ -72,13 +32,25 @@ const roleDisplayNames: { [key: string]: string } = {
     vendor: "VENDOR PENYEDIA",
 };
 
-const producerRoles = ['farmer', 'peternak', 'nelayan', 'pengelola_hasil_hutan', 'pengelola_hasil_kebun'];
+const membershipData = {
+  farmer: { name: "Sunrise Farms", id: "FARM-2025-00005", type: "Petani Terverifikasi", address: "Desa Makmur, Kec. Sejahtera, Kab. Subur, Indonesia", npwp: "01.234.567.8-910.000", photo: "https://placehold.co/150x150.png", photoHint: "farm landscape" },
+  peternak: { name: "Jaya Beef", id: "LSTK-2025-00012", type: "Peternak Terverifikasi", address: "Jl. Peternakan No. 1, Kab. Boyolali, Indonesia", npwp: "02.345.678.9-101.000", photo: "https://placehold.co/150x150.png", photoHint: "cattle farm" },
+  nelayan: { name: "Bahari Seafood", id: "FISH-2025-00023", type: "Nelayan Terverifikasi", address: "Desa Pesisir, Kab. Indramayu, Indonesia", npwp: "03.456.789.0-112.000", photo: "https://placehold.co/150x150.png", photoHint: "fishing boat" },
+  pengelola_hasil_kebun: { name: "Gayo Highland Coffee", id: "PLNT-2025-00001", type: "Pengelola Kebun", address: "Dataran Tinggi Gayo, Aceh, Indonesia", npwp: "04.567.890.1-223.000", nib: "9123450000123", photo: "https://placehold.co/150x150.png", photoHint: "coffee plantation" },
+  pengelola_hasil_hutan: { name: "Borneo Teak Woods", id: "FRST-2025-00008", type: "Pengelola Hutan", address: "Hutan Kalimantan, Indonesia", npwp: "05.678.901.2-334.000", nib: "9123450000456", photo: "https://placehold.co/150x150.png", photoHint: "teak forest" },
+  vendor: { name: "Agri-Supply Indonesia", id: "VEND-2025-00077", type: "Vendor Penyedia", address: "Kawasan Industri, Cikarang, Indonesia", npwp: "06.789.012.3-445.000", nib: "9123450000789", photo: "https://placehold.co/150x150.png", photoHint: "warehouse supplies" },
+  exporter: { name: "Green Valley Exports", id: "EXP-2025-00101", type: "Eksportir Terverifikasi", address: "Jl. Ekspor No. 1, Jakarta, Indonesia", npwp: "07.890.123.4-556.000", nib: "9123450000999", photo: "https://placehold.co/150x150.png", photoHint: "shipping container" },
+  buyer: { name: "FreshMart EU", id: "BUY-2025-00305", type: "Pembeli Internasional", address: "123 Import Lane, Rotterdam, Netherlands", npwp: "NL123456789B01", nib: "87654321", photo: "https://placehold.co/150x150.png", photoHint: "supermarket aisle" },
+  admin: { name: "Platform Administrator", id: "ADM-00001", type: "Administrator", address: "Serenity HQ", npwp: "N/A", photo: "https://placehold.co/150x150.png", photoHint: "server room" },
+  default: { name: "Serenity Member", id: "GEN-00000", type: "Anggota Terverifikasi", address: "Serenity Hub", npwp: "N/A", photo: "https://placehold.co/150x150.png", photoHint: "abstract logo" }
+};
 
 
 const MemberCard = React.forwardRef<HTMLDivElement, {
   role?: string;
   isVerified?: boolean;
   photo?: string | null;
+  photoHint?: string;
   name: string;
   idNumber: string;
   type: string;
@@ -90,6 +62,7 @@ const MemberCard = React.forwardRef<HTMLDivElement, {
   role = 'exporter',
   isVerified = false,
   photo,
+  photoHint,
   name,
   idNumber,
   type,
@@ -153,7 +126,7 @@ const MemberCard = React.forwardRef<HTMLDivElement, {
         {/* Right section */}
         <div className="w-[35%] bg-primary p-4 text-primary-foreground flex flex-col items-center justify-between text-center">
           <Avatar className="h-20 w-20 sm:h-24 sm:w-24 border-2 border-white/80 shadow-md">
-            <AvatarImage src={photo || "https://placehold.co/150x150.png"} alt="User photo" data-ai-hint={role === 'farmer' ? "person farmer" : "person avatar"} />
+            <AvatarImage src={photo || "https://placehold.co/150x150.png"} alt="User photo" data-ai-hint={photoHint || "person avatar"} />
             <AvatarFallback>{name?.substring(0, 2).toUpperCase() || 'SA'}</AvatarFallback>
           </Avatar>
           <div className="flex flex-col items-center">
@@ -214,40 +187,14 @@ MemberCardBack.displayName = "MemberCardBack";
 
 export default function MembershipCardPage() {
   const { toast } = useToast()
-  const [photoPreview, setPhotoPreview] = useState<string | null>(null)
   const [userRole, setUserRole] = useState<string | null>(null);
   const [isFlipped, setIsFlipped] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
   
-  const form = useForm<MembershipFormValues>({
-    resolver: zodResolver(membershipFormSchema),
-    defaultValues: {
-      membershipType: 'individual',
-      idNumber: "",
-      name: "",
-      address: "",
-      nib: "",
-      taxNumber: "",
-    },
-  })
-
   useEffect(() => {
     const role = localStorage.getItem("userRole");
     setUserRole(role);
   }, []);
-
-  const membershipType = form.watch('membershipType')
-
-  const handlePhotoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0]
-    if (file) {
-      const reader = new FileReader()
-      reader.onloadend = () => {
-        setPhotoPreview(reader.result as string)
-      }
-      reader.readAsDataURL(file)
-    }
-  }
 
   const handleDownload = () => {
     if (cardRef.current === null) {
@@ -266,7 +213,7 @@ export default function MembershipCardPage() {
     toPng(cardRef.current, { cacheBust: true, pixelRatio: 2 })
       .then((dataUrl) => {
         const link = document.createElement('a')
-        link.download = 'membership-card.png'
+        link.download = `membership-card-${userRole}.png`
         link.href = dataUrl
         link.click()
       })
@@ -280,277 +227,64 @@ export default function MembershipCardPage() {
       })
   }
 
-  function onSubmit(data: MembershipFormValues) {
-    console.log(data)
-    toast({
-      title: "Registration Submitted",
-      description: "Your membership card application is under review. You will be notified within 3 business days.",
-    })
-    form.reset()
-    setPhotoPreview(null)
-  }
-
-  const getCost = () => {
-    const cost = membershipType === 'individual' ? 25000 : 50000
-    return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(cost)
-  }
-
-  if (userRole && producerRoles.includes(userRole)) {
+  const currentMemberData = userRole ? (membershipData[userRole as keyof typeof membershipData] || membershipData.default) : null;
+  
+  if (!currentMemberData) {
     return (
-      <div className="grid gap-8">
-        <div>
-          <h1 className="text-3xl font-bold font-headline">Producer Membership Status</h1>
-          <p className="text-muted-foreground">Your verified membership details. Click the button to view regulations.</p>
-        </div>
-         <div className="relative w-full max-w-xl mx-auto h-[280px] sm:h-[310px] [perspective:1000px]">
-            <div 
-                className={cn(
-                    "relative w-full h-full transition-transform duration-700 [transform-style:preserve-3d]",
-                    isFlipped && "[transform:rotateY(180deg)]"
-                )}
-            >
-                <div ref={cardRef} className="absolute w-full h-full [backface-visibility:hidden]">
-                    <MemberCard 
-                        role={userRole}
-                        isVerified
-                        photo="https://placehold.co/150x150.png"
-                        name="Sunrise Farms"
-                        idNumber="FARM-2025-00005"
-                        type="Petani Terverifikasi"
-                        address="Desa Makmur, Kec. Sejahtera, Kab. Subur, Indonesia"
-                        npwp="01.234.567.8-910.000"
-                        className="h-full"
-                    />
-                </div>
-                <div className="absolute inset-0 h-full w-full [transform:rotateY(180deg)] [backface-visibility:hidden]">
-                    <MemberCardBack className="h-full"/>
-                </div>
-            </div>
-        </div>
-        <Card className="max-w-xl mx-auto">
-            <CardContent className="p-4 flex justify-center gap-4">
-                 <Button onClick={() => setIsFlipped(!isFlipped)}>
-                    <RefreshCw className="mr-2 h-4 w-4" />
-                    {isFlipped ? "View Front" : "View Regulations"}
-                </Button>
-                 <Button onClick={handleDownload} disabled={isFlipped}>
-                    <Download className="mr-2 h-4 w-4" />
-                    Download Card
-                </Button>
-            </CardContent>
-            <CardFooter className="pt-0 pb-4">
-                 <p className="text-xs text-muted-foreground text-center w-full">Membership is free for all verified producers to support and empower local agriculture.</p>
-            </CardFooter>
-        </Card>
+      <div className="flex h-[400px] w-full items-center justify-center">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
       </div>
-    );
-  }
-
-  if (userRole === null) {
-      return null; // Or a loading skeleton
+    )
   }
 
   return (
     <div className="grid gap-8">
       <div>
-        <h1 className="text-3xl font-bold font-headline">Membership Card Registration</h1>
-        <p className="text-muted-foreground">Register to get your official AgriExport Hub membership card.</p>
+        <h1 className="text-3xl font-bold font-headline">Digital Membership Card</h1>
+        <p className="text-muted-foreground">Your official, verified membership card for the Serenity AgriExport Hub.</p>
       </div>
-
-      <div className="grid lg:grid-cols-5 gap-8 items-start">
-        <div className="lg:col-span-3">
-           <Card>
-            <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)}>
-                <CardHeader>
-                  <CardTitle>Registration Details</CardTitle>
-                  <CardDescription>
-                    Please fill out the form below. Ensure all data is accurate and corresponds to your country's official documents.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                  <FormField
-                    control={form.control}
-                    name="membershipType"
-                    render={({ field }) => (
-                      <FormItem className="space-y-3">
-                        <FormLabel>Membership Type</FormLabel>
-                        <FormControl>
-                          <RadioGroup
-                            onValueChange={field.onChange}
-                            defaultValue={field.value}
-                            className="flex flex-col space-y-1"
-                          >
-                            <FormItem className="flex items-center space-x-3 space-y-0">
-                              <FormControl>
-                                <RadioGroupItem value="individual" />
-                              </FormControl>
-                              <FormLabel className="font-normal">Individual</FormLabel>
-                            </FormItem>
-                            <FormItem className="flex items-center space-x-3 space-y-0">
-                              <FormControl>
-                                <RadioGroupItem value="company" />
-                              </FormControl>
-                              <FormLabel className="font-normal">Company / Enterprise</FormLabel>
-                            </FormItem>
-                          </RadioGroup>
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
+       <div className="relative w-full max-w-xl mx-auto h-[280px] sm:h-[310px] [perspective:1000px]">
+          <div 
+              className={cn(
+                  "relative w-full h-full transition-transform duration-700 [transform-style:preserve-3d]",
+                  isFlipped && "[transform:rotateY(180deg)]"
+              )}
+          >
+              <div ref={cardRef} className="absolute w-full h-full [backface-visibility:hidden]">
+                  <MemberCard 
+                      role={userRole || 'default'}
+                      isVerified
+                      photo={currentMemberData.photo}
+                      photoHint={currentMemberData.photoHint}
+                      name={currentMemberData.name}
+                      idNumber={currentMemberData.id}
+                      type={currentMemberData.type}
+                      address={currentMemberData.address}
+                      nib={currentMemberData.nib}
+                      npwp={currentMemberData.npwp}
+                      className="h-full"
                   />
-
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <FormField
-                      control={form.control}
-                      name="name"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>{membershipType === 'individual' ? 'Full Name' : 'Company Name'}</FormLabel>
-                          <FormControl>
-                            <Input placeholder={membershipType === 'individual' ? 'e.g., John Doe' : 'e.g., Green Valley Exports'} {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={form.control}
-                      name="idNumber"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>ID Number (No. Induk)</FormLabel>
-                          <FormControl>
-                            <Input placeholder="Enter your national ID or registration number" {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  </div>
-                  
-                  <FormField
-                    control={form.control}
-                    name="address"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Full Address</FormLabel>
-                        <FormControl>
-                          <Textarea placeholder="Enter your full registered address" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <div className="grid md:grid-cols-2 gap-4">
-                    {membershipType === 'company' && (
-                      <FormField
-                        control={form.control}
-                        name="nib"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>NIB (Business Identification No.)</FormLabel>
-                            <FormControl>
-                              <Input placeholder="Enter company NIB" {...field} />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                    )}
-                    <FormField
-                      control={form.control}
-                      name="taxNumber"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Tax Number (NPWP)</FormLabel>
-                          <FormControl>
-                            <Input placeholder="Enter your tax identification number" {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  </div>
-
-                  <FormField
-                    control={form.control}
-                    name="photo"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Photo</FormLabel>
-                        <FormControl>
-                          <div className="flex items-center gap-4">
-                            <Avatar className="h-20 w-20 border">
-                                <AvatarImage src={photoPreview || undefined} alt="Photo Preview" />
-                                <AvatarFallback><Upload className="h-8 w-8 text-muted-foreground" /></AvatarFallback>
-                            </Avatar>
-                            <Input
-                                type="file"
-                                accept="image/png, image/jpeg, image/webp"
-                                onChange={(e) => {
-                                    field.onChange(e.target.files);
-                                    handlePhotoChange(e);
-                                }}
-                            />
-                          </div>
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </CardContent>
-                <CardFooter className="flex-col items-start gap-4">
-                    <div className="w-full p-4 rounded-lg bg-secondary/50 border">
-                        <h4 className="font-semibold">Registration Fee: {getCost()}</h4>
-                        <p className="text-sm text-muted-foreground">
-                            1 year validity. Review and approval within 3 working days.
-                        </p>
-                    </div>
-                  <Button type="submit">Submit for Review</Button>
-                </CardFooter>
-              </form>
-            </Form>
-           </Card>
-        </div>
-        <div className="lg:col-span-2">
-            <div className="sticky top-20">
-                <div className="relative w-full max-w-xl mx-auto h-[280px] sm:h-[310px] [perspective:1000px]">
-                    <div 
-                        className={cn(
-                            "relative w-full h-full transition-transform duration-700 [transform-style:preserve-3d]",
-                            isFlipped && "[transform:rotateY(180deg)]"
-                        )}
-                    >
-                         <div ref={cardRef} className="absolute w-full h-full [backface-visibility:hidden]">
-                            <MemberCard 
-                                role={userRole || 'exporter'}
-                                isVerified={false}
-                                photo={photoPreview}
-                                name={form.watch('name') || 'Nama Anda / Perusahaan'}
-                                idNumber={form.watch('idNumber') || 'SER-EXP-2025-00123'}
-                                type={form.watch('membershipType') === 'company' ? 'Perusahaan' : 'Perorangan'}
-                                address={form.watch('address') || 'Alamat lengkap Anda akan muncul di sini.'}
-                                nib={membershipType === 'company' ? form.watch('nib') || '9123456789123' : undefined}
-                                npwp={form.watch('taxNumber') || '01.234.567.8-910.000'}
-                                className="h-full"
-                            />
-                        </div>
-                        <div className="absolute inset-0 h-full w-full [transform:rotateY(180deg)] [backface-visibility:hidden]">
-                            <MemberCardBack className="h-full" />
-                        </div>
-                    </div>
-                </div>
-                <div className="text-center mt-4">
-                    <Button variant="outline" onClick={() => setIsFlipped(!isFlipped)}>
-                        <RefreshCw className="mr-2 h-4 w-4"/>
-                        {isFlipped ? "View Front" : "View Back (Regulations)"}
-                    </Button>
-                </div>
-            </div>
-        </div>
+              </div>
+              <div className="absolute inset-0 h-full w-full [transform:rotateY(180deg)] [backface-visibility:hidden]">
+                  <MemberCardBack className="h-full"/>
+              </div>
+          </div>
       </div>
+      <Card className="max-w-xl mx-auto">
+          <CardContent className="p-4 flex justify-center gap-4">
+               <Button onClick={() => setIsFlipped(!isFlipped)}>
+                  <RefreshCw className="mr-2 h-4 w-4" />
+                  {isFlipped ? "View Front" : "View Regulations"}
+              </Button>
+               <Button onClick={handleDownload} disabled={isFlipped}>
+                  <Download className="mr-2 h-4 w-4" />
+                  Download Card
+              </Button>
+          </CardContent>
+          <CardFooter className="pt-0 pb-4">
+               <p className="text-xs text-muted-foreground text-center w-full">This card serves as proof of your verified status on the platform.</p>
+          </CardFooter>
+      </Card>
     </div>
   )
 }
