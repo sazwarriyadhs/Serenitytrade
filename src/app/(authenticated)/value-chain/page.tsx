@@ -3,7 +3,7 @@
 
 import * as React from "react"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
-import { ArrowRight, Tractor, Briefcase, Globe, Handshake, ShieldCheck } from "lucide-react"
+import { ArrowRight, Tractor, Briefcase, Globe, Handshake, ShieldCheck, Beef, Fish, Sprout, TreeDeciduous } from "lucide-react"
 
 const roles = [
   {
@@ -52,6 +52,34 @@ const platformRoles = [
         title: "Service Provider & Validator",
         description: "Offers value-added services like secure payments (Escrow, L/C), and logistics tracking. All transaction agreements are validated by the admin to ensure compliance with regulations in the Republic of Indonesia. Kemitraan akan berakhir setelah 1 tahun atau dapat diakhiri lebih awal berdasarkan kesepakatan kedua belah pihak yang disetujui oleh admin."
     }
+]
+
+const producerTypes = [
+  {
+    icon: Tractor,
+    name: "Petani (Farmer)",
+    description: "Cultivating food crops like rice, corn, and vegetables.",
+  },
+  {
+    icon: Beef,
+    name: "Peternak (Livestock Farmer)",
+    description: "Raising livestock for meat, dairy, and other animal products.",
+  },
+  {
+    icon: Fish,
+    name: "Nelayan (Fisherman)",
+    description: "Harvesting fish and other seafood from marine and freshwater sources.",
+  },
+  {
+    icon: Sprout,
+    name: "Pengelola Kebun / Peladang",
+    description: "Managing plantations for commodities like coffee, palm oil, and cocoa.",
+  },
+  {
+    icon: TreeDeciduous,
+    name: "Pengelola Hasil Hutan",
+    description: "Sustainably managing and harvesting timber and non-timber forest products.",
+  },
 ]
 
 export default function ValueChainPage() {
@@ -126,6 +154,29 @@ export default function ValueChainPage() {
            ))}
         </CardContent>
       </Card>
+
+       <Card>
+        <CardHeader>
+          <CardTitle>Types of Producers on Our Platform</CardTitle>
+          <CardDescription>
+            We connect a diverse range of producers to the global market.
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+           {producerTypes.map(type => (
+             <div key={type.name} className="flex items-start gap-4 p-4 rounded-lg border bg-secondary/50">
+                <div className="flex items-center justify-center w-12 h-12 rounded-full bg-primary/10 text-primary shrink-0">
+                    <type.icon className="w-6 h-6" />
+                </div>
+                <div>
+                    <h3 className="text-lg font-semibold font-headline">{type.name}</h3>
+                    <p className="text-sm text-muted-foreground">{type.description}</p>
+                </div>
+            </div>
+           ))}
+        </CardContent>
+      </Card>
+
     </div>
   )
 }
