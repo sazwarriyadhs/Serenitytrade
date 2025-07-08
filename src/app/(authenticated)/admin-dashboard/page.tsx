@@ -73,7 +73,7 @@ export default function AdminDashboardPage() {
   }
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-4">
       <div>
         <h1 className="text-3xl font-bold font-headline">Admin Dashboard</h1>
         <p className="text-muted-foreground">Platform-wide overview and management tools.</p>
