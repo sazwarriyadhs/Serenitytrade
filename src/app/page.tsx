@@ -61,8 +61,10 @@ const translations = {
     step3Title: 'Receive & Grow',
     step3Desc: 'Receive high-quality products at your destination port and grow your business with reliable supply chains.',
     // Trusted By
-    trustedByTitle: 'Trusted by Leading Global Partners',
-    trustedBySubtitle: 'We collaborate with world-class companies in agriculture, logistics, and technology to build a robust ecosystem.',
+    trustedVendorsTitle: 'Our Trusted Product Vendors',
+    trustedVendorsSubtitle: 'We partner with leading suppliers to provide you with the best quality agricultural inputs.',
+    logisticsPartnersTitle: 'Our Global Logistics Network',
+    logisticsPartnersSubtitle: 'We collaborate with world-class companies to ensure seamless and reliable shipping.',
     // Real-time prices
     realTimePricesTitle: 'Global Commodity Prices',
     realTimePricesSubtitle: 'Real-time price movements from global markets.',
@@ -112,8 +114,10 @@ const translations = {
     step3Title: 'Terima & Kembangkan',
     step3Desc: 'Terima produk berkualitas tinggi di pelabuhan tujuan Anda dan kembangkan bisnis Anda dengan rantai pasokan yang andal.',
     // Trusted By
-    trustedByTitle: 'Dipercaya oleh Mitra Global Terkemuka',
-    trustedBySubtitle: 'Kami berkolaborasi dengan perusahaan kelas dunia di bidang pertanian, logistik, dan teknologi untuk membangun ekosistem yang kuat.',
+    trustedVendorsTitle: 'Vendor Produk Terpercaya Kami',
+    trustedVendorsSubtitle: 'Kami bermitra dengan pemasok terkemuka untuk menyediakan input pertanian kualitas terbaik.',
+    logisticsPartnersTitle: 'Jaringan Logistik Global Kami',
+    logisticsPartnersSubtitle: 'Kami berkolaborasi dengan perusahaan kelas dunia untuk memastikan pengiriman yang lancar dan andal.',
     // Real-time prices
     realTimePricesTitle: 'Harga Komoditas Global',
     realTimePricesSubtitle: 'Pergerakan harga real-time dari pasar global.',
@@ -145,7 +149,8 @@ const translations = {
     step1Title: 'Trouver & Négocier', step1Desc: '[Description étape 1 en Français]',
     step2Title: 'Sécuriser & Expédier', step2Desc: '[Description étape 2 en Français]',
     step3Title: 'Recevoir & Croître', step3Desc: '[Description étape 3 en Français]',
-    trustedByTitle: '[Titre Partenaires en Français]', trustedBySubtitle: '[Sous-titre Partenaires en Français]',
+    trustedVendorsTitle: 'Nos fournisseurs de produits de confiance', trustedVendorsSubtitle: '[Sous-titre Partenaires en Français]',
+    logisticsPartnersTitle: 'Notre réseau logistique mondial', logisticsPartnersSubtitle: '[Sous-titre Partenaires en Français]',
     realTimePricesTitle: 'Prix Mondiaux des Matières Premières', realTimePricesSubtitle: 'Mouvements des prix en temps réel sur les marchés mondiaux.', pricePerUnit: 'Prix/Tonne', dayChange: 'Chg 24h',
     legalBasisTitle: '[Titre Légal]', legalBasisDesc: '[Description Légal]', legalBasisButton: '[Bouton Légal]',
     footerRights: 'Tous droits réservés.',
@@ -169,7 +174,8 @@ const translations = {
     step1Title: '寻找与谈判', step1Desc: '[中文步骤1描述]',
     step2Title: '安全与运输', step2Desc: '[中文步骤2描述]',
     step3Title: '接收与发展', step3Desc: '[中文步骤3描述]',
-    trustedByTitle: '[中文合作伙伴标题]', trustedBySubtitle: '[中文合作伙伴副标题]',
+    trustedVendorsTitle: '我们信赖的产品供应商', trustedVendorsSubtitle: '[中文合作伙伴副标题]',
+    logisticsPartnersTitle: '我们的全球物流网络', logisticsPartnersSubtitle: '[中文合作伙伴副标题]',
     realTimePricesTitle: '全球商品价格', realTimePricesSubtitle: '全球市场的实时价格变动。', pricePerUnit: '价格/吨', dayChange: '24小时变化',
     legalBasisTitle: '[法律依据]', legalBasisDesc: '[法律依据说明]', legalBasisButton: '[查看法规目录]',
     footerRights: '版权所有。',
@@ -193,7 +199,8 @@ const translations = {
     step1Title: 'البحث والتفاوض', step1Desc: '[وصف الخطوة 1 بالعربية]',
     step2Title: 'التأمين والشحن', step2Desc: '[وصف الخطوة 2 بالعربية]',
     step3Title: 'الاستلام والنمو', step3Desc: '[وصف الخطوة 3 بالعربية]',
-    trustedByTitle: '[عنوان الشركاء بالعربية]', trustedBySubtitle: '[عنوان فرعي للشركاء بالعربية]',
+    trustedVendorsTitle: 'موردو المنتجات الموثوق بهم', trustedVendorsSubtitle: '[عنوان فرعي للشركاء بالعربية]',
+    logisticsPartnersTitle: 'شبكتنا اللوجستية العالمية', logisticsPartnersSubtitle: '[عنوان فرعي للشركاء بالعربية]',
     realTimePricesTitle: 'أسعار السلع العالمية', realTimePricesSubtitle: 'تحركات الأسعار في الوقت الفعلي من الأسواق العالمية.', pricePerUnit: 'السعر/طن', dayChange: 'تغير 24 ساعة',
     legalBasisTitle: '[الأساس القانوني]', legalBasisDesc: '[وصف الأساس القانوني]', legalBasisButton: '[عرض دليل التنظيم]',
     footerRights: 'كل الحقوق محفوظة.',
@@ -217,7 +224,8 @@ const translations = {
     step1Title: '検索と交渉', step1Desc: '[日本語のステップ1説明]',
     step2Title: '確保と発送', step2Desc: '[日本語のステップ2説明]',
     step3Title: '受け取りと成長', step3Desc: '[日本語のステップ3説明]',
-    trustedByTitle: '[日本語のパートナータイトル]', trustedBySubtitle: '[日本語のパートナーサブタイトル]',
+    trustedVendorsTitle: '信頼できる製品ベンダー', trustedVendorsSubtitle: '[日本語のパートナーサブタイトル]',
+    logisticsPartnersTitle: '当社のグローバル物流ネットワーク', logisticsPartnersSubtitle: '[日本語のパートナーサブタイトル]',
     realTimePricesTitle: '世界の商品の価格', realTimePricesSubtitle: '世界市場からのリアルタイムの価格変動。', pricePerUnit: '価格/トン', dayChange: '24時間変動',
     legalBasisTitle: '[法的根拠]', legalBasisDesc: '[法的根拠の説明]', legalBasisButton: '[規制ディレクトリの表示]',
     footerRights: '無断複写・転載を禁じます。',
@@ -241,7 +249,8 @@ const translations = {
     step1Title: 'Encontrar & Negociar', step1Desc: '[Descrição do Passo 1 em Português]',
     step2Title: 'Segurança & Envio', step2Desc: '[Descrição do Passo 2 em Português]',
     step3Title: 'Receber & Crescer', step3Desc: '[Descrição do Passo 3 em Português]',
-    trustedByTitle: '[Título de Parceiros em Português]', trustedBySubtitle: '[Subtítulo de Parceiros em Português]',
+    trustedVendorsTitle: 'Nossos Fornecedores de Produtos Confiáveis', trustedVendorsSubtitle: '[Subtítulo de Parceiros em Português]',
+    logisticsPartnersTitle: 'Nossa Rede Logística Global', logisticsPartnersSubtitle: '[Subtítulo de Parceiros em Português]',
     realTimePricesTitle: 'Preços Globais de Commodities', realTimePricesSubtitle: 'Movimentos de preços em tempo real dos mercados globais.', pricePerUnit: 'Preço/Ton', dayChange: 'Mudança 24h',
     legalBasisTitle: '[Base Legal]', legalBasisDesc: '[Descrição da Base Legal]', legalBasisButton: '[Ver Diretório de Regulamentação]',
     footerRights: 'Todos os direitos reservados.',
@@ -297,7 +306,7 @@ const commodityPrices = [
   { name: 'Sugar (ICE)', price: 550.00, change: '+0.15%', trend: 'up' },
 ];
 
-const trustedVendors = [
+const trustedLogisticsPartners = [
   { name: "Maersk", logo: "/logistic/maersk.png", imageHint: "logistic logo" },
   { name: "CMA CGM", logo: "/logistic/cma-cgm.png", imageHint: "logistic logo" },
   { name: "MSC", logo: "/logistic/msc.png", imageHint: "logistic logo" },
@@ -308,6 +317,19 @@ const trustedVendors = [
   { name: "Samudera Indonesia", logo: "/logistic/samudera.png", imageHint: "logistic logo" },
   { name: "Garuda Indonesia Cargo", logo: "/logistic/garuda-cargo.png", imageHint: "logistic logo" },
   { name: "JNE", logo: "/logistic/jne.png", imageHint: "logistic logo" },
+];
+
+const trustedProductVendors = [
+  { name: "Syngenta", logo: "/vendor/syngenta.png", imageHint: "vendor logo" },
+  { name: "Cap Panah Merah", logo: "/vendor/panah-merah.png", imageHint: "vendor logo" },
+  { name: "Bisi International", logo: "/vendor/bisi.png", imageHint: "vendor logo" },
+  { name: "Pupuk Indonesia", logo: "/vendor/pupuk-indonesia.png", imageHint: "vendor logo" },
+  { name: "Meroke Tetap Jaya", logo: "/vendor/meroke.png", imageHint: "vendor logo" },
+  { name: "BASF", logo: "/vendor/basf.png", imageHint: "vendor logo" },
+  { name: "Yanmar", logo: "/vendor/yanmar.png", imageHint: "vendor logo" },
+  { name: "Kubota", logo: "/vendor/kubota.png", imageHint: "vendor logo" },
+  { name: "Quick", logo: "/vendor/quick.png", imageHint: "vendor logo" },
+  { name: "Bayer", logo: "/vendor/bayer.png", imageHint: "vendor logo" },
 ];
 
 
@@ -471,6 +493,40 @@ export default function LandingPage() {
                     </div>
                  </section>
 
+                {/* Trusted Product Vendors Section */}
+                <section className="py-20 bg-secondary/50">
+                    <div className="container">
+                        <div className="text-center">
+                            <h2 className="text-3xl font-bold font-headline">{t.trustedVendorsTitle}</h2>
+                            <p className="mt-2 text-muted-foreground max-w-2xl mx-auto">{t.trustedVendorsSubtitle}</p>
+                        </div>
+                        <div className="mt-12">
+                            <Carousel
+                                plugins={[Autoplay({ delay: 2500, stopOnInteraction: false })]}
+                                opts={{ align: "start", loop: true }}
+                                className="w-full"
+                            >
+                                <CarouselContent className="-ml-4">
+                                    {trustedProductVendors.map((vendor, index) => (
+                                        <CarouselItem key={index} className="pl-4 basis-1/3 sm:basis-1/4 md:basis-1/5 lg:basis-1/6">
+                                            <div className="p-1 flex items-center justify-center h-24 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
+                                                <Image
+                                                    src={vendor.logo}
+                                                    alt={vendor.name}
+                                                    width={150}
+                                                    height={60}
+                                                    className="object-contain"
+                                                    data-ai-hint={vendor.imageHint}
+                                                />
+                                            </div>
+                                        </CarouselItem>
+                                    ))}
+                                </CarouselContent>
+                            </Carousel>
+                        </div>
+                    </div>
+                </section>
+
                  {/* Global Commodity Prices Section */}
                  <section className="py-20">
                     <div className="container">
@@ -538,8 +594,8 @@ export default function LandingPage() {
                 <section className="py-20 bg-background">
                     <div className="container">
                         <div className="text-center">
-                            <h2 className="text-3xl font-bold font-headline">{t.trustedByTitle}</h2>
-                            <p className="mt-2 text-muted-foreground max-w-2xl mx-auto">{t.trustedBySubtitle}</p>
+                            <h2 className="text-3xl font-bold font-headline">{t.logisticsPartnersTitle}</h2>
+                            <p className="mt-2 text-muted-foreground max-w-2xl mx-auto">{t.logisticsPartnersSubtitle}</p>
                         </div>
                         <div className="mt-12">
                             <Carousel
@@ -551,7 +607,7 @@ export default function LandingPage() {
                                 className="w-full"
                             >
                                 <CarouselContent className="-ml-4">
-                                    {trustedVendors.map((vendor, index) => (
+                                    {trustedLogisticsPartners.map((vendor, index) => (
                                         <CarouselItem key={index} className="pl-4 basis-1/3 sm:basis-1/4 md:basis-1/5 lg:basis-1/6">
                                             <div className="p-1 flex items-center justify-center h-24 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
                                                 <Image
@@ -584,5 +640,3 @@ export default function LandingPage() {
         </div>
     )
 }
-
-    
