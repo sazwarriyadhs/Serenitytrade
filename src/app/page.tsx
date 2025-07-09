@@ -298,16 +298,16 @@ const commodityPrices = [
 ];
 
 const trustedVendors = [
-  { name: "Syngenta", logo: "/vendor/syngenta.png", imageHint: "vendor logo" },
-  { name: "Bayer", logo: "/vendor/bayer.png", imageHint: "vendor logo" },
-  { name: "BASF", logo: "/vendor/basf.png", imageHint: "vendor logo" },
-  { name: "Yara", logo: "/vendor/yara.png", imageHint: "vendor logo" },
-  { name: "Nutrien", logo: "/vendor/nutrien.png", imageHint: "vendor logo" },
-  { name: "Maersk", logo: "/vendor/maersk.png", imageHint: "vendor logo" },
-  { name: "CMA CGM", logo: "/vendor/cma-cgm.png", imageHint: "vendor logo" },
-  { name: "John Deere", logo: "/vendor/john-deere.png", imageHint: "vendor logo" },
-  { name: "Cargill", logo: "/vendor/cargill.png", imageHint: "vendor logo" },
-  { name: "Olam", logo: "/vendor/olam.png", imageHint: "vendor logo" },
+  { name: "Maersk", logo: "/logistic/maersk.png", imageHint: "logistic logo" },
+  { name: "CMA CGM", logo: "/logistic/cma-cgm.png", imageHint: "logistic logo" },
+  { name: "MSC", logo: "/logistic/msc.png", imageHint: "logistic logo" },
+  { name: "DHL", logo: "/logistic/dhl.png", imageHint: "logistic logo" },
+  { name: "FedEx", logo: "/logistic/fedex.png", imageHint: "logistic logo" },
+  { name: "UPS", logo: "/logistic/ups.png", imageHint: "logistic logo" },
+  { name: "NYK Line", logo: "/logistic/nyk.png", imageHint: "logistic logo" },
+  { name: "Samudera Indonesia", logo: "/logistic/samudera.png", imageHint: "logistic logo" },
+  { name: "Garuda Indonesia Cargo", logo: "/logistic/garuda-cargo.png", imageHint: "logistic logo" },
+  { name: "JNE", logo: "/logistic/jne.png", imageHint: "logistic logo" },
 ];
 
 
@@ -510,6 +510,30 @@ export default function LandingPage() {
                     </div>
                  </section>
                  
+                {/* Legal Basis Section */}
+                <section className="py-20 bg-secondary/50">
+                    <div className="container max-w-4xl mx-auto">
+                        <Card className="text-center">
+                            <CardHeader>
+                                <div className="flex justify-center mb-2">
+                                    <FileText className="h-10 w-10 text-primary" />
+                                </div>
+                                <CardTitle className="font-headline text-2xl">{t.legalBasisTitle}</CardTitle>
+                                <CardDescription>
+                                    {t.legalBasisDesc}
+                                </CardDescription>
+                            </CardHeader>
+                            <CardContent>
+                                <Button asChild>
+                                    <a href="https://peraturan.bpk.go.id/Download/28501/UU%20Nomor%2018%20Tahun%202012.pdf" target="_blank" rel="noopener noreferrer">
+                                        {t.legalBasisButton}
+                                    </a>
+                                </Button>
+                            </CardContent>
+                        </Card>
+                    </div>
+                </section>
+
                 {/* Trusted by Section */}
                 <section className="py-20 bg-background">
                     <div className="container">
@@ -544,30 +568,6 @@ export default function LandingPage() {
                                 </CarouselContent>
                             </Carousel>
                         </div>
-                    </div>
-                </section>
-                
-                {/* Legal Basis Section */}
-                <section className="py-20 bg-secondary/50">
-                    <div className="container max-w-4xl mx-auto">
-                        <Card className="text-center">
-                            <CardHeader>
-                                <div className="flex justify-center mb-2">
-                                    <FileText className="h-10 w-10 text-primary" />
-                                </div>
-                                <CardTitle className="font-headline text-2xl">{t.legalBasisTitle}</CardTitle>
-                                <CardDescription>
-                                    {t.legalBasisDesc}
-                                </CardDescription>
-                            </CardHeader>
-                            <CardContent>
-                                <Button asChild>
-                                    <a href="https://peraturan.bpk.go.id/Download/28501/UU%20Nomor%2018%20Tahun%202012.pdf" target="_blank" rel="noopener noreferrer">
-                                        {t.legalBasisButton}
-                                    </a>
-                                </Button>
-                            </CardContent>
-                        </Card>
                     </div>
                 </section>
             </main>
