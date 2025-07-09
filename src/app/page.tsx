@@ -471,43 +471,6 @@ export default function LandingPage() {
                     </div>
                  </section>
 
-                {/* Trusted by Section */}
-                <section className="py-20 bg-secondary/50">
-                    <div className="container">
-                        <div className="text-center">
-                            <h2 className="text-3xl font-bold font-headline">{t.trustedByTitle}</h2>
-                            <p className="mt-2 text-muted-foreground max-w-2xl mx-auto">{t.trustedBySubtitle}</p>
-                        </div>
-                        <div className="mt-12">
-                            <Carousel
-                                plugins={[Autoplay({ delay: 2000, stopOnInteraction: false })]}
-                                opts={{
-                                    align: "start",
-                                    loop: true,
-                                }}
-                                className="w-full"
-                            >
-                                <CarouselContent className="-ml-4">
-                                    {trustedVendors.map((vendor, index) => (
-                                        <CarouselItem key={index} className="pl-4 basis-1/3 sm:basis-1/4 md:basis-1/5 lg:basis-1/6">
-                                            <div className="p-1 flex items-center justify-center h-24 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
-                                                <Image
-                                                    src={vendor.logo}
-                                                    alt={vendor.name}
-                                                    width={150}
-                                                    height={60}
-                                                    className="object-contain"
-                                                    data-ai-hint={vendor.imageHint}
-                                                />
-                                            </div>
-                                        </CarouselItem>
-                                    ))}
-                                </CarouselContent>
-                            </Carousel>
-                        </div>
-                    </div>
-                </section>
-
                  {/* Global Commodity Prices Section */}
                  <section className="py-20">
                     <div className="container">
@@ -571,10 +534,46 @@ export default function LandingPage() {
                     </div>
                 </section>
 
+                {/* Trusted by Section */}
+                <section className="py-20 bg-background">
+                    <div className="container">
+                        <div className="text-center">
+                            <h2 className="text-3xl font-bold font-headline">{t.trustedByTitle}</h2>
+                            <p className="mt-2 text-muted-foreground max-w-2xl mx-auto">{t.trustedBySubtitle}</p>
+                        </div>
+                        <div className="mt-12">
+                            <Carousel
+                                plugins={[Autoplay({ delay: 2000, stopOnInteraction: false })]}
+                                opts={{
+                                    align: "start",
+                                    loop: true,
+                                }}
+                                className="w-full"
+                            >
+                                <CarouselContent className="-ml-4">
+                                    {trustedVendors.map((vendor, index) => (
+                                        <CarouselItem key={index} className="pl-4 basis-1/3 sm:basis-1/4 md:basis-1/5 lg:basis-1/6">
+                                            <div className="p-1 flex items-center justify-center h-24 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
+                                                <Image
+                                                    src={vendor.logo}
+                                                    alt={vendor.name}
+                                                    width={150}
+                                                    height={60}
+                                                    className="object-contain"
+                                                    data-ai-hint={vendor.imageHint}
+                                                />
+                                            </div>
+                                        </CarouselItem>
+                                    ))}
+                                </CarouselContent>
+                            </Carousel>
+                        </div>
+                    </div>
+                </section>
             </main>
 
             {/* Footer */}
-            <footer className="border-t">
+            <footer className="border-t bg-secondary/50">
                 <div className="container flex flex-col items-center justify-between gap-4 py-6 sm:flex-row">
                     <Logo />
                     <p className="text-sm text-muted-foreground">
